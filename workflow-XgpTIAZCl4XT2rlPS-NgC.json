@@ -1,0 +1,1366 @@
+{
+  "name": "Subworkflow (Version Control)",
+  "nodes": [
+    {
+      "id": "9837c8c5-a220-41f1-aee0-07ce663d9790",
+      "name": "Mark Backup Complete",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16464,
+        13248
+      ],
+      "parameters": {
+        "jsCode": "// Mark Backup Complete\n\nconst data = $input.first().json;\n\nreturn {\n  json: {\n    ...data,\n    backupSaved: true,\n    backupTimestamp: new Date().toISOString(),\n    backupPath: data.backupFullPath || null,\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "84b988f",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 84b988f\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJNYXJrIEJhY2t1cCBDb21wbGV0ZSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "f7ecddc2-5070-42d8-841d-c8451268601a",
+      "name": "Write Backup File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        16288,
+        13248
+      ],
+      "parameters": {
+        "fileName": "={{ $json.backupFullPath }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "20c20b9a",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v1\n🔒 Hash: 20c20b9a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud3JpdGVCaW5hcnlGaWxlIiwibmFtZSI6IldyaXRlIEJhY2t1cCBGaWxlIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOlsiZmlsZU5hbWUiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "1b007984-192e-472f-887a-b8be985464f8",
+      "name": "Convert to Binary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16112,
+        13248
+      ],
+      "parameters": {
+        "jsCode": "// Convert to Binary Data\n\nconst data = $input.first().json;\n\n// Convert JSON string to binary data\nconst binaryData = Buffer.from(data.workflowJson, 'utf-8');\n\nreturn {\n  json: data,\n  binary: {\n    data: {\n      data: binaryData.toString('base64'),\n      mimeType: 'application/json',\n      fileName: data.backupFilename,\n      fileExtension: 'json'\n    }\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "792aa334",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 792aa334\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJDb252ZXJ0IHRvIEJpbmFyeSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "8bb994aa-e4d1-4797-84ea-39b454c34764",
+      "name": "Prepare Backup Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        15920,
+        13248
+      ],
+      "parameters": {
+        "jsCode": "// Prepare Backup Data - Create filename and data\n\nconst data = $input.first().json;\nconst workflow = data.updatedWorkflow;\nconst version = data.workflowVersion.current;\nconst config = data.config;\n\n// Sanitize workflow name\nconst safeName = workflow.name\n  .replace(/\\s+/g, '_')\n  .replace(/[^a-zA-Z0-9_-]/g, '')\n  .substring(0, 50);\n\n// Generate human-readable timestamp\nconst now = new Date();\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hours = String(now.getHours()).padStart(2, '0');\nconst minutes = String(now.getMinutes()).padStart(2, '0');\nconst seconds = String(now.getSeconds()).padStart(2, '0');\n\nconst timestamp = `${year}-${month}-${day}-${hours}-${minutes}-${seconds}`;\n\nconst backupPrefix = `${safeName}-v`;\nconst filename = `${backupPrefix}${version}-${timestamp}.json`;\n\nlet backupDir = config.localBackupPath || '/tmp';\nif (backupDir.startsWith('~/')) {\n  const homeDir =\n    (typeof process !== 'undefined' && process.env && process.env.HOME)\n      ? process.env.HOME\n      : '/home/node';\n  backupDir = backupDir.replace(/^~(?=\\/)/, homeDir);\n}\n\nbackupDir = backupDir.replace(/\\/+$/, '') || '/tmp';\n\nreturn {\n  json: {\n    ...data,\n    backupPrefix,\n    backupFilename: filename,\n    backupDisplayPath: backupDir,\n    backupFullPath: `${backupDir}/${filename}`,\n    workflowJson: JSON.stringify(workflow, null, 2),\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "52eca43b",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 52eca43b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQcmVwYXJlIEJhY2t1cCBEYXRhIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "06354293-f84d-4d6b-9091-096f71a386fc",
+      "name": "Restore Data After Update",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        15728,
+        12944
+      ],
+      "parameters": {
+        "jsCode": "// Restore Data After HTTP Request\n\n// Get the original data from Process Node Versions\nconst processData = $(\"Process Node Versions\").first().json;\n\n// Get the HTTP response (current input)\nconst httpResponse = $input.first().json;\n\n// Merge them - keep all original data, add HTTP response\nreturn {\n  json: {\n    ...processData,\n    httpResponse: httpResponse,\n    workflowUpdated: true\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "61d7d6a8",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 61d7d6a8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJSZXN0b3JlIERhdGEgQWZ0ZXIgVXBkYXRlIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "ce1e4040-c568-444f-940f-d05f46d5931e",
+      "name": "Local Backup Enabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        15952,
+        12944
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "local-backup-enabled",
+              "leftValue": "={{ $json.config.localBackupEnabled }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "277dced1",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 277dced1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiTG9jYWwgQmFja3VwIEVuYWJsZWQ/IiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsiY29uZGl0aW9ucyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "77a8498e-37a1-4d28-a0e0-2d6d0ddeb4ef",
+      "name": "Build Success Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        17120,
+        12912
+      ],
+      "parameters": {
+        "jsCode": "// Build Success Response\n// Merge original process data with latest branch data so backup/cleanup/git fields are preserved.\n\nconst processData = $(\"Process Node Versions\").first().json;\nconst latestData = $input.first().json;\nconst data = {\n  ...processData,\n  ...latestData,\n};\n\nconst cleanupEnabled = data.cleanupEnabled ?? (data.config?.cleanupOldBackupsEnabled ?? false);\n\nfunction buildWorkflowOpenUrl(apiUrl, workflowId, timestamp) {\n  if (!workflowId) return null;\n\n  const rawApiUrl = String(apiUrl || '').trim();\n  if (!rawApiUrl) return null;\n\n  const normalizedApiUrl = rawApiUrl.replace(/\\/$/, '');\n  const baseUrl = normalizedApiUrl\n    .replace(/\\/api\\/v\\d+$/, '')\n    .replace(/\\/api$/, '');\n\n  return `${baseUrl}/workflow/${encodeURIComponent(workflowId)}?updated=${encodeURIComponent(timestamp)}`;\n}\n\nconst timestamp = data.timestamp || new Date().toISOString();\nconst workflowId = data.config?.workflowId || 'unknown';\nconst openWorkflowUrl = buildWorkflowOpenUrl(data.config?.n8nApiUrl, workflowId, timestamp);\n\nconst summary = {\n  success: true,\n  message: data.hasChanges\n    ? `✅ Version control updated: ${data.nodeChanges.length} node${data.nodeChanges.length !== 1 ? 's' : ''} changed`\n    : 'ℹ️ No changes detected',\n  workflowId,\n  workflowName: data.updatedWorkflow?.name || data.originalWorkflow?.name || 'Unknown',\n  hasChanges: data.hasChanges || false,\n  nodeChanges: data.nodeChanges || [],\n  originalWorkflow: data.originalWorkflow,\n  updatedWorkflow: data.updatedWorkflow,\n  workflowVersion: data.workflowVersion || { previous: '1.0.0', current: '1.0.0' },\n  timestamp,\n  dryRun: false,\n  openWorkflowUrl,\n};\n\nsummary.git = {\n  enabled: data.config?.gitEnabled ?? false,\n  remotePushEnabled: data.config?.gitPushEnabled ?? false,\n  repoPath: data.gitRepoPath || data.config?.gitRepoPath || null,\n  fileName: data.gitFileName || null,\n  filePath: data.gitFilePath || null,\n  branch: data.config?.gitBranch || null,\n  remote: data.config?.gitRemote || null,\n  commitMessage: data.gitCommitMessage || data.config?.commitMessage || null,\n  committed: data.gitCommitted || false,\n  pushed: data.gitPushed || false,\n  commit: data.gitCommit || null,\n  error: data.gitError || null,\n};\n\nif (data.backupSaved !== undefined) {\n  summary.backup = {\n    saved: data.backupSaved,\n    filename: data.backupFilename || null,\n    path: data.backupPath || null,\n    error: data.backupError || data.backupCleanupError || null,\n    cleanup: {\n      enabled: cleanupEnabled,\n      performed: data.cleanupPerformed || false,\n      skipped: data.cleanupSkipped || false,\n      deleted: data.deletedBackups || 0,\n      files: data.deletedFiles || [],\n      prefix: data.cleanupPrefix || null,\n      matchedBackups: data.matchedBackups || 0,\n      maxVersions: data.cleanupMaxVersions ?? null,\n    },\n  };\n}\n\nreturn { json: summary };\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5cf64227",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 5cf64227\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJCdWlsZCBTdWNjZXNzIFJlc3BvbnNlIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "a1c4fce9-c9d9-4bd9-8479-82a2f0ee7d5b",
+      "name": "Process Node Versions",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        14880,
+        13360
+      ],
+      "parameters": {
+        "jsCode": "// Enhanced Process Node Versions with MAJOR, MINOR, and PATCH detection\n\nconst workflow = $input.first().json;\nconst config = $(\"Parse Configuration1\").first().json;\n\nfunction simpleHash(str) {\n  let hash = 5381;\n  for (let i = 0; i < str.length; i++) {\n    hash = ((hash << 5) + hash) + str.charCodeAt(i);\n    hash = hash & hash;\n  }\n  return Math.abs(hash).toString(16);\n}\n\nfunction parseVersionFromNotes(notes) {\n  if (!notes) return null;\n  \n  const versionMatch = notes.match(/📌 Version: ([\\d.]+)/);\n  const modifiedMatch = notes.match(/📅 Modified: (.+?)(?:\\n|$)/);\n  const createdMatch = notes.match(/🆕 Created: (.+?)(?:\\n|$)/);\n  \n  if (!versionMatch) return null;\n  \n  return {\n    version: versionMatch[1],\n    lastModified: modifiedMatch ? modifiedMatch[1] : null,\n    created: createdMatch ? createdMatch[1] : null\n  };\n}\n\nfunction sortKeys(obj) {\n  if (obj === null || obj === undefined) return obj;\n  if (typeof obj !== 'object') return obj;\n  if (Array.isArray(obj)) return obj.map(sortKeys);\n  \n  return Object.keys(obj)\n    .sort()\n    .reduce((result, key) => {\n      result[key] = sortKeys(obj[key]);\n      return result;\n    }, {});\n}\n\nfunction hashNode(node) {\n  // WHITELIST: Only include fields that define node behavior\n  const nodeForHash = {\n    type: node.type,\n    typeVersion: node.typeVersion\n  };\n  \n  // Copy parameters without _versionControl\n  if (node.parameters) {\n    const params = JSON.parse(JSON.stringify(node.parameters));\n    delete params._versionControl;\n    nodeForHash.parameters = params;\n  } else {\n    nodeForHash.parameters = {};\n  }\n  \n  // Only add optional fields if they have meaningful values\n  if (node.credentials && Object.keys(node.credentials).length > 0) {\n    nodeForHash.credentials = node.credentials;\n  }\n  \n  if (node.disabled === true) {\n    nodeForHash.disabled = true;\n  }\n  \n  if (node.webhookId) {\n    nodeForHash.webhookId = node.webhookId;\n  }\n  \n  // Sort keys for consistent hashing\n  const sorted = sortKeys(nodeForHash);\n  \n  return simpleHash(JSON.stringify(sorted));\n}\n\nfunction getHashFromNotes(notes) {\n  if (!notes) return null;\n  const hashMatch = notes.match(/🔒 Hash: ([a-f0-9]+)/);\n  return hashMatch ? hashMatch[1] : null;\n}\n\nfunction getStoredNodeData(notes) {\n  if (!notes) return null;\n  \n  // Try to extract stored node snapshot from notes\n  const snapshotMatch = notes.match(/🗂️ Snapshot: (.+?)(?:\\n|$)/);\n  if (snapshotMatch) {\n    try {\n      return JSON.parse(Buffer.from(snapshotMatch[1], 'base64').toString());\n    } catch (e) {\n      return null;\n    }\n  }\n  return null;\n}\n\nfunction detectChangeType(oldSnapshot, newNode) {\n  // MAJOR: Breaking changes\n  if (!oldSnapshot) return { type: 'major', reason: 'New node' };\n  \n  // MAJOR: Node type changed\n  if (oldSnapshot.type !== newNode.type) {\n    return { type: 'major', reason: 'Node type changed' };\n  }\n  \n  // MAJOR: Node name changed\n  if (oldSnapshot.name !== newNode.name) {\n    return { type: 'major', reason: 'Node name changed' };\n  }\n  \n  // MAJOR: Type version changed significantly (major version bump)\n  if (oldSnapshot.typeVersion !== newNode.typeVersion) {\n    const oldVer = parseFloat(oldSnapshot.typeVersion) || 0;\n    const newVer = parseFloat(newNode.typeVersion) || 0;\n    if (Math.floor(newVer) > Math.floor(oldVer)) {\n      return { type: 'major', reason: `Node type upgraded from v${oldVer} to v${newVer}` };\n    }\n  }\n  \n  // Compare parameter keys (what we have in snapshot)\n  const oldKeys = (oldSnapshot.parameterKeys || []).sort();\n  const newParams = newNode.parameters || {};\n  const newParamsCopy = { ...newParams };\n  delete newParamsCopy._versionControl;\n  const newKeys = Object.keys(newParamsCopy).sort();\n  \n  // MINOR: Parameters added or removed\n  const addedKeys = newKeys.filter(k => !oldKeys.includes(k));\n  const removedKeys = oldKeys.filter(k => !newKeys.includes(k));\n  \n  if (addedKeys.length > 0) {\n    return { type: 'minor', reason: `Added parameter(s): ${addedKeys.join(', ')}` };\n  }\n  \n  if (removedKeys.length > 0) {\n    return { type: 'minor', reason: `Removed parameter(s): ${removedKeys.join(', ')}` };\n  }\n  \n  // MINOR: Check parameter structure changes (array lengths, etc.)\n  if (oldSnapshot.parameterStructure && newParams) {\n    for (const key in oldSnapshot.parameterStructure) {\n      const oldStruct = oldSnapshot.parameterStructure[key];\n      const newParam = newParams[key];\n      \n      if (!newParam) continue; // Parameter was removed (caught above)\n      \n      // Check assignment count changes\n      if (oldStruct.assignmentCount !== undefined) {\n        const newCount = newParam.assignments?.length || 0;\n        if (oldStruct.assignmentCount !== newCount) {\n          const change = newCount > oldStruct.assignmentCount ? 'Added' : 'Removed';\n          const diff = Math.abs(newCount - oldStruct.assignmentCount);\n          return { \n            type: 'minor', \n            reason: `${change} ${diff} assignment${diff > 1 ? 's' : ''} in '${key}'`\n          };\n        }\n      }\n      \n      // Check array length changes\n      if (oldStruct.arrayLength !== undefined) {\n        const newLength = Array.isArray(newParam) ? newParam.length : 0;\n        if (oldStruct.arrayLength !== newLength) {\n          return { \n            type: 'minor', \n            reason: `Array '${key}' size changed: ${oldStruct.arrayLength} → ${newLength}`\n          };\n        }\n      }\n      \n      // Check parameter count changes (like HTTP headers)\n      if (oldStruct.paramCount !== undefined) {\n        const newCount = newParam.parameters?.length || 0;\n        if (oldStruct.paramCount !== newCount) {\n          return { \n            type: 'minor', \n            reason: `Parameter count in '${key}' changed: ${oldStruct.paramCount} → ${newCount}`\n          };\n        }\n      }\n    }\n  }\n  \n  // If keys are the same and structure unchanged, it's a PATCH (value change)\n  return { type: 'patch', reason: 'Parameter values changed' };\n}\n\nfunction incrementVersion(version, changeType) {\n  const rawParts = String(version || '1.0.0').split('.').map(part => Number(part));\n  const parts = [\n    Number.isFinite(rawParts[0]) ? rawParts[0] : 1,\n    Number.isFinite(rawParts[1]) ? rawParts[1] : 0,\n    Number.isFinite(rawParts[2]) ? rawParts[2] : 0,\n  ];\n  \n  if (changeType === 'major') {\n    return `${parts[0] + 1}.0.0`;\n  }\n  \n  if (changeType === 'minor') {\n    return `${parts[0]}.${parts[1] + 1}.0`;\n  }\n  \n  // patch\n  return `${parts[0]}.${parts[1]}.${parts[2] + 1}`;\n}\n\nfunction formatDate(isoString) {\n  const date = new Date(isoString);\n  return date.toLocaleString('en-US', { \n    month: 'short', \n    day: 'numeric', \n    year: 'numeric', \n    hour: '2-digit', \n    minute: '2-digit' \n  });\n}\n\nfunction createNodeSnapshot(node) {\n  // Create minimal snapshot for change detection\n  const snapshot = {\n    type: node.type,\n    name: node.name,\n    typeVersion: node.typeVersion,\n    parameterKeys: Object.keys(node.parameters || {}).filter(k => k !== '_versionControl').sort()\n  };\n  \n  // Store array lengths for parameters that are arrays or contain arrays\n  // This helps detect adding/removing items (MINOR change)\n  if (node.parameters) {\n    snapshot.parameterStructure = {};\n    \n    for (const key of snapshot.parameterKeys) {\n      const param = node.parameters[key];\n      \n      if (param && typeof param === 'object') {\n        // Check for common n8n patterns\n        if (param.assignments && Array.isArray(param.assignments)) {\n          // Set/Edit Fields node with assignments\n          snapshot.parameterStructure[key] = {\n            assignmentCount: param.assignments.length\n          };\n        } else if (Array.isArray(param)) {\n          // Direct array parameter\n          snapshot.parameterStructure[key] = {\n            arrayLength: param.length\n          };\n        } else if (param.parameters && Array.isArray(param.parameters)) {\n          // HTTP Request headers/parameters\n          snapshot.parameterStructure[key] = {\n            paramCount: param.parameters.length\n          };\n        }\n      }\n    }\n  }\n  \n  return snapshot;\n}\n\nfunction buildNodeNotes(versionInfo, typeVer, snapshot) {\n  const lines = [\n    `📌 Version: ${versionInfo.version}`,\n    `📅 Modified: ${formatDate(versionInfo.lastModified)}`,\n    `🔧 Node Type: v${typeVer || 'N/A'}`,\n    `🔒 Hash: ${versionInfo.hash.substring(0, 8)}`\n  ];\n  \n  // Store snapshot as base64 for next comparison\n  if (snapshot) {\n    const snapshotStr = Buffer.from(JSON.stringify(snapshot)).toString('base64');\n    lines.push(`🗂️ Snapshot: ${snapshotStr}`);\n  }\n  \n  if (versionInfo.created && versionInfo.created !== versionInfo.lastModified) {\n    lines.push(`🆕 Created: ${formatDate(versionInfo.created)}`);\n  }\n  \n  return lines.join('\\n');\n}\n\nfunction cleanNode(node) {\n  const cleaned = { \n    id: node.id, \n    name: node.name, \n    type: node.type, \n    typeVersion: node.typeVersion, \n    position: node.position, \n    parameters: node.parameters \n  };\n  \n  if (node.credentials) cleaned.credentials = node.credentials;\n  if (node.disabled) cleaned.disabled = node.disabled;\n  if (node.webhookId) cleaned.webhookId = node.webhookId;\n  \n  cleaned.notes = node.notes || '';\n  cleaned.notesInFlow = true;\n  \n  return cleaned;\n}\n\nconst timestamp = new Date().toISOString();\nconst nodeChanges = [];\nconst updatedNodes = [];\n\n// Process each node\nfor (const node of workflow.nodes) {\n  const currentHash = hashNode(node);\n  const parsedExistingVersion = parseVersionFromNotes(node.notes);\n  const existingVersion = parsedExistingVersion && parsedExistingVersion.version\n    ? parsedExistingVersion\n    : {\n      version: '1.0.0',\n      created: timestamp,\n      lastModified: timestamp\n    };\n  const previousHash = getHashFromNotes(node.notes);\n  const storedSnapshot = getStoredNodeData(node.notes);\n  \n  const isNew = !previousHash;\n  const hashChanged = previousHash && previousHash !== currentHash.substring(0, 8);\n  \n  // Check for name changes (MAJOR change that doesn't affect hash)\n  const nameChanged = storedSnapshot && storedSnapshot.name !== node.name;\n  \n  // Node has changed if hash OR name changed\n  const hasChanged = hashChanged || nameChanged;\n  \n  let versionInfo;\n  let changeType = 'patch';\n  let changeReason = null;\n  \n  if (isNew) {\n    // New node\n    versionInfo = {\n      version: '1.0.0',\n      hash: currentHash,\n      created: timestamp,\n      lastModified: timestamp\n    };\n    \n    nodeChanges.push({\n      nodeName: node.name,\n      nodeId: node.id,\n      action: 'created',\n      version: '1.0.0',\n      changeType: 'major',\n      reason: 'New node'\n    });\n  } else if (hasChanged) {\n    // Node changed - detect what kind of change\n    const changeDetection = detectChangeType(storedSnapshot, node);\n    changeType = changeDetection.type;\n    changeReason = changeDetection.reason;\n    \n    const newVersion = incrementVersion(existingVersion.version, changeType);\n    \n    versionInfo = {\n      version: newVersion,\n      hash: currentHash,\n      created: existingVersion.created || timestamp,\n      lastModified: timestamp\n    };\n    \n    nodeChanges.push({\n      nodeName: node.name,\n      nodeId: node.id,\n      action: 'modified',\n      previousVersion: existingVersion.version,\n      version: newVersion,\n      changeType: changeType,\n      reason: changeReason\n    });\n  } else {\n    // No change\n    versionInfo = {\n      version: existingVersion.version,\n      hash: currentHash,\n      created: existingVersion.created || timestamp,\n      lastModified: existingVersion.lastModified || timestamp\n    };\n  }\n  \n  // Create snapshot for next comparison\n  const snapshot = createNodeSnapshot(node);\n  \n  const updatedNode = cleanNode({\n    ...node,\n    notes: buildNodeNotes(versionInfo, node.typeVersion, snapshot),\n    parameters: {\n      ...node.parameters,\n      _versionControl: versionInfo\n    }\n  });\n  \n  updatedNodes.push(updatedNode);\n}\n\n// Calculate workflow version\nlet wfNewVersion = '1.0.0';\nconst allVersions = updatedNodes.map(n => {\n  const parsed = parseVersionFromNotes(n.notes);\n  return parsed ? parsed.version : '1.0.0';\n});\n\nif (allVersions.length > 0) {\n  const maxParts = allVersions.map(v => v.split('.').map(Number)).reduce((max, cur) => {\n    if (cur[0] > max[0]) return cur;\n    if (cur[0] === max[0] && cur[1] > max[1]) return cur;\n    if (cur[0] === max[0] && cur[1] === max[1] && cur[2] > max[2]) return cur;\n    return max;\n  }, [1, 0, 0]);\n  wfNewVersion = maxParts.join('.');\n}\n\n// Build clean settings\nconst cleanSettings = {};\nif (workflow.settings?.errorWorkflow) cleanSettings.errorWorkflow = workflow.settings.errorWorkflow;\nif (workflow.settings?.timezone) cleanSettings.timezone = workflow.settings.timezone;\nif (workflow.settings?.saveManualExecutions !== undefined) cleanSettings.saveManualExecutions = workflow.settings.saveManualExecutions;\nif (workflow.settings?.saveExecutionProgress !== undefined) cleanSettings.saveExecutionProgress = workflow.settings.saveExecutionProgress;\nif (workflow.settings?.saveDataErrorExecution) cleanSettings.saveDataErrorExecution = workflow.settings.saveDataErrorExecution;\nif (workflow.settings?.saveDataSuccessExecution) cleanSettings.saveDataSuccessExecution = workflow.settings.saveDataSuccessExecution;\nif (workflow.settings?.executionTimeout !== undefined) cleanSettings.executionTimeout = workflow.settings.executionTimeout;\nif (workflow.settings?.executionOrder) cleanSettings.executionOrder = workflow.settings.executionOrder;\nif (workflow.settings?.availableInMCP !== undefined) cleanSettings.availableInMCP = workflow.settings.availableInMCP;\nif (workflow.settings?.callerPolicy) cleanSettings.callerPolicy = workflow.settings.callerPolicy;\n\nconst updatedWorkflow = { \n  name: workflow.name, \n  nodes: updatedNodes, \n  connections: workflow.connections, \n  settings: cleanSettings \n};\n\nreturn { \n  json: { \n    config: config,\n    originalWorkflow: workflow, \n    updatedWorkflow, \n    nodeChanges, \n    hasChanges: nodeChanges.length > 0, \n    workflowVersion: { \n      previous: '1.0.0', \n      current: wfNewVersion \n    }, \n    timestamp\n  } \n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "73df214",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 73df214\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQcm9jZXNzIE5vZGUgVmVyc2lvbnMiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "30df1338-efb6-42cb-ad87-c6b0ef57665b",
+      "name": "Respond to Webhook1",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        16352,
+        13552
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "64ab2cb3",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2sxIiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "0e550a6a-6db4-49a3-a423-edb9f8200504",
+      "name": "Dry Run Response1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        15568,
+        13536
+      ],
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nfunction buildWorkflowOpenUrl(apiUrl, workflowId, timestamp) {\n  if (!workflowId) return null;\n\n  const rawApiUrl = String(apiUrl || '').trim();\n  if (!rawApiUrl) return null;\n\n  const normalizedApiUrl = rawApiUrl.replace(/\\/$/, '');\n  const baseUrl = normalizedApiUrl\n    .replace(/\\/api\\/v\\d+$/, '')\n    .replace(/\\/api$/, '');\n\n  return `${baseUrl}/workflow/${encodeURIComponent(workflowId)}?updated=${encodeURIComponent(timestamp)}`;\n}\n\nconst timestamp = data.timestamp || new Date().toISOString();\nconst workflowId = data.config?.workflowId || null;\nconst openWorkflowUrl = buildWorkflowOpenUrl(data.config?.n8nApiUrl, workflowId, timestamp);\n\nreturn {\n  json: {\n    success: true,\n    message: 'Dry run completed - no changes applied',\n    workflowId,\n    workflowName: data.originalWorkflow?.name,\n    version: {\n      previous: data.workflowVersion?.previous,\n      wouldBecome: data.workflowVersion?.current,\n    },\n    changes: data.nodeChanges,\n    timestamp,\n    dryRun: true,\n    openWorkflowUrl,\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "54cd6021",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 54cd6021\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJEcnkgUnVuIFJlc3BvbnNlMSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "f91cfdf0-3178-4b5e-8d0b-ae0c17118919",
+      "name": "Update Workflow with Versions1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        15456,
+        12944
+      ],
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.config.n8nApiUrl }}/workflows/{{ $json.config.workflowId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.updatedWorkflow) }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7249fe42",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KEtW64C9AybCYnRo",
+          "name": "Header Auth account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v4.2\n🔒 Hash: 7249fe42\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiVXBkYXRlIFdvcmtmbG93IHdpdGggVmVyc2lvbnMxIiwidHlwZVZlcnNpb24iOjQuMiwicGFyYW1ldGVyS2V5cyI6WyJhdXRoZW50aWNhdGlvbiIsImdlbmVyaWNBdXRoVHlwZSIsImhlYWRlclBhcmFtZXRlcnMiLCJqc29uQm9keSIsIm1ldGhvZCIsIm9wdGlvbnMiLCJzZW5kQm9keSIsInNlbmRIZWFkZXJzIiwic3BlY2lmeUJvZHkiLCJ1cmwiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImhlYWRlclBhcmFtZXRlcnMiOnsicGFyYW1Db3VudCI6MX19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "bd25593f-fc9c-4ff8-af43-19203a6097a0",
+      "name": "Dry Run?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        15328,
+        13456
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "dry-run",
+              "leftValue": "={{ $json.config.dryRun }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2989d4ec",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 2989d4ec\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiRHJ5IFJ1bj8xIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsiY29uZGl0aW9ucyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "1ca7854a-e88f-414c-821d-0fd641d3b539",
+      "name": "No Changes Response1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        15680,
+        13808
+      ],
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\nfunction buildWorkflowOpenUrl(apiUrl, workflowId, timestamp) {\n  if (!workflowId) return null;\n\n  const rawApiUrl = String(apiUrl || '').trim();\n  if (!rawApiUrl) return null;\n\n  const normalizedApiUrl = rawApiUrl.replace(/\\/$/, '');\n  const baseUrl = normalizedApiUrl\n    .replace(/\\/api\\/v\\d+$/, '')\n    .replace(/\\/api$/, '');\n\n  return `${baseUrl}/workflow/${encodeURIComponent(workflowId)}?updated=${encodeURIComponent(timestamp)}`;\n}\n\nconst timestamp = data.timestamp || new Date().toISOString();\nconst workflowId = data.config?.workflowId || null;\nconst openWorkflowUrl = buildWorkflowOpenUrl(data.config?.n8nApiUrl, workflowId, timestamp);\n\nreturn {\n  json: {\n    success: true,\n    message: 'No changes detected',\n    workflowId,\n    workflowName: data.originalWorkflow?.name,\n    version: data.workflowVersion?.current,\n    timestamp,\n    openWorkflowUrl,\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2fd48f36",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 2fd48f36\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJObyBDaGFuZ2VzIFJlc3BvbnNlMSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "ca65f204-307c-4610-b215-89516a84887f",
+      "name": "Has Changes?1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        15040,
+        13472
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "has-changes",
+              "leftValue": "={{ $json.hasChanges }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "73d9e12e",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 73d9e12e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiSGFzIENoYW5nZXM/MSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImNvbmRpdGlvbnMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "1ea0efda-5d1e-4434-bbe7-123be04892d3",
+      "name": "Fetch Current Workflow1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        14672,
+        13472
+      ],
+      "parameters": {
+        "url": "={{ $json.n8nApiUrl }}/workflows/{{ $json.workflowId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5d07d40c",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KEtW64C9AybCYnRo",
+          "name": "Header Auth account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v4.2\n🔒 Hash: 5d07d40c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiRmV0Y2ggQ3VycmVudCBXb3JrZmxvdzEiLCJ0eXBlVmVyc2lvbiI6NC4yLCJwYXJhbWV0ZXJLZXlzIjpbImF1dGhlbnRpY2F0aW9uIiwiZ2VuZXJpY0F1dGhUeXBlIiwib3B0aW9ucyIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "291071e8-c8a7-463a-9074-a36488fe4a6c",
+      "name": "Parse Configuration1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        14496,
+        13472
+      ],
+      "parameters": {
+        "jsCode": "// Extract configuration from input\nconst input = $input.first().json;\n\nconst config = {\n  workflowId: input.workflowId || input.body?.workflowId || null,\n  gitEnabled: input.gitEnabled ?? input.body?.gitEnabled ?? false,\n  gitPushEnabled: input.gitPushEnabled ?? input.body?.gitPushEnabled ?? false,\n  gitRepoPath: input.gitRepoPath || input.body?.gitRepoPath || '/files/backups/git-repo',\n  gitRemote: input.gitRemote || input.body?.gitRemote || 'origin',\n  gitBranch: input.gitBranch || input.body?.gitBranch || 'main',\n  localBackupEnabled: input.localBackupEnabled ?? input.body?.localBackupEnabled ?? false,\n  localBackupPath: input.localBackupPath || input.body?.localBackupPath || '/data/workflow-backups/local',\n  localBackupMaxVersions: input.localBackupMaxVersions ?? input.body?.localBackupMaxVersions ?? 20,\n  cleanupOldBackupsEnabled: input.cleanupOldBackupsEnabled ?? input.body?.cleanupOldBackupsEnabled ?? false,\n  n8nApiUrl: input.n8nApiUrl || input.body?.n8nApiUrl || 'http://localhost:5678/api/v1',\n  commitMessage: input.commitMessage || input.body?.commitMessage || null,\n  dryRun: input.dryRun ?? input.body?.dryRun ?? false,\n};\n\nif (!config.workflowId) {\n  throw new Error('workflowId is required. Pass it in the input or request body.');\n}\n\nif (config.gitEnabled && !config.gitRepoPath) {\n  throw new Error('gitRepoPath is required when gitEnabled=true.');\n}\n\nreturn { json: config };\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5892ecd9",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 5892ecd9\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQYXJzZSBDb25maWd1cmF0aW9uMSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "7a27a6d1-bd3f-46aa-8bf3-67377f48e394",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        14272,
+        13472
+      ],
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"workflowId\": \"Rv-Y2Rw2EHQVspwmX-Kgb\",\n  \"gitEnabled\": false,\n  \"gitPushEnabled\": false,\n  \"gitRepoPath\": \"/files/backups/git-repo\",\n  \"gitBranch\": \"main\",\n  \"gitRemote\": \"origin\",\n  \"localBackupEnabled\": true,\n  \"localBackupPath\": \"/files/backups\",\n  \"localBackupMaxVersions\": 3,\n  \"n8nApiUrl\": \"http://localhost:5678/api/v1\",\n  \"dryRun\": false,\n  \"cleanupOldBackupsEnabled\": true\n}",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7bbaf16d",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v1.1\n🔒 Hash: 7bbaf16d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93VHJpZ2dlciIsIm5hbWUiOiJXaGVuIEV4ZWN1dGVkIGJ5IEFub3RoZXIgV29ya2Zsb3ciLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbImlucHV0U291cmNlIiwianNvbkV4YW1wbGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "b3b2c56a-b9b9-4dbe-9056-995076ac18b9",
+      "name": "Cleanup Old Backups",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16752,
+        13008
+      ],
+      "parameters": {
+        "jsCode": "// Cleanup Old Backups\n// Keep only newest N backups for the current workflow prefix.\n\nconst data = $input.first().json;\nconst config = data.config || {};\nconst cleanupEnabled = config.cleanupOldBackupsEnabled === true;\n\nif (!cleanupEnabled) {\n  return {\n    json: {\n      ...data,\n      cleanupEnabled: false,\n      cleanupSkipped: true,\n      cleanupPerformed: false,\n      deletedBackups: 0,\n      deletedFiles: [],\n    }\n  };\n}\n\nconst fs = require('fs');\nconst path = require('path');\n\nconst backupDir = (data.backupDisplayPath || path.dirname(data.backupFullPath || '')).replace(/\\/+$/, '');\nconst currentFile = data.backupFilename || path.basename(data.backupFullPath || '');\nconst backupPrefix = data.backupPrefix || null;\n\nconst maxRaw = Number(config.localBackupMaxVersions ?? 20);\nconst maxVersions = Number.isFinite(maxRaw) ? Math.floor(maxRaw) : 20;\n\nfunction escapeRegex(value) {\n  return value.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\n}\n\nfunction prefixFromFile(filename) {\n  const semverIndex = filename.indexOf('-v');\n  if (semverIndex > 0) return `${filename.slice(0, semverIndex)}-v`;\n  return null;\n}\n\nfunction getSortEpochMs(filename, fallbackMs) {\n  const match = filename.match(/-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})\\.json$/);\n  if (!match) return fallbackMs;\n\n  const [, y, mo, d, h, mi, s] = match;\n  const dt = Date.UTC(Number(y), Number(mo) - 1, Number(d), Number(h), Number(mi), Number(s));\n  return Number.isFinite(dt) ? dt : fallbackMs;\n}\n\ntry {\n  if (!backupDir) {\n    return {\n      json: {\n        ...data,\n        cleanupEnabled: true,\n        cleanupSkipped: false,\n        cleanupPerformed: false,\n        deletedBackups: 0,\n        deletedFiles: [],\n        backupCleanupError: 'Backup directory is missing.',\n      }\n    };\n  }\n\n  // Preserve the newest backup by default even if max is misconfigured.\n  const effectiveMax = maxVersions < 1 ? 1 : maxVersions;\n\n  const workflowPrefix = backupPrefix || prefixFromFile(currentFile);\n  if (!workflowPrefix) {\n    return {\n      json: {\n        ...data,\n        cleanupEnabled: true,\n        cleanupSkipped: false,\n        cleanupPerformed: false,\n        deletedBackups: 0,\n        deletedFiles: [],\n        backupCleanupError: 'Unable to determine workflow backup prefix.',\n      }\n    };\n  }\n\n  const filePattern = new RegExp(\n    `^${escapeRegex(workflowPrefix)}\\\\d+\\\\.\\\\d+\\\\.\\\\d+-\\\\d{4}-\\\\d{2}-\\\\d{2}-\\\\d{2}-\\\\d{2}-\\\\d{2}\\\\.json$`\n  );\n\n  const matchingFiles = fs\n    .readdirSync(backupDir, { withFileTypes: true })\n    .filter((entry) => entry.isFile())\n    .map((entry) => entry.name)\n    .filter((name) => filePattern.test(name))\n    .map((name) => {\n      const fullPath = path.join(backupDir, name);\n      const stats = fs.statSync(fullPath);\n      return {\n        name,\n        fullPath,\n        mtimeMs: stats.mtimeMs,\n        sortEpochMs: getSortEpochMs(name, stats.mtimeMs),\n      };\n    })\n    .sort((a, b) => {\n      if (a.sortEpochMs !== b.sortEpochMs) return a.sortEpochMs - b.sortEpochMs;\n      return a.mtimeMs - b.mtimeMs;\n    });\n\n  const deleteCount = Math.max(0, matchingFiles.length - effectiveMax);\n  const toDelete = matchingFiles.slice(0, deleteCount);\n\n  for (const file of toDelete) {\n    fs.unlinkSync(file.fullPath);\n  }\n\n  return {\n    json: {\n      ...data,\n      cleanupEnabled: true,\n      cleanupSkipped: false,\n      cleanupPerformed: true,\n      cleanupPrefix: workflowPrefix,\n      cleanupMaxVersions: effectiveMax,\n      matchedBackups: matchingFiles.length,\n      deletedBackups: toDelete.length,\n      deletedFiles: toDelete.map((file) => file.name),\n    }\n  };\n} catch (error) {\n  return {\n    json: {\n      ...data,\n      cleanupEnabled: true,\n      cleanupSkipped: false,\n      cleanupPerformed: false,\n      deletedBackups: 0,\n      deletedFiles: [],\n      backupCleanupError: error?.message || String(error),\n    }\n  };\n}\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6c9b4b90",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 6c9b4b90\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJDbGVhbnVwIE9sZCBCYWNrdXBzIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "9e74de06-7341-4ffa-b69c-13e95d10288a",
+      "name": "Delete Old Backups Enabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        16624,
+        13248
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "cleanup-old-backups-enabled",
+              "leftValue": "={{ $json.config.cleanupOldBackupsEnabled }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "47bddea4",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 47bddea4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiRGVsZXRlIE9sZCBCYWNrdXBzIEVuYWJsZWQ/IiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsiY29uZGl0aW9ucyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "cb635ae3-fe96-41c3-bba9-96caf2570a1c",
+      "name": "Git Enabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        16880,
+        12912
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "git-enabled",
+              "leftValue": "={{ $json.config.gitEnabled }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6d2083b6",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 6d2083b6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiR2l0IEVuYWJsZWQ/IiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsiY29uZGl0aW9ucyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "37f1dde2-9220-4868-bda1-e2bc34a80a57",
+      "name": "Prepare Git Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        17072,
+        12720
+      ],
+      "parameters": {
+        "jsCode": "// Prepare Git Data with stable filename (workflowId-based)\n\nconst data = $input.first().json;\nconst config = data.config || {};\n\nconst workflowId = config.workflowId || data.workflowId || 'unknown-workflow';\nconst repoPath = String(config.gitRepoPath || '/files/backups/git-repo').replace(/\\/+$/, '');\nconst gitFileName = `workflow-${workflowId}.json`;\nconst gitFilePath = `${repoPath}/${gitFileName}`;\n\nconst currentVersion = data.workflowVersion?.current || '1.0.0';\nconst workflowName = String(data.updatedWorkflow?.name || data.originalWorkflow?.name || 'Unknown Workflow')\n  .replace(/\\s+/g, ' ')\n  .trim();\nconst commitMessage = config.commitMessage\n  || `chore(workflow): ${workflowName} (${workflowId}) -> v${currentVersion}`;\n\nconst gitWorkflowJson = `${JSON.stringify(data.updatedWorkflow, null, 2)}\n`;\n\nreturn {\n  json: {\n    ...data,\n    gitRepoPath: repoPath,\n    gitFileName,\n    gitFilePath,\n    gitWorkflowJson,\n    gitCommitMessage: commitMessage,\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "57b1e7cc",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 57b1e7cc\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQcmVwYXJlIEdpdCBEYXRhIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "b689b21b-33ae-46a0-afa3-6c3d52f381dd",
+      "name": "Convert Git Workflow to Binary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        17264,
+        12720
+      ],
+      "parameters": {
+        "jsCode": "// Convert Git workflow JSON to binary for Write Binary File node\n\nconst data = $input.first().json;\nconst binaryData = Buffer.from(data.gitWorkflowJson, 'utf-8');\n\nreturn {\n  json: data,\n  binary: {\n    data: {\n      data: binaryData.toString('base64'),\n      mimeType: 'application/json',\n      fileName: data.gitFileName,\n      fileExtension: 'json',\n    }\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1e6d3a18",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 1e6d3a18\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJDb252ZXJ0IEdpdCBXb3JrZmxvdyB0byBCaW5hcnkiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "4ac58c1d-206f-4462-b82b-532e1c10ffe4",
+      "name": "Write Git Workflow File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        17456,
+        12720
+      ],
+      "parameters": {
+        "fileName": "={{ $json.gitFilePath }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2307914b",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v1\n🔒 Hash: 2307914b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud3JpdGVCaW5hcnlGaWxlIiwibmFtZSI6IldyaXRlIEdpdCBXb3JrZmxvdyBGaWxlIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOlsiZmlsZU5hbWUiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "44c94fd5-0b1b-40d6-b25b-7a9cfdb15b2a",
+      "name": "Git Add Workflow File",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1.1,
+      "position": [
+        17648,
+        12720
+      ],
+      "parameters": {
+        "operation": "add",
+        "repositoryPath": "={{ $(\"Prepare Git Data\").first().json.gitRepoPath }}",
+        "pathsToAdd": "={{ $(\"Prepare Git Data\").first().json.gitFileName }}",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "60c10926",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v1.1\n🔒 Hash: 60c10926\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ2l0IiwibmFtZSI6IkdpdCBBZGQgV29ya2Zsb3cgRmlsZSIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsib3BlcmF0aW9uIiwicGF0aHNUb0FkZCIsInJlcG9zaXRvcnlQYXRoIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "1443f3e8-4e38-403f-ad3a-127241d503bd",
+      "name": "Git Commit Workflow File",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1.1,
+      "position": [
+        17840,
+        12720
+      ],
+      "parameters": {
+        "operation": "commit",
+        "repositoryPath": "={{ $(\"Prepare Git Data\").first().json.gitRepoPath }}",
+        "message": "={{ $(\"Prepare Git Data\").first().json.gitCommitMessage }}",
+        "options": {
+          "branch": "={{ $(\"Prepare Git Data\").first().json.config.gitBranch }}",
+          "pathsToAdd": "={{ $(\"Prepare Git Data\").first().json.gitFileName }}"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "420a8723",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v1.1\n🔒 Hash: 420a8723\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ2l0IiwibmFtZSI6IkdpdCBDb21taXQgV29ya2Zsb3cgRmlsZSIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsibWVzc2FnZSIsIm9wZXJhdGlvbiIsIm9wdGlvbnMiLCJyZXBvc2l0b3J5UGF0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "7c019df2-fe9d-4a84-90b5-3ae4d36b49e7",
+      "name": "Git Latest Commit",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1.1,
+      "position": [
+        18032,
+        12720
+      ],
+      "parameters": {
+        "repositoryPath": "={{ $(\"Prepare Git Data\").first().json.gitRepoPath }}",
+        "limit": 1,
+        "options": {
+          "file": "={{ $(\"Prepare Git Data\").first().json.gitFileName }}"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1480ccbe",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v1.1\n🔒 Hash: 1480ccbe\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ2l0IiwibmFtZSI6IkdpdCBMYXRlc3QgQ29tbWl0IiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJsaW1pdCIsIm9wdGlvbnMiLCJyZXBvc2l0b3J5UGF0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "413cbc6f-720c-420d-b0d8-fda86c7fd910",
+      "name": "Git Push Enabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        18224,
+        12720
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "git-push-enabled",
+              "leftValue": "={{ $(\"Prepare Git Data\").first().json.config.gitPushEnabled }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4d84389a",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 4d84389a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiR2l0IFB1c2ggRW5hYmxlZD8iLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJjb25kaXRpb25zIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "8d805fdc-aa74-4cb2-92c7-0923358c057d",
+      "name": "Git Push Remote",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1.1,
+      "position": [
+        18416,
+        12624
+      ],
+      "parameters": {
+        "authentication": "gitPassword",
+        "operation": "push",
+        "repositoryPath": "={{ $(\"Prepare Git Data\").first().json.gitRepoPath }}",
+        "options": {
+          "branch": "={{ $(\"Prepare Git Data\").first().json.config.gitBranch }}"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "55c78afc",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "credentials": {
+        "gitPassword": {
+          "id": "NXkK4fqQmBNf1Ib6",
+          "name": "Git account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v1.1\n🔒 Hash: 55c78afc\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ2l0IiwibmFtZSI6IkdpdCBQdXNoIFJlbW90ZSIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsiYXV0aGVudGljYXRpb24iLCJvcGVyYXRpb24iLCJvcHRpb25zIiwicmVwb3NpdG9yeVBhdGgiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "419f8d35-e3aa-423d-8b7a-edd2c3d995e0",
+      "name": "Finalize Git Local",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        18416,
+        12896
+      ],
+      "parameters": {
+        "jsCode": "// Finalize Git status for local commit only\n\nconst base = $(\"Prepare Git Data\").first().json;\nconst commit = $(\"Git Latest Commit\").first().json;\n\nreturn {\n  json: {\n    ...base,\n    gitCommitted: true,\n    gitPushed: false,\n    gitCommit: commit\n      ? {\n          hash: commit.hash || null,\n          message: commit.message || null,\n          date: commit.date || null,\n          authorName: commit.author_name || null,\n          authorEmail: commit.author_email || null,\n        }\n      : null,\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4ca5af10",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 4ca5af10\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJGaW5hbGl6ZSBHaXQgTG9jYWwiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "53e6b762-e1ac-43ff-86c0-a0ebbbe6e5ad",
+      "name": "Finalize Git Push",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        18608,
+        12624
+      ],
+      "parameters": {
+        "jsCode": "// Finalize Git status for local commit + remote push\n\nconst base = $(\"Prepare Git Data\").first().json;\nconst commit = $(\"Git Latest Commit\").first().json;\n\nreturn {\n  json: {\n    ...base,\n    gitCommitted: true,\n    gitPushed: true,\n    gitCommit: commit\n      ? {\n          hash: commit.hash || null,\n          message: commit.message || null,\n          date: commit.date || null,\n          authorName: commit.author_name || null,\n          authorEmail: commit.author_email || null,\n        }\n      : null,\n  }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3d304966",
+          "created": "2026-02-08T02:33:12.273Z",
+          "lastModified": "2026-02-08T02:33:12.273Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 02:33 AM\n🔧 Node Type: v2\n🔒 Hash: 3d304966\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJGaW5hbGl6ZSBHaXQgUHVzaCIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "cc8c7f14-d8db-4e4b-9d71-e14b9ede14e9",
+      "name": "Manual Save Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        14832,
+        11632
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.2",
+          "hash": "4f01dfa4",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 6, 2026, 07:42 PM"
+        }
+      },
+      "notes": "📌 Version: 1.0.2\n📅 Modified: Feb 6, 2026, 07:42 PM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJNYW51YWwgU2F2ZSBUcmlnZ2VyIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOltdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "b5014b8c-385a-4b6c-9713-9356142a520e",
+      "name": "Set Version Control Config1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        15056,
+        11632
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 20,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "cleanupOldBackupsEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "11",
+              "name": "gitPushEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "12",
+              "name": "gitRepoPath",
+              "value": "/files/backups/git-repo",
+              "type": "string"
+            },
+            {
+              "id": "13",
+              "name": "gitBranch",
+              "value": "main",
+              "type": "string"
+            },
+            {
+              "id": "14",
+              "name": "gitRemote",
+              "value": "origin",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.2.1",
+          "hash": "30fbd73e",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 8, 2026, 01:52 AM"
+        }
+      },
+      "notes": "📌 Version: 1.2.1\n📅 Modified: Feb 8, 2026, 01:52 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30fbd73e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjEyfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "5cf325f0-589e-4f45-a45e-4c13fea0a39f",
+      "name": "Call Sub-workflow (update value)1",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        15296,
+        11632
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.2",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 6, 2026, 07:42 PM"
+        }
+      },
+      "notes": "📌 Version: 1.0.2\n📅 Modified: Feb 6, 2026, 07:42 PM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMSIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "6e5a404d-d1f6-49ff-97d8-6b6b9b191ed3",
+      "name": "Show Completion Message1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        15536,
+        11632
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\nconst changesList = result.nodeChanges?.map((c) => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    const reasonLine = c.reason ? `\\n   └─ ${c.reason}` : '';\n    return `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}${reasonLine}`;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter((c) => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter((c) => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter((c) => c.changeType === 'patch').length || 0;\n\nconst summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\nconst git = result.git || {};\n\nconst commitHashShort = git.commit?.hash ? String(git.commit.hash).slice(0, 8) : null;\nconst gitStatus = git.enabled\n  ? `Git ${git.committed ? 'committed' : 'not committed'}${git.remotePushEnabled ? (git.pushed ? ' + pushed' : ' (push not enabled/completed)') : ''}`\n  : 'Git disabled';\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      gitStatus,\n      gitRepoPath: git.repoPath || null,\n      gitFilePath: git.filePath || null,\n      gitBranch: git.branch || null,\n      gitCommitHash: commitHashShort,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit',\n      }),\n    },\n    changes: changesList,\n    git,\n    tip,\n  },\n};\n",
+        "_versionControl": {
+          "version": "1.0.6",
+          "hash": "53972c67",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 8, 2026, 01:31 AM"
+        }
+      },
+      "notes": "📌 Version: 1.0.6\n📅 Modified: Feb 8, 2026, 01:31 AM\n🔧 Node Type: v2\n🔒 Hash: 53972c67\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTEiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Write Backup File": {
+      "main": [
+        [
+          {
+            "node": "Mark Backup Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to Binary": {
+      "main": [
+        [
+          {
+            "node": "Write Backup File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Backup Data": {
+      "main": [
+        [
+          {
+            "node": "Convert to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore Data After Update": {
+      "main": [
+        [
+          {
+            "node": "Local Backup Enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Local Backup Enabled?": {
+      "main": [
+        [
+          {
+            "node": "Prepare Backup Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Git Enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Backup Complete": {
+      "main": [
+        [
+          {
+            "node": "Delete Old Backups Enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Node Versions": {
+      "main": [
+        [
+          {
+            "node": "Has Changes?1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dry Run Response1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Workflow with Versions1": {
+      "main": [
+        [
+          {
+            "node": "Restore Data After Update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dry Run?1": {
+      "main": [
+        [
+          {
+            "node": "Dry Run Response1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Workflow with Versions1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Changes?1": {
+      "main": [
+        [
+          {
+            "node": "Dry Run?1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Changes Response1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Current Workflow1": {
+      "main": [
+        [
+          {
+            "node": "Process Node Versions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Configuration1": {
+      "main": [
+        [
+          {
+            "node": "Fetch Current Workflow1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Parse Configuration1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cleanup Old Backups": {
+      "main": [
+        [
+          {
+            "node": "Git Enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Old Backups Enabled?": {
+      "main": [
+        [
+          {
+            "node": "Cleanup Old Backups",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Git Enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git Enabled?": {
+      "main": [
+        [
+          {
+            "node": "Prepare Git Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Git Data": {
+      "main": [
+        [
+          {
+            "node": "Convert Git Workflow to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Git Workflow to Binary": {
+      "main": [
+        [
+          {
+            "node": "Write Git Workflow File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Git Workflow File": {
+      "main": [
+        [
+          {
+            "node": "Git Add Workflow File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git Add Workflow File": {
+      "main": [
+        [
+          {
+            "node": "Git Commit Workflow File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git Commit Workflow File": {
+      "main": [
+        [
+          {
+            "node": "Git Latest Commit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git Latest Commit": {
+      "main": [
+        [
+          {
+            "node": "Git Push Enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git Push Enabled?": {
+      "main": [
+        [
+          {
+            "node": "Git Push Remote",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Finalize Git Local",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git Push Remote": {
+      "main": [
+        [
+          {
+            "node": "Finalize Git Push",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finalize Git Local": {
+      "main": [
+        [
+          {
+            "node": "Build Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finalize Git Push": {
+      "main": [
+        [
+          {
+            "node": "Build Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Save Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Version Control Config1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config1": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)1": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
