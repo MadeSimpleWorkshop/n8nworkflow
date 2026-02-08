@@ -1,0 +1,206 @@
+{
+  "name": "Simple Example - With Restore",
+  "nodes": [
+    {
+      "id": "fa915a17-6236-4482-b748-204b881f5c32",
+      "name": "Manual Restore Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:48:24.506Z",
+          "lastModified": "2026-02-08T05:48:24.506Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJNYW51YWwgUmVzdG9yZSBUcmlnZ2VyIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOltdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "d769dacb-81a0-4f98-bee1-cad61940f35c",
+      "name": "Set Restore Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "restoreSource",
+              "value": "local",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "localFileName",
+              "value": "Simple_Example_-_With_Version_Control-v3.1.1-2026-02-07-21-19-21.json",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "gitRepoPath",
+              "value": "/files/backups/git-repo",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "gitBranch",
+              "value": "main",
+              "type": "string"
+            },
+            {
+              "id": "7",
+              "name": "gitRef",
+              "value": "main",
+              "type": "string"
+            },
+            {
+              "id": "8",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "dryRun",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "confirmRestore",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "65e750b",
+          "created": "2026-02-08T05:48:24.506Z",
+          "lastModified": "2026-02-08T05:48:24.506Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 65e750b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBSZXN0b3JlIENvbmZpZyIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjEwfX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "9288cf27-4833-4edf-8e79-02ae0033e3ce",
+      "name": "Call Restore Subworkflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        496,
+        0
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "Z8vTn2Qm4pLs7DyR",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/Z8vTn2Qm4pLs7DyR",
+          "cachedResultName": "Subworkflow (Version Restore)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "464ab716",
+          "created": "2026-02-08T05:48:24.506Z",
+          "lastModified": "2026-02-08T05:48:24.506Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.3\n🔒 Hash: 464ab716\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgUmVzdG9yZSBTdWJ3b3JrZmxvdyIsInR5cGVWZXJzaW9uIjoxLjMsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "a0ef1770-4b4a-4448-97b8-cf8c6e059dab",
+      "name": "Show Restore Completion Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        752,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\nif (!result || typeof result !== 'object') {\n  return {\n    json: {\n      status: 'ERROR',\n      message: 'No result returned from restore subworkflow.',\n      action: 'Inspect subworkflow execution logs.'\n    }\n  };\n}\n\nconst status = result.success\n  ? (result.dryRun ? 'DRY RUN' : 'RESTORED')\n  : (result.blocked ? 'BLOCKED' : 'FAILED');\n\nreturn {\n  json: {\n    status,\n    message: result.message || 'Restore flow finished.',\n    workflowId: result.workflowId || null,\n    workflowName: result.workflowName || null,\n    restoreSource: result.restoreSource || null,\n    restoreReference: result.restoreReference || null,\n    restored: result.restored || false,\n    dryRun: result.dryRun ?? null,\n    preRestoreBackupPath: result.preRestoreBackupPath || null,\n    openWorkflowUrl: result.openWorkflowUrl || null,\n    timestamp: result.timestamp || new Date().toISOString(),\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "fe17b9e",
+          "created": "2026-02-08T05:48:24.506Z",
+          "lastModified": "2026-02-08T05:48:24.506Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: fe17b9e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IFJlc3RvcmUgQ29tcGxldGlvbiBNZXNzYWdlIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Manual Restore Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Restore Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Restore Config": {
+      "main": [
+        [
+          {
+            "node": "Call Restore Subworkflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Restore Subworkflow": {
+      "main": [
+        [
+          {
+            "node": "Show Restore Completion Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
