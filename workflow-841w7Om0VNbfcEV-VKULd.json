@@ -1,0 +1,122 @@
+{
+  "name": "Example of Workflow calling Sub-workflow",
+  "nodes": [
+    {
+      "id": "15195f04-1537-4b8f-ac93-afc941ea6ca7",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        -32
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:47:58.060Z",
+          "lastModified": "2026-02-08T05:47:58.060Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJXaGVuIGNsaWNraW5nIOKAmEV4ZWN1dGUgd29ya2Zsb3figJkiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "662eafa9-1bab-49e9-bea9-87c5cdcf752d",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        -32
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "63bcbec1-2e97-49a9-834a-7ec6b7bd1562",
+              "name": "count",
+              "value": 5,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2ae71fb3",
+          "created": "2026-02-08T05:47:58.060Z",
+          "lastModified": "2026-02-08T05:47:58.060Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.4\n🔒 Hash: 2ae71fb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6MX19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "6da0fa0f-a8f1-411f-9fde-95ef1327682b",
+      "name": "Call 'Example of Sub Workflow'",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        -32,
+        -32
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "gOE0ZyZqn9tJotskYC4YX",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/gOE0ZyZqn9tJotskYC4YX",
+          "cachedResultName": "Example of Sub Workflow"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": false
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2ee17ba0",
+          "created": "2026-02-08T05:47:58.060Z",
+          "lastModified": "2026-02-08T05:47:58.060Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.3\n🔒 Hash: 2ee17ba0\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgJ0V4YW1wbGUgb2YgU3ViIFdvcmtmbG93JyIsInR5cGVWZXJzaW9uIjoxLjMsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Call 'Example of Sub Workflow'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
