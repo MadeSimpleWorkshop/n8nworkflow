@@ -1,0 +1,81 @@
+{
+  "name": "Example of Sub Workflow",
+  "nodes": [
+    {
+      "id": "d8d46441-7588-4567-b1ee-e1668804c7ba",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -288,
+        -32
+      ],
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "count",
+              "type": "number"
+            }
+          ]
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "51944da2",
+          "created": "2026-02-08T05:47:59.645Z",
+          "lastModified": "2026-02-08T05:47:59.645Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.1\n🔒 Hash: 51944da2\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93VHJpZ2dlciIsIm5hbWUiOiJXaGVuIEV4ZWN1dGVkIGJ5IEFub3RoZXIgV29ya2Zsb3ciLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbIndvcmtmbG93SW5wdXRzIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "3e3df44e-8e94-4bbd-acc6-15aae6176124",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -32
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7de67ae7-aef9-40b2-88b9-e441024a250f",
+              "name": "count",
+              "value": "={{ $json.count + 1 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4b5edc65",
+          "created": "2026-02-08T05:47:59.645Z",
+          "lastModified": "2026-02-08T05:47:59.645Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.4\n🔒 Hash: 4b5edc65\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6MX19fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
