@@ -1,0 +1,306 @@
+{
+  "name": "Simple Example - With Version Control",
+  "nodes": [
+    {
+      "id": "6becb663-51d9-43df-b87d-fcfe42bef978",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "14bef169",
+          "created": "2026-02-08T05:47:56.550Z",
+          "lastModified": "2026-02-08T05:47:56.550Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsiaHR0cE1ldGhvZCIsIm9wdGlvbnMiLCJwYXRoIiwicmVzcG9uc2VNb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "ffe969fa-2d95-47ed-a222-cfeb3a6eef56",
+      "name": "Set Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my workflow!",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "31ae27f8",
+          "created": "2026-02-08T05:47:56.550Z",
+          "lastModified": "2026-02-08T05:47:56.550Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.4\n🔒 Hash: 31ae27f8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6M319fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "60e76925-8021-461b-b4ae-a576764b9b14",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "64ab2cb3",
+          "created": "2026-02-08T05:47:56.550Z",
+          "lastModified": "2026-02-08T05:47:56.550Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2siLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJyZXNwb25kV2l0aCIsInJlc3BvbnNlQm9keSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "a5ea3d66-7c84-481d-9857-58d381125eaa",
+      "name": "Manual Save Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        224
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:47:56.550Z",
+          "lastModified": "2026-02-08T05:47:56.550Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJNYW51YWwgU2F2ZSBUcmlnZ2VyIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOltdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "dd1f592e-eea1-4e6c-b22c-749c7688f452",
+      "name": "Set Version Control Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        224
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/data/workflow-backups/local",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1289bcf7",
+          "created": "2026-02-08T05:47:56.550Z",
+          "lastModified": "2026-02-08T05:47:56.550Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1289bcf7\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6Nn19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "619daa04-fc50-465f-b81d-711e40a47151",
+      "name": "Call Version Control Save",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        464,
+        384
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "J5uIroWlStfh_PS9OHfaL",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/J5uIroWlStfh_PS9OHfaL",
+          "cachedResultName": "Version Control Save Button"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {
+          "waitForSubWorkflow": true
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "44b5656",
+          "created": "2026-02-08T05:47:56.550Z",
+          "lastModified": "2026-02-08T05:47:56.550Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.2\n🔒 Hash: 44b5656\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgVmVyc2lvbiBDb250cm9sIFNhdmUiLCJ0eXBlVmVyc2lvbiI6MS4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ3b3JrZmxvd0lkIiwid29ya2Zsb3dJbnB1dHMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "0070b590-4e3c-4c83-9a94-193b9539b308",
+      "name": "Call 'Version Control Save Button'",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        448,
+        224
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "J5uIroWlStfh_PS9OHfaL",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/J5uIroWlStfh_PS9OHfaL",
+          "cachedResultName": "Version Control Save Button"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "83f64b8",
+          "created": "2026-02-08T05:47:56.550Z",
+          "lastModified": "2026-02-08T05:47:56.550Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.3\n🔒 Hash: 83f64b8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgJ1ZlcnNpb24gQ29udHJvbCBTYXZlIEJ1dHRvbiciLCJ0eXBlVmVyc2lvbiI6MS4zLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ3b3JrZmxvd0lkIiwid29ya2Zsb3dJbnB1dHMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Save Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Version Control Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config": {
+      "main": [
+        [
+          {
+            "node": "Call 'Version Control Save Button'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Version Control Save": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
