@@ -1,0 +1,61 @@
+{
+  "name": "My Sub-Workflow 1",
+  "nodes": [
+    {
+      "id": "c055762a-8fe7-4141-a639-df2372f30060",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        260,
+        340
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "50cabdf5",
+          "created": "2026-02-08T05:48:04.091Z",
+          "lastModified": "2026-02-08T05:48:04.091Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 50cabdf5\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93VHJpZ2dlciIsIm5hbWUiOiJXaGVuIEV4ZWN1dGVkIGJ5IEFub3RoZXIgV29ya2Zsb3ciLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "b5942df6-0160-4ef7-965d-57583acdc8aa",
+      "name": "Replace me with your logic",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        520,
+        340
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7e43d03d",
+          "created": "2026-02-08T05:48:04.091Z",
+          "lastModified": "2026-02-08T05:48:04.091Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: vN/A\n🔒 Hash: 7e43d03d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uubm9PcCIsIm5hbWUiOiJSZXBsYWNlIG1lIHdpdGggeW91ciBsb2dpYyIsInBhcmFtZXRlcktleXMiOltdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Replace me with your logic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
