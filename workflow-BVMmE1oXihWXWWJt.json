@@ -1,0 +1,2452 @@
+{
+  "name": "Suno AI (for Distribution)",
+  "nodes": [
+    {
+      "id": "e25891d1-9997-41d4-be98-537e988aae48",
+      "name": "OpenRouter Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -1008,
+        1552
+      ],
+      "parameters": {
+        "model": "openai/gpt-4.1",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1f2a4b9a",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: 1f2a4b9a\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hhdE9wZW5Sb3V0ZXIiLCJuYW1lIjoiT3BlblJvdXRlciBDaGF0IE1vZGVsIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOlsibW9kZWwiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "4dfc4b3f-ae98-456d-ba45-347adff9487f",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -432,
+        1360
+      ],
+      "parameters": {
+        "amount": 10,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "51fccc1c",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "webhookId": "8698dac5-ae2b-4679-ab45-16c12fcff76b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.1\n🔒 Hash: 51fccc1c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2FpdCIsIm5hbWUiOiJXYWl0IiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJhbW91bnQiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "8890cbf3-4e66-4dbe-82ab-c0d69b577de1",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -16,
+        1328
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "df912d81-f99a-4e74-ad26-e40095ca8201"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5aa79cc9-9c8b-4cdc-a2ba-627097408fdd",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "PENDING",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9e37a7be-4332-4725-8231-3a01d5680d75",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "TEXT_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "be3f823e-6e4f-41f2-bb71-25f3a955c98d",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "FIRST_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5e08a602",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.3\n🔒 Hash: 5e08a602\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3dpdGNoIiwibmFtZSI6IlN3aXRjaCIsInR5cGVWZXJzaW9uIjozLjMsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInJ1bGVzIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "45ba5486-6eeb-4464-890f-3a08f63093d2",
+      "name": "Upload file",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1200,
+        1056
+      ],
+      "parameters": {
+        "name": "={{ $json.data.response.sunoData[0].sourceAudioUrl }}_v1.mp3",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1o3Tp2PjViKKQd14GZ8zNCDQsePPlnZ5_",
+          "mode": "list",
+          "cachedResultName": "Suno AI + n8n",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1o3Tp2PjViKKQd14GZ8zNCDQsePPlnZ5_"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "361a224e",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "siBlLbKMnupNqXD6",
+          "name": "Google Drive account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3\n🔒 Hash: 361a224e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ29vZ2xlRHJpdmUiLCJuYW1lIjoiVXBsb2FkIGZpbGUiLCJ0eXBlVmVyc2lvbiI6MywicGFyYW1ldGVyS2V5cyI6WyJkcml2ZUlkIiwiZm9sZGVySWQiLCJuYW1lIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "08f68f72-7e80-4e73-b4bc-4843aa704e70",
+      "name": "Upload file1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1184,
+        1312
+      ],
+      "parameters": {
+        "name": "={{ $json.data.response.sunoData[1].title }}_v2.mp3",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1o3Tp2PjViKKQd14GZ8zNCDQsePPlnZ5_",
+          "mode": "list",
+          "cachedResultName": "Suno AI + n8n",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1o3Tp2PjViKKQd14GZ8zNCDQsePPlnZ5_"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "38db25c0",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "siBlLbKMnupNqXD6",
+          "name": "Google Drive account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3\n🔒 Hash: 38db25c0\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ29vZ2xlRHJpdmUiLCJuYW1lIjoiVXBsb2FkIGZpbGUxIiwidHlwZVZlcnNpb24iOjMsInBhcmFtZXRlcktleXMiOlsiZHJpdmVJZCIsImZvbGRlcklkIiwibmFtZSIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "63c3a5e8-c516-44a1-91a0-99b98456ecd9",
+      "name": "Get Song 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1024,
+        1312
+      ],
+      "parameters": {
+        "url": "={{ $json.data.response.sunoData[1].sourceAudioUrl }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "576a3ddd",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 576a3ddd\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiR2V0IFNvbmcgMiIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "82ccc41b-5572-41c6-bcc9-53e77e5c9410",
+      "name": "Get Song 1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        1056
+      ],
+      "parameters": {
+        "url": "={{ $json.data.response.sunoData[0].sourceAudioUrl }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "352b30a2",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 352b30a2\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiR2V0IFNvbmcgMSIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "37b082c0-3bd3-4396-a756-5af156500b29",
+      "name": "Check Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -208,
+        1360
+      ],
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/generate/record-info",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [YOUR_API_KEY]"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2138ddb3",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 2138ddb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiQ2hlY2sgU3RhdHVzIiwidHlwZVZlcnNpb24iOjQuMiwicGFyYW1ldGVyS2V5cyI6WyJoZWFkZXJQYXJhbWV0ZXJzIiwib3B0aW9ucyIsInF1ZXJ5UGFyYW1ldGVycyIsInNlbmRIZWFkZXJzIiwic2VuZFF1ZXJ5IiwidXJsIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJoZWFkZXJQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjF9LCJxdWVyeVBhcmFtZXRlcnMiOnsicGFyYW1Db3VudCI6MX19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "aa4812dd-8c6d-4a3a-a2c3-8d76d10ba18d",
+      "name": "Create a song",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -640,
+        1360
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/generate",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [YOUR_API_KEY]"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.output.prompt }}"
+            },
+            {
+              "name": "style",
+              "value": "={{ $json.output.style }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.output.title }}"
+            },
+            {
+              "name": "customMode",
+              "value": "={{ $json.output.customMode }}"
+            },
+            {
+              "name": "instrumental",
+              "value": "={{ $json.output.instrumental }}"
+            },
+            {
+              "name": "model",
+              "value": "V5"
+            },
+            {
+              "name": "callBackUrl",
+              "value": "https://api.example.com/callback"
+            },
+            {
+              "name": "negativeTags",
+              "value": "={{ $json.output.negativeTags }}"
+            },
+            {
+              "name": "vocalGender",
+              "value": "f"
+            },
+            {
+              "name": "styleWeight",
+              "value": "={{ $json.output.styleWeight }}"
+            },
+            {
+              "name": "weirdnessConstraint",
+              "value": "={{ $json.output.weirdnessConstraint }}"
+            },
+            {
+              "name": "audioWeight",
+              "value": "={{ $json.output.audioWeight }}"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "15a48cf2",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 15a48cf2\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiQ3JlYXRlIGEgc29uZyIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiYm9keVBhcmFtZXRlcnMiLCJoZWFkZXJQYXJhbWV0ZXJzIiwibWV0aG9kIiwib3B0aW9ucyIsInNlbmRCb2R5Iiwic2VuZEhlYWRlcnMiLCJ1cmwiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImJvZHlQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjEyfSwiaGVhZGVyUGFyYW1ldGVycyI6eyJwYXJhbUNvdW50IjoxfX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "432c24b2-4967-4cbf-a8be-4cc09152526b",
+      "name": "On form submission",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -1392,
+        1568
+      ],
+      "parameters": {
+        "formTitle": "Suno AI Song Generator",
+        "formDescription": "Generate songs on autopilot.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "What type of song to generate?",
+              "placeholder": "Jazz & Soul R&B – Warm Sax, Rhodes & Chill Grooves | Feel-Good Smooth Jazz for Relaxation "
+            },
+            {
+              "fieldLabel": "Song with lyrics?",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Yes"
+                  },
+                  {
+                    "option": "No"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "39f9a900",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "webhookId": "a28037d8-fdb5-40c2-9d07-775408eb05cf",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2.3\n🔒 Hash: 39f9a900\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZm9ybVRyaWdnZXIiLCJuYW1lIjoiT24gZm9ybSBzdWJtaXNzaW9uIiwidHlwZVZlcnNpb24iOjIuMywicGFyYW1ldGVyS2V5cyI6WyJmb3JtRGVzY3JpcHRpb24iLCJmb3JtRmllbGRzIiwiZm9ybVRpdGxlIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "4c5c9533-b433-46ef-b984-55824dd9e7c8",
+      "name": "Wait1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        464,
+        1072
+      ],
+      "parameters": {
+        "amount": 10,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "481e22ed",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "webhookId": "6b9653be-0d09-4b5d-80f2-fdff23b8d2d3",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.1\n🔒 Hash: 481e22ed\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2FpdCIsIm5hbWUiOiJXYWl0MSIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsiYW1vdW50Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "e0e49fcd-8f5e-4005-897f-f309ae049bc0",
+      "name": "Check Status1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        656,
+        1072
+      ],
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/generate/record-info",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $('Extend Song_1').item.json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [YOUR_API_KEY]"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "28a85566",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 28a85566\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiQ2hlY2sgU3RhdHVzMSIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiaGVhZGVyUGFyYW1ldGVycyIsIm9wdGlvbnMiLCJxdWVyeVBhcmFtZXRlcnMiLCJzZW5kSGVhZGVycyIsInNlbmRRdWVyeSIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiaGVhZGVyUGFyYW1ldGVycyI6eyJwYXJhbUNvdW50IjoxfSwicXVlcnlQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "1716743b-8edd-4713-acb8-330d3c8a159d",
+      "name": "Wait2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        1328
+      ],
+      "parameters": {
+        "amount": 10,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6d2dbc93",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "webhookId": "f129778a-dcb4-4cfe-923c-734d78e546ea",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.1\n🔒 Hash: 6d2dbc93\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2FpdCIsIm5hbWUiOiJXYWl0MiIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsiYW1vdW50Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "b40c101f-5851-4f05-b81f-2634cbbf3983",
+      "name": "Check Status2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        656,
+        1328
+      ],
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/generate/record-info",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [YOUR_API_KEY]"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2138ddb3",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 2138ddb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiQ2hlY2sgU3RhdHVzMiIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiaGVhZGVyUGFyYW1ldGVycyIsIm9wdGlvbnMiLCJxdWVyeVBhcmFtZXRlcnMiLCJzZW5kSGVhZGVycyIsInNlbmRRdWVyeSIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiaGVhZGVyUGFyYW1ldGVycyI6eyJwYXJhbUNvdW50IjoxfSwicXVlcnlQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "5fdaf21f-4f2c-41cd-8ca4-248f8345afe3",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -784,
+        1568
+      ],
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"prompt\": \"A calm and relaxing piano track with soft melodies\",\n  \"style\": \"Classical\",\n  \"title\": \"Peaceful Piano Meditation\",\n  \"customMode\": true,\n  \"instrumental\": true,\n  \"negativeTags\": \"Heavy Metal, Upbeat Drums\",\n  \"vocalGender\": \"m\",\n  \"styleWeight\": 0.65,\n  \"weirdnessConstraint\": 0.65,\n  \"audioWeight\": 0.65\n}",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "356dff65",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.3\n🔒 Hash: 356dff65\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLm91dHB1dFBhcnNlclN0cnVjdHVyZWQiLCJuYW1lIjoiU3RydWN0dXJlZCBPdXRwdXQgUGFyc2VyIiwidHlwZVZlcnNpb24iOjEuMywicGFyYW1ldGVyS2V5cyI6WyJqc29uU2NoZW1hRXhhbXBsZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "0f34ef52-a857-4bca-9954-a1d4fe2c0913",
+      "name": "Music Generator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -960,
+        1360
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['What type of song to generate?'] }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=#Role & Goal\nYou generate a single JSON object configuring Suno.com to create a song based on the user’s request.\nYou must strictly follow the rules and return JSON only—no extra text.\n\n#Inputs (from the calling app)\n\nuser_prompt (string): what the user wants.\ncustomMode (boolean): whether to use Custom Mode.\ninstrumental (boolean): whether the track is instrumental.\nmodelVersion (enum): one of V3_5, V4, V4_5, V4_5PLUS, V5.\nOptional hints (may be absent): style, title, negativeTags, vocalGender, styleWeight, weirdnessConstraint, audioWeight, callBackUrl.\n\n#Hard Rules\nOutput format: return exactly one JSON object with keys in the order shown in Output Schema.\nMode logic\nCustom Mode (customMode: true)\nIf instrumental: true: style and title are required.\nprompt is allowed and recommended if helpful.\nIf instrumental: false: style, prompt, and title are required.\nNon-Custom Mode (customMode: false)\nOnly include customMode and prompt.\nprompt length limit is 500 characters.\nDo not include any other keys (omit them entirely).\nCharacter limits by model\ntitle ≤ 80 on all models\nIf any field exceeds the limit, compress (remove filler, redundancies) and truncate with an ellipsis if needed.\n\n#Optional parameters behavior (Custom Mode only)\n\nvocalGender: use \"m\" or \"f\" only when vocals are requested or implied; omit otherwise. This increases probability but doesn’t guarantee the voice.\nstyleWeight, weirdnessConstraint, audioWeight: range 0–1, round to 2 decimals.\nnegativeTags: include if provided or if the user says “no/avoid/without …”. Otherwise omit.\n\n##Sanitization & consistency\nRemove contradictory phrases (e.g., “quiet but extremely loud”).\nRespect explicit exclusions (e.g., “no drums,” add negativeTags accordingly).\nIf the user specifies genre/era/mood/bpm/instruments, weave them into style (concise) and prompt (descriptive).\n\n##Title policy\nShort, evocative, ≤ 80 chars, Title Case, no emojis, no trailing punctuation.\n\n##Inference defaults (when user is vague)\nstyle: infer concise genre/mood tags from user_prompt (e.g., “Lo-fi, Chillhop, Warm Tape Hiss”).\ntitle: 2–6 words from the main theme (e.g., “Midnight Harbor Lights”).\nvocalGender: omit unless explicitly requested (e.g., “male vocals”).\n\n##Numeric weights:\n\nStart from 0.65 if the user doesn’t indicate strictness/experimentation.\nIf the user wants strict fidelity (“stick closely”, “exactly like”): styleWeight 0.8–0.95, weirdnessConstraint 0.15–0.35.\nIf the user wants experimental: styleWeight 0.4–0.6, weirdnessConstraint 0.6–0.9.\nIf the user emphasizes sonic texture/production (“sound design”, “timbre”, “punchy mix”): set audioWeight 0.7–0.9; otherwise 0.5–0.7.\n\n##Compression heuristics (when over limits)\n\nPrioritize: instruments → genre → mood → tempo → structure → reference vibes.\nRemove fillers (“very”, “really”), duplicates, platform meta.\nMerge equivalent tags, e.g., “calm, soothing, relaxing” → “calm, relaxing”.\n\n##Style drafting tips\n\nKeep style compact, comma-separated tags (2–8 items max).\nPut long narrative, scene and arrangement details in prompt.\nFor instrumental requests, ensure style clearly encodes genre + mood; avoid vocal directives.\n\n##Negative tags extraction\n\nDetect phrases like “no/avoid/without/skip X”. Add them to negativeTags as a comma-separated string.\nCommon auto-exclusions for calm/ambient pieces if not contradicted: “Harsh Distortion, Screaming Vocals, Blast Beats”.\n\n##Algorithm (step-by-step)\n\nRead customMode, instrumental, and user_prompt.\n\nIf customMode is false → produce only { customMode: false, prompt }, enforce 500-char limit, stop.\nIf customMode is true:\nBuild a concise style from genre/mood/instrument tags inferred from user_prompt and any hints.\nCreate title (2–6 words, Title Case).\nSet prompt:\nIf instrumental: false → required; include narrative, role, arrangement, energy curve.\nIf instrumental: true → optional; include if it adds clarity (e.g., structure, dynamics).\nExtract negativeTags from “no/avoid/without…” phrases. Omit if none.\nSet vocalGender only if vocals requested and gender is specified.\nDetermine numeric weights per Inference defaults; round to 2 decimals; omit if truly unset.\nEnforce model-specific limits (prompt/style/title). Compress/truncate as needed.\n\n#Mini Examples\n\n## Custom, Instrumental (calm piano)\nUser says: “A calm and relaxing piano track with soft melodies. No drums.”\nOutput:\n\n{\n  \"prompt\": \"Gentle solo piano with spacious room reverb, slow evolving voicings, soft dynamics, lullaby feel, minimal pedaling, simple A–B structure.\",\n  \"style\": \"Classical, Ambient, Calm, Soft Piano\",\n  \"title\": \"Peaceful Piano Meditation\",\n  \"customMode\": true,\n  \"instrumental\": true,\n  \"styleWeight\": 0.70,\n  \"weirdnessConstraint\": 0.30,\n  \"audioWeight\": 0.60\n}\n\n\n## Custom, With Vocals (male indie folk)\nUser says: “Intimate indie-folk ballad with male vocals, fingerpicked guitar, cabin vibe. Avoid synths.”\nOutput:\n\n{\n  \"prompt\": \"Warm fingerpicked acoustic guitar, close-mic vocal, intimate cabin ambience, gentle brush percussion, subtle double-tracked chorus, verse–chorus–bridge structure.\",\n  \"style\": \"Indie Folk, Acoustic, Intimate, Warm, Lo-Fi Room\",\n  \"title\": \"Cabin Light\",\n  \"customMode\": true,\n  \"instrumental\": false,\n  \"negativeTags\": \"Synths, EDM Leads, Heavy Distortion\",\n  \"vocalGender\": \"m\",\n  \"styleWeight\": 0.75,\n  \"weirdnessConstraint\": 0.35,\n  \"audioWeight\": 0.65\n}\n\n#Notes\nOutput ONLY a single valid JSON object. Do NOT include any text, comments, or formatting before or after the JSON. Do NOT use markdown code blocks.",
+          "passthroughBinaryImages": false
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "b705e3d",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2.2\n🔒 Hash: b705e3d\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmFnZW50IiwibmFtZSI6Ik11c2ljIEdlbmVyYXRvciIsInR5cGVWZXJzaW9uIjoyLjIsInBhcmFtZXRlcktleXMiOlsiaGFzT3V0cHV0UGFyc2VyIiwib3B0aW9ucyIsInByb21wdFR5cGUiLCJ0ZXh0Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "5b474160-3081-406a-8595-6ff265f85631",
+      "name": "Switch3",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        832,
+        1040
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "df912d81-f99a-4e74-ad26-e40095ca8201"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5aa79cc9-9c8b-4cdc-a2ba-627097408fdd",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "PENDING",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9e37a7be-4332-4725-8231-3a01d5680d75",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "TEXT_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "be3f823e-6e4f-41f2-bb71-25f3a955c98d",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "FIRST_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5e08a602",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.3\n🔒 Hash: 5e08a602\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3dpdGNoIiwibmFtZSI6IlN3aXRjaDMiLCJ0eXBlVmVyc2lvbiI6My4zLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJydWxlcyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "0973e00d-d626-4af5-844d-2dd56e95bf5a",
+      "name": "Switch4",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        832,
+        1328
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "df912d81-f99a-4e74-ad26-e40095ca8201"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5aa79cc9-9c8b-4cdc-a2ba-627097408fdd",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "PENDING",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9e37a7be-4332-4725-8231-3a01d5680d75",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "TEXT_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "be3f823e-6e4f-41f2-bb71-25f3a955c98d",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "FIRST_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5e08a602",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.3\n🔒 Hash: 5e08a602\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3dpdGNoIiwibmFtZSI6IlN3aXRjaDQiLCJ0eXBlVmVyc2lvbiI6My4zLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJydWxlcyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "62675116-7c21-4fe1-9e76-89e6d2f14496",
+      "name": "OpenRouter Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -1024,
+        1968
+      ],
+      "parameters": {
+        "model": "openai/gpt-4.1",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1f2a4b9a",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: 1f2a4b9a\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hhdE9wZW5Sb3V0ZXIiLCJuYW1lIjoiT3BlblJvdXRlciBDaGF0IE1vZGVsMSIsInR5cGVWZXJzaW9uIjoxLCJwYXJhbWV0ZXJLZXlzIjpbIm1vZGVsIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "91944f72-f6dc-4c41-b195-3bce2f53bd43",
+      "name": "Wait3",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        1776
+      ],
+      "parameters": {
+        "amount": 10,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4cf7f71f",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "webhookId": "b4e6173f-9a9f-4504-886c-4b8a60938b0d",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.1\n🔒 Hash: 4cf7f71f\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2FpdCIsIm5hbWUiOiJXYWl0MyIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsiYW1vdW50Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "75d75720-1c69-489f-b4be-550ddb43cd6b",
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        336,
+        1744
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "df912d81-f99a-4e74-ad26-e40095ca8201"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5aa79cc9-9c8b-4cdc-a2ba-627097408fdd",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "PENDING",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "9e37a7be-4332-4725-8231-3a01d5680d75",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "TEXT_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "be3f823e-6e4f-41f2-bb71-25f3a955c98d",
+                    "leftValue": "={{ $json.data.status }}",
+                    "rightValue": "FIRST_SUCCESS",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "da98926e-57fd-43f4-b2bf-12fd1efcf4aa",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "40030215",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.3\n🔒 Hash: 40030215\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3dpdGNoIiwibmFtZSI6IlN3aXRjaDEiLCJ0eXBlVmVyc2lvbiI6My4zLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJydWxlcyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "cd7d173f-6ce4-43d2-82d9-6e6f51ce5c5e",
+      "name": "Upload file2",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        784,
+        1664
+      ],
+      "parameters": {
+        "name": "={{ $json.data.response.sunoData[0].title }}_v1.mp3",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1o3Tp2PjViKKQd14GZ8zNCDQsePPlnZ5_",
+          "mode": "list",
+          "cachedResultName": "Suno AI + n8n",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1o3Tp2PjViKKQd14GZ8zNCDQsePPlnZ5_"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4759a5e2",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "siBlLbKMnupNqXD6",
+          "name": "Google Drive account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3\n🔒 Hash: 4759a5e2\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ29vZ2xlRHJpdmUiLCJuYW1lIjoiVXBsb2FkIGZpbGUyIiwidHlwZVZlcnNpb24iOjMsInBhcmFtZXRlcktleXMiOlsiZHJpdmVJZCIsImZvbGRlcklkIiwibmFtZSIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "a45e0b0b-3260-49f9-865b-4a1fe3da79e0",
+      "name": "Upload file3",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        784,
+        1856
+      ],
+      "parameters": {
+        "name": "={{ $json.data.response.sunoData[1].title }}_v2.mp3",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1o3Tp2PjViKKQd14GZ8zNCDQsePPlnZ5_",
+          "mode": "list",
+          "cachedResultName": "Suno AI + n8n",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1o3Tp2PjViKKQd14GZ8zNCDQsePPlnZ5_"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "38db25c0",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "siBlLbKMnupNqXD6",
+          "name": "Google Drive account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3\n🔒 Hash: 38db25c0\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ29vZ2xlRHJpdmUiLCJuYW1lIjoiVXBsb2FkIGZpbGUzIiwidHlwZVZlcnNpb24iOjMsInBhcmFtZXRlcktleXMiOlsiZHJpdmVJZCIsImZvbGRlcklkIiwibmFtZSIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "fab9f9b9-8fff-4105-aa8a-c240ea214303",
+      "name": "Get Song ",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        1856
+      ],
+      "parameters": {
+        "url": "={{ $json.data.response.sunoData[1].audioUrl }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2fb8512",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 2fb8512\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiR2V0IFNvbmcgIiwidHlwZVZlcnNpb24iOjQuMiwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwidXJsIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "e4a84042-fc3e-405b-befc-fd7d5115e143",
+      "name": "Get Song 3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        1664
+      ],
+      "parameters": {
+        "url": "={{ $json.data.response.sunoData[0].audioUrl }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4e043faf",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 4e043faf\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiR2V0IFNvbmcgMyIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "21345dcd-bd76-473c-a638-94e412e8dcce",
+      "name": "Check Status3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        144,
+        1776
+      ],
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/generate/record-info",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [YOUR_API_KEY]"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2138ddb3",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 2138ddb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiQ2hlY2sgU3RhdHVzMyIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiaGVhZGVyUGFyYW1ldGVycyIsIm9wdGlvbnMiLCJxdWVyeVBhcmFtZXRlcnMiLCJzZW5kSGVhZGVycyIsInNlbmRRdWVyeSIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiaGVhZGVyUGFyYW1ldGVycyI6eyJwYXJhbUNvdW50IjoxfSwicXVlcnlQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "e3ce8b5a-fcae-44ec-bd5f-d50dd2ce85fe",
+      "name": "Create a song1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -288,
+        1776
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/generate",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [YOUR_API_KEY]"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.output }}"
+            },
+            {
+              "name": "style",
+              "value": "={{ $('Music Generator1').item.json.output.style }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $('Music Generator1').item.json.output.title }}"
+            },
+            {
+              "name": "customMode",
+              "value": "={{ $('Music Generator1').item.json.output.customMode }}"
+            },
+            {
+              "name": "instrumental",
+              "value": "={{ $('Music Generator1').item.json.output.instrumental }}"
+            },
+            {
+              "name": "model",
+              "value": "V5"
+            },
+            {
+              "name": "callBackUrl",
+              "value": "https://api.example.com/callback"
+            },
+            {
+              "name": "negativeTags",
+              "value": "={{ $('Music Generator1').item.json.output.negativeTags }}"
+            },
+            {
+              "name": "vocalGender",
+              "value": "={{ $('Music Generator1').item.json.output.vocalGender }}"
+            },
+            {
+              "name": "styleWeight",
+              "value": "={{ $('Music Generator1').item.json.output.styleWeight }}"
+            },
+            {
+              "name": "weirdnessConstraint",
+              "value": "={{ $('Music Generator1').item.json.output.weirdnessConstraint }}"
+            },
+            {
+              "name": "audioWeight",
+              "value": "={{ $('Music Generator1').item.json.output.audioWeight }}"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7d893e2b",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 7d893e2b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiQ3JlYXRlIGEgc29uZzEiLCJ0eXBlVmVyc2lvbiI6NC4yLCJwYXJhbWV0ZXJLZXlzIjpbImJvZHlQYXJhbWV0ZXJzIiwiaGVhZGVyUGFyYW1ldGVycyIsIm1ldGhvZCIsIm9wdGlvbnMiLCJzZW5kQm9keSIsInNlbmRIZWFkZXJzIiwidXJsIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJib2R5UGFyYW1ldGVycyI6eyJwYXJhbUNvdW50IjoxMn0sImhlYWRlclBhcmFtZXRlcnMiOnsicGFyYW1Db3VudCI6MX19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "015780ee-d3d5-41cc-a385-89099638d753",
+      "name": "Structured Output Parser1",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        -816,
+        1984
+      ],
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"prompt\": \"A calm and relaxing piano track with soft melodies\",\n  \"style\": \"Classical\",\n  \"title\": \"Peaceful Piano Meditation\",\n  \"customMode\": true,\n  \"instrumental\": true,\n  \"negativeTags\": \"Heavy Metal, Upbeat Drums\",\n  \"vocalGender\": \"m\",\n  \"styleWeight\": 0.65,\n  \"weirdnessConstraint\": 0.65,\n  \"audioWeight\": 0.65\n}",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "356dff65",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.3\n🔒 Hash: 356dff65\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLm91dHB1dFBhcnNlclN0cnVjdHVyZWQiLCJuYW1lIjoiU3RydWN0dXJlZCBPdXRwdXQgUGFyc2VyMSIsInR5cGVWZXJzaW9uIjoxLjMsInBhcmFtZXRlcktleXMiOlsianNvblNjaGVtYUV4YW1wbGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "e0e8fef1-4bd4-4a37-accd-52ff1b379088",
+      "name": "Music Generator1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -976,
+        1776
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('On form submission').item.json['What type of song to generate?'] }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=#Role & Goal\nYou generate a single JSON object configuring Suno.com to create a song based on the user’s request.\nYou must strictly follow the rules and return JSON only—no extra text.\n\n#Inputs (from the calling app)\n\nuser_prompt (string): what the user wants.\ncustomMode (boolean): whether to use Custom Mode.\ninstrumental (boolean): whether the track is instrumental.\nvocalGender (string): \"m\" stands for male, \"f\" stands for female.\nOptional hints (may be absent): style, title, negativeTags, vocalGender, styleWeight, weirdnessConstraint, audioWeight, callBackUrl.\n\n#Hard Rules\nOutput format: return exactly one JSON object with keys in the order shown in Output Schema.\nMode logic\nCustom Mode (customMode: true)\nIf instrumental: true: style and title are required.\nprompt is allowed and recommended if helpful.\nIf instrumental: false: style, prompt, and title are required.\nNon-Custom Mode (customMode: false)\nOnly include customMode and prompt.\nprompt length limit is 500 characters.\nDo not include any other keys (omit them entirely).\nCharacter limits by model\ntitle ≤ 80 on all models\nIf any field exceeds the limit, compress (remove filler, redundancies) and truncate with an ellipsis if needed.\n\n#Optional parameters behavior (Custom Mode only)\n\nvocalGender: use \"m\" or \"f\" This increases probability but doesn’t guarantee the voice.\nstyleWeight, weirdnessConstraint, audioWeight: range 0–1, round to 2 decimals.\nnegativeTags: include if provided or if the user says “no/avoid/without …”. Otherwise omit.\n\n##Sanitization & consistency\nRemove contradictory phrases (e.g., “quiet but extremely loud”).\nRespect explicit exclusions (e.g., “no drums,” add negativeTags accordingly).\nIf the user specifies genre/era/mood/bpm/instruments, weave them into style (concise) and prompt (descriptive).\n\n##Title policy\nShort, evocative, ≤ 80 chars, Title Case, no emojis, no trailing punctuation.\n\n##Inference defaults (when user is vague)\nstyle: infer concise genre/mood tags from user_prompt (e.g., “Lo-fi, Chillhop, Warm Tape Hiss”).\ntitle: 2–6 words from the main theme (e.g., “Midnight Harbor Lights”).\nvocalGender: omit unless explicitly requested (e.g., “male vocals”).\n\n##Numeric weights:\n\nStart from 0.65 if the user doesn’t indicate strictness/experimentation.\nIf the user wants strict fidelity (“stick closely”, “exactly like”): styleWeight 0.8–0.95, weirdnessConstraint 0.15–0.35.\nIf the user wants experimental: styleWeight 0.4–0.6, weirdnessConstraint 0.6–0.9.\nIf the user emphasizes sonic texture/production (“sound design”, “timbre”, “punchy mix”): set audioWeight 0.7–0.9; otherwise 0.5–0.7.\n\n##Compression heuristics (when over limits)\n\nPrioritize: instruments → genre → mood → tempo → structure → reference vibes.\nRemove fillers (“very”, “really”), duplicates, platform meta.\nMerge equivalent tags, e.g., “calm, soothing, relaxing” → “calm, relaxing”.\n\n##Style drafting tips\n\nKeep style compact, comma-separated tags (2–8 items max).\nPut long narrative, scene and arrangement details in prompt.\nFor instrumental requests, ensure style clearly encodes genre + mood; avoid vocal directives.\n\n##Negative tags extraction\n\nDetect phrases like “no/avoid/without/skip X”. Add them to negativeTags as a comma-separated string.\nCommon auto-exclusions for calm/ambient pieces if not contradicted: “Harsh Distortion, Screaming Vocals, Blast Beats”.\n\n##Algorithm (step-by-step)\n\nRead customMode, instrumental, and user_prompt.\n\nIf customMode is false → produce only { customMode: false, prompt }, enforce 500-char limit, stop.\nIf customMode is true:\nBuild a concise style from genre/mood/instrument tags inferred from user_prompt and any hints.\nCreate title (2–6 words, Title Case).\nSet prompt:\nIf instrumental: false → required; include narrative, role, arrangement, energy curve.\nIf instrumental: true → optional; include if it adds clarity (e.g., structure, dynamics).\nExtract negativeTags from “no/avoid/without…” phrases. Omit if none.\nSet vocalGender only if vocals requested and gender is specified.\nDetermine numeric weights per Inference defaults; round to 2 decimals; omit if truly unset.\nEnforce model-specific limits (prompt/style/title). Compress/truncate as needed.\n\n#Mini Examples\n\n## Custom, Instrumental (calm piano)\nUser says: “A calm and relaxing piano track with soft melodies. No drums.”\nOutput:\n\n{\n  \"prompt\": \"Gentle solo piano with spacious room reverb, slow evolving voicings, soft dynamics, lullaby feel, minimal pedaling, simple A–B structure.\",\n  \"style\": \"Classical, Ambient, Calm, Soft Piano\",\n  \"title\": \"Peaceful Piano Meditation\",\n  \"customMode\": true,\n  \"instrumental\": true,\n  \"vocalGender\": \"f\",\n  \"styleWeight\": 0.70,\n  \"weirdnessConstraint\": 0.30,\n  \"audioWeight\": 0.60\n}\n\n\n## Custom, With Vocals (male indie folk)\nUser says: “Intimate indie-folk ballad with male vocals, fingerpicked guitar, cabin vibe. Avoid synths.”\nOutput:\n\n{\n  \"prompt\": \"Warm fingerpicked acoustic guitar, close-mic vocal, intimate cabin ambience, gentle brush percussion, subtle double-tracked chorus, verse–chorus–bridge structure.\",\n  \"style\": \"Indie Folk, Acoustic, Intimate, Warm, Lo-Fi Room\",\n  \"title\": \"Cabin Light\",\n  \"customMode\": true,\n  \"instrumental\": false,\n  \"negativeTags\": \"Synths, EDM Leads, Heavy Distortion\",\n  \"vocalGender\": \"m\",\n  \"styleWeight\": 0.75,\n  \"weirdnessConstraint\": 0.35,\n  \"audioWeight\": 0.65\n}\n\n#Notes\nOutput ONLY a single valid JSON object. Do NOT include any text, comments, or formatting before or after the JSON. Do NOT use markdown code blocks.",
+          "passthroughBinaryImages": false
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "19d50d47",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2.2\n🔒 Hash: 19d50d47\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmFnZW50IiwibmFtZSI6Ik11c2ljIEdlbmVyYXRvcjEiLCJ0eXBlVmVyc2lvbiI6Mi4yLCJwYXJhbWV0ZXJLZXlzIjpbImhhc091dHB1dFBhcnNlciIsIm9wdGlvbnMiLCJwcm9tcHRUeXBlIiwidGV4dCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "ad316a76-0db8-4cd7-9abd-398a1de0080e",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1232,
+        1568
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b95ad2d8-dcf7-4c31-8188-cba80ea55e0f",
+              "leftValue": "={{ $json['Song with lyrics?'] }}",
+              "rightValue": "No",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "36a7d132",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2.2\n🔒 Hash: 36a7d132\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiSWYiLCJ0eXBlVmVyc2lvbiI6Mi4yLCJwYXJhbWV0ZXJLZXlzIjpbImNvbmRpdGlvbnMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "75563877-cf81-4701-91ec-d1e3bd2dd6d2",
+      "name": "Lyrics Generator",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -624,
+        1776
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('On form submission').item.json['What type of song to generate?'] }}",
+        "options": {
+          "systemMessage": "=#Role & Goal\nYou transform a user prompt into fully written song lyrics using a strict, and exact formatting. Your output is text only—no explanations outside the required sections.\n\n#Inputs (from the calling app)\n\nuser_prompt (string): concept, genre, mood, imagery, references, language, constraints.\nOptional hints: desired structure (e.g., add a bridge), vocal perspective (I/you/they), time period, setting, key phrases to include/avoid, language.\n\n#Hard Rules\n\nLanguage: write in the language requested by the user; if unspecified, use English.\nNo placeholders like “(Lyrics…)” in Step 4—write real lyrics. Placeholders are allowed only in Step 3.\nConsistency: maintain a single POV and tense unless the user asks for a shift. Keep imagery, mood, and narrative coherent.\nQuality: avoid clichés and filler; favor concrete imagery, metaphor, internal rhyme/alliteration where natural; hooks should be memorable.\nDefault Song Structure (adapt per genre if user is silent)\n\n[Intro] → brief scene-setting (can be instrumental)\n[Verse 1] → establish setting, character, conflict\n[Pre-Chorus] (optional) → tension lift toward chorus\n[Chorus] → central hook/theme\n[Verse 2] → development/twist/details\n[Bridge] (optional) → contrast or perspective shift\n[Chorus] (repeat verbatim unless user requests variation)\n[Outro] → resolution or thematic echo (can be instrumental)\n\n#Tagging Schema\n\n##use single bracket for section, then parentheses for a one-line cue.\nExample:\n[Verse 1]\n(Lyrics about digital loneliness)\n\n##Use double bracket line—first bracket is the section, second bracket lists 2–5 tags describing emotion + production, then write the lyrics lines below.\nExample:\n[Verse 1] [moody + brooding, minimal synth]\n<lyric lines…>\n\n#Line & Length Guidance (adapt to genre)\nVerse: 6–10 lines\nPre-Chorus: 2–4 lines\nChorus: 4–8 lines; repeat chorus identically when it returns unless asked otherwise\nBridge: 4–6 lines\nIntro/Outro: 1–4 lines or instrumental note\nKeep lines concise (typically ≤ 12–14 syllables) and singable.\n\n#Example_output\n\n[Intro] [<emotion + emotion, key instrument/texture>]\n<lyrics or \"(Instrumental …)\" if instrumental-only>\n\n[Verse 1] [<emotion + emotion, instrument/texture>]\n<6–10 lyric lines advancing the story>\n\n[Pre-Chorus] [<lift/anticipation, production note>]  <-- omit if not used\n<2–4 lyric lines tightening the hook>\n\n[Chorus] [<anthemic/soaring OR intimate/understated, hook-forward>]\n<4–8 lyric lines with the memorable hook; repeat verbatim on return>\n\n[Verse 2] [<developing, added detail/texture>]\n<6–10 lyric lines evolving narrative or imagery>\n\n[Bridge] [<contrast/shift, spatial/reverb note>]      <-- omit if not used\n<4–6 lyric lines offering a fresh angle or emotional turn>\n\n[Chorus] [<same tags as first chorus>]\n<repeat the exact chorus from above unless user asked for variation>\n\n[Outro] [<resolving, fade/echo, instrument>]\n<1–4 lyric lines or \"(Instrumental …)\">\n\n\n#Implementation Notes\n-Derive concrete images and metaphors from user_prompt (time of day, setting, weather, objects, colors, sensory details).\n-Weave any must-use phrases naturally; if user lists “avoid” items, do not include them.\n-Keep punctuation clean; no rhyming labels (AABB) or chord charts.\n-Never include the words “placeholder” or “example” in the final lyrics.\n-No extra commentary—only the four sections above."
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "610c1bac",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2.2\n🔒 Hash: 610c1bac\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmFnZW50IiwibmFtZSI6Ikx5cmljcyBHZW5lcmF0b3IiLCJ0eXBlVmVyc2lvbiI6Mi4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJwcm9tcHRUeXBlIiwidGV4dCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "a56b857e-1519-42a7-9834-9a067641a19b",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -624,
+        1952
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "60e344d1",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.2\n🔒 Hash: 60e344d1\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hhdE9wZW5BaSIsIm5hbWUiOiJPcGVuQUkgQ2hhdCBNb2RlbCIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsibW9kZWwiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "93476062-bdb3-45d9-a057-aec00f138492",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -992,
+        1728
+      ],
+      "parameters": {
+        "content": "Generate song with lyrics\n",
+        "width": 278,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "b879123",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: b879123\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZSIsInR5cGVWZXJzaW9uIjoxLCJwYXJhbWV0ZXJLZXlzIjpbImNvbnRlbnQiLCJ3aWR0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "56522ec9-de1b-4b1b-aa1a-f4e59cba803d",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -976,
+        1312
+      ],
+      "parameters": {
+        "content": "Generate song w/o lyrics\n",
+        "width": 272,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "348d61d0",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: 348d61d0\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTEiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJjb250ZW50Iiwid2lkdGgiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "3d31479f-a41d-4fd2-b9d3-2b8b10d38c0b",
+      "name": "Extend Song_1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        256,
+        1072
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/generate/extend",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [YOUR_API_KEY]"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "defaultParamFlag",
+              "value": "false"
+            },
+            {
+              "name": "audioId",
+              "value": "={{ $json.data.response.sunoData[0].id }}"
+            },
+            {
+              "name": "model",
+              "value": "V5"
+            },
+            {
+              "name": "callBackUrl",
+              "value": "https://api.example.com/callback"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "470d746e",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 470d746e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiRXh0ZW5kIFNvbmdfMSIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiYm9keVBhcmFtZXRlcnMiLCJoZWFkZXJQYXJhbWV0ZXJzIiwibWV0aG9kIiwib3B0aW9ucyIsInNlbmRCb2R5Iiwic2VuZEhlYWRlcnMiLCJ1cmwiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImJvZHlQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjR9LCJoZWFkZXJQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjJ9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "f1320adb-101e-494f-be2e-dced1c320e42",
+      "name": "Extend Song_2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        256,
+        1328
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/generate/extend",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer [YOUR_API_KEY]"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "defaultParamFlag",
+              "value": "false"
+            },
+            {
+              "name": "audioId",
+              "value": "={{ $json.data.response.sunoData[1].id }}"
+            },
+            {
+              "name": "model",
+              "value": "V5"
+            },
+            {
+              "name": "callBackUrl",
+              "value": "https://api.example.com/callback"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2d50110f",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 2d50110f\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiRXh0ZW5kIFNvbmdfMiIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiYm9keVBhcmFtZXRlcnMiLCJoZWFkZXJQYXJhbWV0ZXJzIiwibWV0aG9kIiwib3B0aW9ucyIsInNlbmRCb2R5Iiwic2VuZEhlYWRlcnMiLCJ1cmwiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImJvZHlQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjR9LCJoZWFkZXJQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjJ9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "2fef2430-df95-459b-b18b-d8a8cc824423",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1152,
+        176
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJXaGVuIGNsaWNraW5nIOKAmEV4ZWN1dGUgd29ya2Zsb3figJkiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "3f8c2914-fd35-4956-96c6-f516452c7948",
+      "name": "Upload file4",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        256,
+        16
+      ],
+      "parameters": {
+        "name": "=name",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1H26_YK4vmOipSLU7hLRmmPp5LFL7Wfjm",
+          "mode": "list",
+          "cachedResultName": "suno",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1H26_YK4vmOipSLU7hLRmmPp5LFL7Wfjm"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3ae14edc",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "siBlLbKMnupNqXD6",
+          "name": "Google Drive account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3\n🔒 Hash: 3ae14edc\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ29vZ2xlRHJpdmUiLCJuYW1lIjoiVXBsb2FkIGZpbGU0IiwidHlwZVZlcnNpb24iOjMsInBhcmFtZXRlcktleXMiOlsiZHJpdmVJZCIsImZvbGRlcklkIiwibmFtZSIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "c50cad4a-bd72-4b00-8d4b-7dd4d07f98fa",
+      "name": "Wait4",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -704,
+        176
+      ],
+      "parameters": {
+        "amount": 10,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "198e627e",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "webhookId": "634a0e4d-0b75-4223-ac55-c1751815098a",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.1\n🔒 Hash: 198e627e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2FpdCIsIm5hbWUiOiJXYWl0NCIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsiYW1vdW50Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "176304ef-4495-45a4-a554-73bd8bc9987a",
+      "name": "Create a Song",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -944,
+        176
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:3000/api/generate",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "Ethereal Celtic-ambient soundscape with harp, medieval, deep, soft, ambient"
+            },
+            {
+              "name": "make_instrumental",
+              "value": "true"
+            },
+            {
+              "name": "wait_audio",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "9d863d2",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 9d863d2\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiQ3JlYXRlIGEgU29uZyIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiYm9keVBhcmFtZXRlcnMiLCJtZXRob2QiLCJvcHRpb25zIiwic2VuZEJvZHkiLCJ1cmwiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImJvZHlQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjN9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "df9275fd-4ada-48db-9f2b-63c760785070",
+      "name": "Check the status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -496,
+        176
+      ],
+      "parameters": {
+        "url": "=http://host.docker.internal:3000/api/get?ids={{$json.id}}",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1323f140",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 1323f140\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiQ2hlY2sgdGhlIHN0YXR1cyIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiaGVhZGVyUGFyYW1ldGVycyIsIm9wdGlvbnMiLCJxdWVyeVBhcmFtZXRlcnMiLCJzZW5kSGVhZGVycyIsInNlbmRRdWVyeSIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiaGVhZGVyUGFyYW1ldGVycyI6eyJwYXJhbUNvdW50IjoxfSwicXVlcnlQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "eec19129-b3e2-456b-acb6-51dd692651ab",
+      "name": "Switch2",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -256,
+        144
+      ],
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "complete",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "158729bf-c922-49b8-9cf6-27759d230a58"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "fbb6e7d0-1c4b-472a-8ece-f0829e90a3e1",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "complete",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f20bdf30-70ab-4807-8262-8f66bc306101",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "complete",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2de43b90-7f71-41ca-8801-f376e5015c31",
+                    "leftValue": "={{ $json.status }}",
+                    "rightValue": "complete",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notEquals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "26a6852b",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.3\n🔒 Hash: 26a6852b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3dpdGNoIiwibmFtZSI6IlN3aXRjaDIiLCJ0eXBlVmVyc2lvbiI6My4zLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJydWxlcyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "fba341a1-fa90-4482-92ea-7e363ff91b36",
+      "name": "Download the song",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "url": "={{ $json.audio_url }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7a6600f6",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 7a6600f6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiRG93bmxvYWQgdGhlIHNvbmciLCJ0eXBlVmVyc2lvbiI6NC4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ1cmwiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "ab1370b7-a5b3-4cca-8c67-8b91d6438280",
+      "name": "Download the song1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        160
+      ],
+      "parameters": {
+        "url": "={{ $json.audio_url }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7a6600f6",
+          "created": "2026-02-08T05:47:47.055Z",
+          "lastModified": "2026-02-08T05:47:47.055Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v4.2\n🔒 Hash: 7a6600f6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiRG93bmxvYWQgdGhlIHNvbmcxIiwidHlwZVZlcnNpb24iOjQuMiwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwidXJsIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Music Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Check Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Extend Song_1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extend Song_2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Song 2": {
+      "main": [
+        [
+          {
+            "node": "Upload file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Song 1": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a song": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Check Status1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Check Status2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status1": {
+      "main": [
+        [
+          {
+            "node": "Switch3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status2": {
+      "main": [
+        [
+          {
+            "node": "Switch4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Music Generator",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Music Generator": {
+      "main": [
+        [
+          {
+            "node": "Create a song",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch3": {
+      "main": [
+        [
+          {
+            "node": "Get Song 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch4": {
+      "main": [
+        [
+          {
+            "node": "Get Song 2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Music Generator1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Check Status3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Get Song 3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Song ",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Song ": {
+      "main": [
+        [
+          {
+            "node": "Upload file3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Song 3": {
+      "main": [
+        [
+          {
+            "node": "Upload file2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status3": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a song1": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Music Generator1",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Music Generator1": {
+      "main": [
+        [
+          {
+            "node": "Lyrics Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Music Generator",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Music Generator1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lyrics Generator": {
+      "main": [
+        [
+          {
+            "node": "Create a song1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Lyrics Generator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extend Song_1": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extend Song_2": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Create a Song",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "node": "Check the status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a Song": {
+      "main": [
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check the status": {
+      "main": [
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [
+          {
+            "node": "Download the song",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Download the song1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download the song": {
+      "main": [
+        [
+          {
+            "node": "Upload file4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download the song1": {
+      "main": [
+        [
+          {
+            "node": "Upload file4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
