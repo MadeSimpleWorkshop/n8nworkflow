@@ -305,7 +305,7 @@
             {
               "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
               "name": "purple",
-              "value": "rain9",
+              "value": "raina",
               "type": "string"
             }
           ]
@@ -313,12 +313,12 @@
         "options": {},
         "_versionControl": {
           "version": "3.1.6",
-          "hash": "2e90000a",
+          "hash": "1cfabae2",
           "created": "Feb 6, 2026, 07:29 PM",
-          "lastModified": "2026-02-08T01:56:19.157Z"
+          "lastModified": "2026-02-08T01:58:36.913Z"
         }
       },
-      "notes": "📌 Version: 3.1.6\n📅 Modified: Feb 8, 2026, 01:56 AM\n🔧 Node Type: v3.4\n🔒 Hash: 2e90000a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notes": "📌 Version: 3.1.6\n📅 Modified: Feb 8, 2026, 01:58 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1cfabae2\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
       "notesInFlow": true
     }
   ],
