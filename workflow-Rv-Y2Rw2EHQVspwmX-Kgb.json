@@ -175,7 +175,7 @@
             {
               "id": "11",
               "name": "gitPushEnabled",
-              "value": false,
+              "value": true,
               "type": "boolean"
             },
             {
@@ -201,12 +201,12 @@
         "options": {},
         "_versionControl": {
           "version": "1.2.0",
-          "hash": "149f44c9",
+          "hash": "30fbd73e",
           "created": "Feb 6, 2026, 05:16 PM",
-          "lastModified": "2026-02-08T03:03:12.085Z"
+          "lastModified": "2026-02-08T03:04:07.926Z"
         }
       },
-      "notes": "📌 Version: 1.2.0\n📅 Modified: Feb 8, 2026, 03:03 AM\n🔧 Node Type: v3.4\n🔒 Hash: 149f44c9\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjEyfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notes": "📌 Version: 1.2.0\n📅 Modified: Feb 8, 2026, 03:04 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30fbd73e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjEyfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
       "notesInFlow": true
     },
     {
@@ -315,10 +315,10 @@
           "version": "3.1.4",
           "hash": "30c2a8af",
           "created": "Feb 6, 2026, 07:29 PM",
-          "lastModified": "2026-02-08T03:03:12.085Z"
+          "lastModified": "2026-02-08T03:04:07.926Z"
         }
       },
-      "notes": "📌 Version: 3.1.4\n📅 Modified: Feb 8, 2026, 03:03 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30c2a8af\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notes": "📌 Version: 3.1.4\n📅 Modified: Feb 8, 2026, 03:04 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30c2a8af\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
       "notesInFlow": true
     }
   ],
