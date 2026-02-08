@@ -1,0 +1,85 @@
+{
+  "name": "Where Is My Output?",
+  "nodes": [
+    {
+      "id": "8dbd4149-1a8a-46dd-b53e-98eead961076",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:36:55.445Z",
+          "lastModified": "2026-02-08T05:36:55.445Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:36 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJXaGVuIGNsaWNraW5nIOKAmEV4ZWN1dGUgd29ya2Zsb3figJkiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "df5e77fd-db5a-45b5-a03c-15d16dda2b5e",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9dcc25db-50ca-4104-91e9-8df4e9ca01cf",
+              "name": "name",
+              "value": "Steven",
+              "type": "string"
+            },
+            {
+              "id": "87942c45-0764-4166-a120-e1d559b8752a",
+              "name": "sourceOfVideo",
+              "value": "Where is my output?",
+              "type": "string"
+            },
+            {
+              "id": "963310cb-4a9d-429c-8f88-56aa1dadd738",
+              "name": "timestamp",
+              "value": "={{ $now.setZone('Asia/Tokyo').toFormat('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "216f5c82",
+          "created": "2026-02-08T05:36:55.445Z",
+          "lastModified": "2026-02-08T05:36:55.445Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:36 AM\n🔧 Node Type: v3.4\n🔒 Hash: 216f5c82\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6M319fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
