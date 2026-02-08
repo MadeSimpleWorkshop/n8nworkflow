@@ -1,0 +1,321 @@
+{
+  "name": "Example - Save Button Integration",
+  "nodes": [
+    {
+      "id": "9248f58d-5ceb-44a7-8bbd-81070e9f0b82",
+      "name": "Every 6 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "21894ab9",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.2\n🔒 Hash: 21894ab9\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2NoZWR1bGVUcmlnZ2VyIiwibmFtZSI6IkV2ZXJ5IDYgSG91cnMiLCJ0eXBlVmVyc2lvbiI6MS4yLCJwYXJhbWV0ZXJLZXlzIjpbInJ1bGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "0acfe094-27ef-4205-9946-ea4c84f96d09",
+      "name": "Manual Save Button",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        208
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJNYW51YWwgU2F2ZSBCdXR0b24iLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "314ff236-8794-4eb3-b916-9b89c76d035b",
+      "name": "Configure Workflows to Backup",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        112
+      ],
+      "parameters": {
+        "jsCode": "// Configure which workflows to backup\n// You can hard-code IDs or fetch them dynamically\n\nconst workflowsToBackup = [\n  {\n    id: 'YOUR_WORKFLOW_ID_1',\n    name: 'Critical Production Workflow',\n    gitEnabled: true\n  },\n  {\n    id: 'YOUR_WORKFLOW_ID_2', \n    name: 'API Integration',\n    gitEnabled: true\n  },\n  {\n    id: 'YOUR_WORKFLOW_ID_3',\n    name: 'Data Pipeline',\n    gitEnabled: false  // Local backup only for this one\n  }\n];\n\n// Return array for loop processing\nreturn workflowsToBackup.map(wf => ({\n  json: {\n    workflowId: wf.id,\n    workflowName: wf.name,\n    gitEnabled: wf.gitEnabled ?? false,\n    gitRepoPath: '/data/workflow-backups',\n    gitRemote: 'origin',\n    gitBranch: 'main',\n    localBackupPath: '/data/workflow-backups/local',\n    n8nApiUrl: $env.N8N_API_URL || 'http://localhost:5678/api/v1',\n    n8nApiKey: $env.N8N_API_KEY,\n    dryRun: false\n  }\n}));",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3ca0b815",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2\n🔒 Hash: 3ca0b815\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJDb25maWd1cmUgV29ya2Zsb3dzIHRvIEJhY2t1cCIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "cda82218-c116-4cef-aee5-3518ace419d3",
+      "name": "Loop Over Workflows",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        480,
+        112
+      ],
+      "parameters": {
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "52f2696b",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3\n🔒 Hash: 52f2696b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3BsaXRJbkJhdGNoZXMiLCJuYW1lIjoiTG9vcCBPdmVyIFdvcmtmbG93cyIsInR5cGVWZXJzaW9uIjozLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "b34d31d2-b09a-43cd-9edf-bd6661b2e1c7",
+      "name": "Execute Version Control Save",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        704,
+        112
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ /* Replace with your Version Control Save workflow ID */ 'VERSION_CONTROL_SAVE_WORKFLOW_ID' }}"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "34e2454c",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.1\n🔒 Hash: 34e2454c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkV4ZWN1dGUgVmVyc2lvbiBDb250cm9sIFNhdmUiLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ3b3JrZmxvd0lkIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "f2c6fde5-0394-4234-8b6e-f117f885e9cf",
+      "name": "Aggregate Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        928,
+        112
+      ],
+      "parameters": {
+        "jsCode": "// Collect all results\nconst results = $input.all();\n\nconst summary = {\n  timestamp: new Date().toISOString(),\n  totalWorkflows: results.length,\n  successful: 0,\n  failed: 0,\n  noChanges: 0,\n  details: []\n};\n\nfor (const item of results) {\n  const result = item.json;\n  \n  if (result.success) {\n    if (result.message?.includes('No changes')) {\n      summary.noChanges++;\n    } else {\n      summary.successful++;\n    }\n  } else {\n    summary.failed++;\n  }\n  \n  summary.details.push({\n    workflowId: result.workflowId,\n    workflowName: result.workflowName,\n    success: result.success,\n    version: result.version?.current || result.version,\n    message: result.message\n  });\n}\n\nreturn { json: summary };",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "43b25e67",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2\n🔒 Hash: 43b25e67\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJBZ2dyZWdhdGUgUmVzdWx0cyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "b92844c7-affc-4527-9711-d0347ccbb366",
+      "name": "Any Failures?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1152,
+        112
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-failures",
+              "leftValue": "={{ $json.failed }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7fc1f3f4",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2\n🔒 Hash: 7fc1f3f4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiQW55IEZhaWx1cmVzPyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImNvbmRpdGlvbnMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "c6f921b7-57c4-4f3a-80e1-b73d8a3f07d2",
+      "name": "Log Success",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        208
+      ],
+      "parameters": {
+        "jsCode": "// Log success summary\nconst summary = $input.first().json;\n\nconsole.log(`Version Control Backup Complete:`);\nconsole.log(`  Successful: ${summary.successful}`);\nconsole.log(`  No Changes: ${summary.noChanges}`);\nconsole.log(`  Failed: ${summary.failed}`);\n\nreturn { json: { status: 'complete', ...summary } };",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "52466319",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2\n🔒 Hash: 52466319\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJMb2cgU3VjY2VzcyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "e77109b4-07ca-4b28-b8d6-95d8acbeacbe",
+      "name": "Alert on Failures",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Alert on failures - customize notification method\nconst summary = $input.first().json;\n\nconst failedWorkflows = summary.details\n  .filter(d => !d.success)\n  .map(d => `- ${d.workflowName}: ${d.message}`)\n  .join('\\n');\n\nconst alertMessage = `⚠️ Version Control Backup Failures\\n\\n${summary.failed} workflow(s) failed to backup:\\n${failedWorkflows}`;\n\nconsole.error(alertMessage);\n\n// Return for potential notification node (Slack, email, etc.)\nreturn {\n  json: {\n    status: 'failed',\n    alertMessage,\n    ...summary\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5558022f",
+          "created": "2026-02-08T05:47:54.908Z",
+          "lastModified": "2026-02-08T05:47:54.908Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2\n🔒 Hash: 5558022f\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJBbGVydCBvbiBGYWlsdXJlcyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Every 6 Hours": {
+      "main": [
+        [
+          {
+            "node": "Configure Workflows to Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Save Button": {
+      "main": [
+        [
+          {
+            "node": "Configure Workflows to Backup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Workflows to Backup": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Workflows": {
+      "main": [
+        [
+          {
+            "node": "Execute Version Control Save",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Aggregate Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Version Control Save": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Results": {
+      "main": [
+        [
+          {
+            "node": "Any Failures?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Any Failures?": {
+      "main": [
+        [
+          {
+            "node": "Alert on Failures",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
