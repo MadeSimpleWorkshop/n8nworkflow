@@ -2,13 +2,13 @@
   "name": "Simple Example - With Version Control",
   "nodes": [
     {
-      "id": "7a9d53f5-eada-431b-b542-02fa3cbb36a3",
+      "id": "787d3e20-9c1c-4d35-8e4e-97069f53dbab",
       "name": "Manual Save Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        11888,
-        7392
+        13936,
+        8624
       ],
       "parameters": {
         "_versionControl": {
@@ -22,13 +22,13 @@
       "notesInFlow": true
     },
     {
-      "id": "8a8c1028-2595-46e5-a97d-6c664d52a41c",
+      "id": "4b3ef081-4714-47ab-bc5f-87135611473b",
       "name": "Webhook1",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        11888,
-        7168
+        13936,
+        8400
       ],
       "parameters": {
         "httpMethod": "POST",
@@ -47,13 +47,13 @@
       "notesInFlow": true
     },
     {
-      "id": "68f12ab3-238a-4498-8fb2-026328ff0ee4",
+      "id": "123e32ad-3bdd-4a8a-84d8-5c53abfe3f59",
       "name": "Set Data1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        12112,
-        7168
+        14160,
+        8400
       ],
       "parameters": {
         "assignments": {
@@ -90,13 +90,13 @@
       "notesInFlow": true
     },
     {
-      "id": "437839ac-6c5d-4cdf-a067-085231b13fd8",
+      "id": "dbe3a596-fa43-418d-bffe-769804747402",
       "name": "Respond to Webhook1",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        12336,
-        7168
+        14384,
+        8400
       ],
       "parameters": {
         "respondWith": "json",
@@ -113,13 +113,13 @@
       "notesInFlow": true
     },
     {
-      "id": "1f7b5d08-e9dd-4d7a-904c-bedefd8a4e52",
-      "name": "Set Version Control Config1",
+      "id": "476f7f55-bd0a-4278-acaf-91822c0e23a9",
+      "name": "Set Version Control Config Override (Optional)",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        12112,
-        7392
+        14160,
+        8624
       ],
       "parameters": {
         "assignments": {
@@ -132,91 +132,31 @@
             },
             {
               "id": "2",
-              "name": "gitEnabled",
-              "value": true,
-              "type": "boolean"
-            },
-            {
-              "id": "7",
-              "name": "localBackupEnabled",
-              "value": true,
-              "type": "boolean"
-            },
-            {
-              "id": "3",
-              "name": "localBackupPath",
-              "value": "/files/backups",
-              "type": "string"
-            },
-            {
-              "id": "9",
-              "name": "localBackupMaxVersions",
-              "value": 20,
-              "type": "number"
-            },
-            {
-              "id": "4",
-              "name": "n8nApiUrl",
-              "value": "http://localhost:5678/api/v1",
-              "type": "string"
-            },
-            {
-              "id": "6",
-              "name": "dryRun",
-              "value": false,
-              "type": "boolean"
-            },
-            {
-              "id": "10",
-              "name": "cleanupOldBackupsEnabled",
-              "value": true,
-              "type": "boolean"
-            },
-            {
-              "id": "11",
-              "name": "gitPushEnabled",
-              "value": true,
-              "type": "boolean"
-            },
-            {
-              "id": "12",
-              "name": "gitRepoPath",
-              "value": "/files/backups/git-repo",
-              "type": "string"
-            },
-            {
-              "id": "13",
-              "name": "gitBranch",
-              "value": "main",
-              "type": "string"
-            },
-            {
-              "id": "14",
-              "name": "gitRemote",
-              "value": "origin",
-              "type": "string"
+              "name": "configOverrides",
+              "value": "{}",
+              "type": "object"
             }
           ]
         },
         "options": {},
         "_versionControl": {
-          "version": "1.2.0",
-          "hash": "30fbd73e",
+          "version": "2.0.0",
+          "hash": "4e4e217b",
           "created": "Feb 6, 2026, 05:16 PM",
-          "lastModified": "2026-02-08T03:04:07.926Z"
+          "lastModified": "2026-02-08T03:37:11.359Z"
         }
       },
-      "notes": "📌 Version: 1.2.0\n📅 Modified: Feb 8, 2026, 03:04 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30fbd73e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjEyfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 03:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 4e4e217b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnIE92ZXJyaWRlIChPcHRpb25hbCkiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50IjoyfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
       "notesInFlow": true
     },
     {
-      "id": "06abf82f-6c5b-4d41-a7a7-299dda272273",
+      "id": "3f9664b7-fdc9-4da6-b8bc-9ac338c5d73c",
       "name": "Call Sub-workflow (update value)1",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        12352,
-        7392
+        14400,
+        8624
       ],
       "parameters": {
         "workflowId": {
@@ -228,7 +168,10 @@
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
-          "value": {},
+          "value": {
+            "workflowId": "={{ $json.workflowId || $workflow.id }}",
+            "configOverrides": "={{ $json.configOverrides || $json.body?.configOverrides || {} }}"
+          },
           "matchingColumns": [],
           "schema": [],
           "attemptToConvertTypes": false,
@@ -236,23 +179,23 @@
         },
         "options": {},
         "_versionControl": {
-          "version": "1.0.2",
-          "hash": "32f23958",
+          "version": "1.0.3",
+          "hash": "1273296a",
           "created": "Feb 6, 2026, 05:16 PM",
-          "lastModified": "Feb 6, 2026, 07:42 PM"
+          "lastModified": "2026-02-08T03:37:11.359Z"
         }
       },
-      "notes": "📌 Version: 1.0.2\n📅 Modified: Feb 6, 2026, 07:42 PM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMSIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notes": "📌 Version: 1.0.3\n📅 Modified: Feb 8, 2026, 03:37 AM\n🔧 Node Type: v1.2\n🔒 Hash: 1273296a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMSIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
       "notesInFlow": true
     },
     {
-      "id": "4b1d3323-a7b7-45ad-9b8d-be89deb32ac8",
+      "id": "081f4fcd-ffae-4dc9-a22b-9ba7cd2bb3b6",
       "name": "Show Completion Message1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        12592,
-        7392
+        14640,
+        8624
       ],
       "parameters": {
         "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map((c) => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    const reasonLine = c.reason ? `\\n   └─ ${c.reason}` : '';\n    return `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}${reasonLine}`;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter((c) => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter((c) => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter((c) => c.changeType === 'patch').length || 0;\n\nconst summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit',\n      }),\n    },\n    changes: changesList,\n    tip,\n  },\n};\n",
@@ -267,13 +210,13 @@
       "notesInFlow": true
     },
     {
-      "id": "366ea77c-5c89-4d8f-a50a-475e0976f655",
+      "id": "167e1836-11e9-42f3-877f-667cb1d612f8",
       "name": "Edit Fields4",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        12112,
-        7600
+        14160,
+        8832
       ],
       "parameters": {
         "assignments": {
@@ -315,10 +258,10 @@
           "version": "3.1.4",
           "hash": "30c2a8af",
           "created": "Feb 6, 2026, 07:29 PM",
-          "lastModified": "2026-02-08T03:04:07.926Z"
+          "lastModified": "2026-02-08T03:37:11.359Z"
         }
       },
-      "notes": "📌 Version: 3.1.4\n📅 Modified: Feb 8, 2026, 03:04 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30c2a8af\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notes": "📌 Version: 3.1.4\n📅 Modified: Feb 8, 2026, 03:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30c2a8af\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
       "notesInFlow": true
     }
   ],
@@ -327,7 +270,7 @@
       "main": [
         [
           {
-            "node": "Set Version Control Config1",
+            "node": "Set Version Control Config Override (Optional)",
             "type": "main",
             "index": 0
           }
@@ -356,22 +299,22 @@
         ]
       ]
     },
-    "Set Version Control Config1": {
+    "Call Sub-workflow (update value)1": {
       "main": [
         [
           {
-            "node": "Call Sub-workflow (update value)1",
+            "node": "Show Completion Message1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Call Sub-workflow (update value)1": {
+    "Set Version Control Config Override (Optional)": {
       "main": [
         [
           {
-            "node": "Show Completion Message1",
+            "node": "Call Sub-workflow (update value)1",
             "type": "main",
             "index": 0
           }
