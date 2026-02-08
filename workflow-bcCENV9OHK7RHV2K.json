@@ -1,0 +1,72 @@
+{
+  "name": "Email Manager",
+  "nodes": [
+    {
+      "id": "80367255-d502-4615-9c3d-95fe9ddc9c62",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        -224
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:36:56.992Z",
+          "lastModified": "2026-02-08T05:36:56.992Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:36 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJXaGVuIGNsaWNraW5nIOKAmEV4ZWN1dGUgd29ya2Zsb3figJkiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "beb269c9-28c6-4f9a-abf4-0367bef28875",
+      "name": "Get many messages",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        -224
+      ],
+      "parameters": {
+        "operation": "getAll",
+        "limit": 5,
+        "filters": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3ab15135",
+          "created": "2026-02-08T05:36:56.992Z",
+          "lastModified": "2026-02-08T05:36:56.992Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "e39298c0-8781-42bd-83bc-f689bb99bc99",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:36 AM\n🔧 Node Type: v2.2\n🔒 Hash: 3ab15135\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiR2V0IG1hbnkgbWVzc2FnZXMiLCJ0eXBlVmVyc2lvbiI6Mi4yLCJwYXJhbWV0ZXJLZXlzIjpbImZpbHRlcnMiLCJsaW1pdCIsIm9wZXJhdGlvbiJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
