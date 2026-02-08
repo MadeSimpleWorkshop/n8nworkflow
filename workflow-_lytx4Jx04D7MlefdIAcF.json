@@ -1,0 +1,193 @@
+{
+  "name": "My workflow 5",
+  "nodes": [
+    {
+      "id": "901187d2-65a6-4eb9-847e-6b8d27e90f39",
+      "name": "Load Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        -208,
+        160
+      ],
+      "parameters": {
+        "url": "http://localhost:5678/rest/workflows/{{$workflow.id}}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4df41e2f",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v4\n🔒 Hash: 4df41e2f\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiTG9hZCBXb3JrZmxvdyIsInR5cGVWZXJzaW9uIjo0LCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ1cmwiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "43a20e5c-5d9e-4e56-9afc-ec91ed0ed8a1",
+      "name": "Hash Nodes",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 4,
+      "position": [
+        0,
+        160
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6df438d",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v4\n🔒 Hash: 6df438d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZnVuY3Rpb24iLCJuYW1lIjoiSGFzaCBOb2RlcyIsInR5cGVWZXJzaW9uIjo0LCJwYXJhbWV0ZXJLZXlzIjpbXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "f47b39f0-a102-4235-a217-cbfcc652f23d",
+      "name": "Read Versions",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4e96cb4c",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 4e96cb4c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVhZEJpbmFyeUZpbGUiLCJuYW1lIjoiUmVhZCBWZXJzaW9ucyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "89b7aae4-13b1-45de-b2f7-b2c01c7f4412",
+      "name": "Compare & Increment",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 4,
+      "position": [
+        208,
+        160
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6df438d",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v4\n🔒 Hash: 6df438d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZnVuY3Rpb24iLCJuYW1lIjoiQ29tcGFyZSAmIEluY3JlbWVudCIsInR5cGVWZXJzaW9uIjo0LCJwYXJhbWV0ZXJLZXlzIjpbXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "c411bb7e-b2bc-46b3-b3f3-601baa74e6e7",
+      "name": "Write Versions",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 2,
+      "position": [
+        400,
+        160
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4788f3c5",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 4788f3c5\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud3JpdGVCaW5hcnlGaWxlIiwibmFtZSI6IldyaXRlIFZlcnNpb25zIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOltdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "4e797093-10f0-45ab-b763-0e58cb14fd3f",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        400,
+        0
+      ],
+      "parameters": {
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "a1b73e7",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: a1b73e7\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkNvbmZpZyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "ea0e85f9-77b4-48a4-9ec1-6d47375bb996",
+      "name": "Use Git?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 3,
+      "position": [
+        608,
+        0
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "67c351c5",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3\n🔒 Hash: 67c351c5\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiVXNlIEdpdD8iLCJ0eXBlVmVyc2lvbiI6MywicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "7eb7f9c9-02b3-4055-bb73-92e2e1f3406e",
+      "name": "Git Push",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 2,
+      "position": [
+        800,
+        0
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "412e7a3",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 412e7a3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZUNvbW1hbmQiLCJuYW1lIjoiR2l0IFB1c2giLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "39ace8ac-6f0f-47ad-b7ee-a88b31ecdf2c",
+      "name": "Summarize",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 4,
+      "position": [
+        608,
+        160
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6df438d",
+          "created": "2026-02-08T05:48:14.891Z",
+          "lastModified": "2026-02-08T05:48:14.891Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v4\n🔒 Hash: 6df438d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZnVuY3Rpb24iLCJuYW1lIjoiU3VtbWFyaXplIiwidHlwZVZlcnNpb24iOjQsInBhcmFtZXRlcktleXMiOltdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
