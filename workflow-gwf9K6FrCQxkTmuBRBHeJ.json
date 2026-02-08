@@ -1,0 +1,681 @@
+{
+  "name": "Subworkflow (Version Restore)",
+  "nodes": [
+    {
+      "id": "f0f35506-4864-4e38-8e41-5023b8e457b8",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3344,
+        -320
+      ],
+      "parameters": {
+        "inputSource": "jsonExample",
+        "jsonExample": "{\n  \"workflowId\": \"Rv-Y2Rw2EHQVspwmX-Kgb\",\n  \"restoreSource\": \"local\",\n  \"localFileName\": \"Simple_Example-v3.1.1-2026-02-07-21-02-52.json\",\n  \"localBackupPath\": \"/files/backups\",\n  \"gitRepoPath\": \"/files/backups/git-repo\",\n  \"gitBranch\": \"main\",\n  \"gitRef\": \"main\",\n  \"n8nApiUrl\": \"http://localhost:5678/api/v1\",\n  \"dryRun\": true,\n  \"confirmRestore\": false\n}",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1af084f7",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 1af084f7\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93VHJpZ2dlciIsIm5hbWUiOiJXaGVuIEV4ZWN1dGVkIGJ5IEFub3RoZXIgV29ya2Zsb3ciLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbImlucHV0U291cmNlIiwianNvbkV4YW1wbGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "b67e5765-c9b8-4142-8495-c1e8bc89068e",
+      "name": "Parse Restore Configuration",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3120,
+        -320
+      ],
+      "parameters": {
+        "jsCode": "// Parse restore configuration from parent workflow input\nconst input = $input.first().json || {};\n\nconst config = {\n  workflowId: input.workflowId || input.body?.workflowId || null,\n  restoreSource: (input.restoreSource || input.body?.restoreSource || 'local').toLowerCase(),\n  localFileName: input.localFileName || input.body?.localFileName || null,\n  localBackupPath: input.localBackupPath || input.body?.localBackupPath || '/files/backups',\n  gitRepoPath: input.gitRepoPath || input.body?.gitRepoPath || '/files/backups/git-repo',\n  gitBranch: input.gitBranch || input.body?.gitBranch || 'main',\n  gitRef: input.gitRef || input.body?.gitRef || null,\n  n8nApiUrl: input.n8nApiUrl || input.body?.n8nApiUrl || 'http://localhost:5678/api/v1',\n  dryRun: input.dryRun ?? input.body?.dryRun ?? true,\n  confirmRestore: input.confirmRestore ?? input.body?.confirmRestore ?? false,\n};\n\nreturn { json: config };",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "19df445c",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 19df445c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQYXJzZSBSZXN0b3JlIENvbmZpZ3VyYXRpb24iLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "6e2ebead-a84c-47a9-9298-62039af3b967",
+      "name": "Validate Restore Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2912,
+        -320
+      ],
+      "parameters": {
+        "jsCode": "// Validate restore request and derive file/ref details\nconst config = $input.first().json || {};\n\nif (!config.workflowId) {\n  throw new Error('workflowId is required.');\n}\n\nif (!['local', 'git'].includes(config.restoreSource)) {\n  throw new Error('restoreSource must be \"local\" or \"git\".');\n}\n\nconst pathSafePattern = /^[A-Za-z0-9_./-]+$/;\nconst fileSafePattern = /^[A-Za-z0-9_.-]+\\.json$/;\nconst refSafePattern = /^[A-Za-z0-9_./:-]+$/;\n\nif (!pathSafePattern.test(config.localBackupPath)) {\n  throw new Error('localBackupPath contains unsupported characters.');\n}\n\nif (!pathSafePattern.test(config.gitRepoPath)) {\n  throw new Error('gitRepoPath contains unsupported characters.');\n}\n\nconst normalizedBackupPath = String(config.localBackupPath).replace(/\\/+$/, '') || '/files/backups';\nconst normalizedGitRepoPath = String(config.gitRepoPath).replace(/\\/+$/, '') || '/files/backups/git-repo';\n\nlet localRestorePath = null;\nlet gitResolvedRef = null;\nlet gitFileName = null;\nlet gitShowCommand = null;\n\nif (config.restoreSource === 'local') {\n  if (!config.localFileName) {\n    throw new Error('localFileName is required when restoreSource=local.');\n  }\n\n  if (!fileSafePattern.test(config.localFileName)) {\n    throw new Error('localFileName must be a single .json filename without path traversal.');\n  }\n\n  localRestorePath = normalizedBackupPath + '/' + config.localFileName;\n}\n\nif (config.restoreSource === 'git') {\n  gitResolvedRef = (config.gitRef || config.gitBranch || 'main').trim();\n\n  if (!refSafePattern.test(gitResolvedRef)) {\n    throw new Error('gitRef/gitBranch contains unsupported characters.');\n  }\n\n  gitFileName = 'workflow-' + config.workflowId + '.json';\n  gitShowCommand = 'git -C ' + normalizedGitRepoPath + ' show ' + gitResolvedRef + ':' + gitFileName;\n}\n\nreturn {\n  json: {\n    config: {\n      ...config,\n      localBackupPath: normalizedBackupPath,\n      gitRepoPath: normalizedGitRepoPath,\n    },\n    localRestorePath,\n    gitResolvedRef,\n    gitFileName,\n    gitShowCommand,\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "cbe28c9",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: cbe28c9\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJWYWxpZGF0ZSBSZXN0b3JlIFJlcXVlc3QiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "7d75280e-1d92-48dc-b3c6-bfc1731ce80d",
+      "name": "Fetch Current Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2688,
+        -320
+      ],
+      "parameters": {
+        "url": "={{ $json.config.n8nApiUrl + \"/workflows/\" + $json.config.workflowId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3833de7e",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KEtW64C9AybCYnRo",
+          "name": "Header Auth account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v4.2\n🔒 Hash: 3833de7e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiRmV0Y2ggQ3VycmVudCBXb3JrZmxvdyIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiYXV0aGVudGljYXRpb24iLCJnZW5lcmljQXV0aFR5cGUiLCJvcHRpb25zIiwidXJsIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "83b5e519-6d1b-4592-902f-daa8734cbe50",
+      "name": "Prepare Pre-Restore Backup Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2464,
+        -320
+      ],
+      "parameters": {
+        "jsCode": "// Prepare a pre-restore backup of the current workflow\nconst currentWorkflow = $input.first().json;\nconst requestData = $(\"Validate Restore Request\").first().json;\nconst config = requestData.config;\n\nconst safeName = String(currentWorkflow.name || 'workflow')\n  .replace(/\\s+/g, '_')\n  .replace(/[^a-zA-Z0-9_-]/g, '')\n  .substring(0, 80);\n\nconst now = new Date();\nconst year = now.getFullYear();\nconst month = String(now.getMonth() + 1).padStart(2, '0');\nconst day = String(now.getDate()).padStart(2, '0');\nconst hours = String(now.getHours()).padStart(2, '0');\nconst minutes = String(now.getMinutes()).padStart(2, '0');\nconst seconds = String(now.getSeconds()).padStart(2, '0');\nconst timestamp = year + '-' + month + '-' + day + '-' + hours + '-' + minutes + '-' + seconds;\n\nconst preRestoreBackupFileName = safeName + '-pre-restore-' + timestamp + '.json';\nconst preRestoreBackupPath = config.localBackupPath + '/' + preRestoreBackupFileName;\n\nreturn {\n  json: {\n    ...requestData,\n    currentWorkflow,\n    preRestoreBackupFileName,\n    preRestoreBackupPath,\n    preRestoreWorkflowJson: JSON.stringify(currentWorkflow, null, 2),\n    restoreTimestamp: new Date().toISOString(),\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "61dec1ba",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 61dec1ba\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQcmVwYXJlIFByZS1SZXN0b3JlIEJhY2t1cCBEYXRhIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "e52403d5-8cec-4070-90dc-ce263a7adb69",
+      "name": "Convert Pre-Restore to Binary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2240,
+        -320
+      ],
+      "parameters": {
+        "jsCode": "// Convert current workflow backup JSON to binary\nconst data = $input.first().json;\nconst binaryData = Buffer.from(data.preRestoreWorkflowJson, 'utf-8');\n\nreturn {\n  json: data,\n  binary: {\n    data: {\n      data: binaryData.toString('base64'),\n      mimeType: 'application/json',\n      fileName: data.preRestoreBackupFileName,\n      fileExtension: 'json',\n    }\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2784b7b0",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 2784b7b0\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJDb252ZXJ0IFByZS1SZXN0b3JlIHRvIEJpbmFyeSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "c060bf51-88c7-431a-a275-9bffb7f61fcb",
+      "name": "Write Pre-Restore Backup File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -2000,
+        -320
+      ],
+      "parameters": {
+        "fileName": "={{ $json.preRestoreBackupPath }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "60843d12",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1\n🔒 Hash: 60843d12\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud3JpdGVCaW5hcnlGaWxlIiwibmFtZSI6IldyaXRlIFByZS1SZXN0b3JlIEJhY2t1cCBGaWxlIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOlsiZmlsZU5hbWUiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "f73aaa6c-ecd5-4a43-9727-a6eea4846fa7",
+      "name": "Restore Source is Local?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1792,
+        -320
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "local-source-check",
+              "leftValue": "={{ $json.config.restoreSource }}",
+              "rightValue": "local",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7c0cce32",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 7c0cce32\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiUmVzdG9yZSBTb3VyY2UgaXMgTG9jYWw/IiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsiY29uZGl0aW9ucyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "aa06015b-509c-4dff-8e0f-19b64be72490",
+      "name": "Read Local Restore File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        -1552,
+        -448
+      ],
+      "parameters": {
+        "filePath": "={{ $json.localRestorePath }}",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "26bd6d6f",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1\n🔒 Hash: 26bd6d6f\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVhZEJpbmFyeUZpbGUiLCJuYW1lIjoiUmVhZCBMb2NhbCBSZXN0b3JlIEZpbGUiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJmaWxlUGF0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "7539c30c-5f2e-41c9-84b3-7754ec959e28",
+      "name": "Parse Local Restore JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1344,
+        -448
+      ],
+      "parameters": {
+        "jsCode": "// Parse local restore file from binary\nconst data = $input.first();\nconst b64 = data.binary?.data?.data;\n\nif (!b64) {\n  throw new Error('Local restore file binary payload is missing.');\n}\n\nlet parsed;\ntry {\n  parsed = JSON.parse(Buffer.from(b64, 'base64').toString('utf-8'));\n} catch (error) {\n  throw new Error('Local restore file is not valid JSON: ' + (error?.message || String(error)));\n}\n\nreturn {\n  json: {\n    ...data.json,\n    restorePayload: parsed,\n    restoreMetadata: {\n      source: 'local',\n      reference: data.json.localFileName,\n      path: data.json.localRestorePath,\n    }\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "697acb93",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 697acb93\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQYXJzZSBMb2NhbCBSZXN0b3JlIEpTT04iLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "526afce3-11fe-4745-9b25-2d9bed0d23e8",
+      "name": "Git Show Restore File",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1552,
+        -208
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "412e7c4",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1\n🔒 Hash: 412e7c4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZUNvbW1hbmQiLCJuYW1lIjoiR2l0IFNob3cgUmVzdG9yZSBGaWxlIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOltdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "9412b6c7-105e-43a1-a921-28c0e9472ed8",
+      "name": "Parse Git Restore JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1344,
+        -208
+      ],
+      "parameters": {
+        "jsCode": "// Parse git show output into restore JSON\nconst base = $(\"Write Pre-Restore Backup File\").first().json;\nconst commandResult = $input.first().json;\n\nconst stdout = String(commandResult.stdout || '');\nif (!stdout.trim()) {\n  throw new Error('Git restore returned empty content. Check gitRef/gitBranch and file path.');\n}\n\nlet parsed;\ntry {\n  parsed = JSON.parse(stdout);\n} catch (error) {\n  throw new Error('Git restore content is not valid JSON: ' + (error?.message || String(error)));\n}\n\nreturn {\n  json: {\n    ...base,\n    restorePayload: parsed,\n    restoreMetadata: {\n      source: 'git',\n      reference: base.gitResolvedRef,\n      fileName: base.gitFileName,\n      repoPath: base.config.gitRepoPath,\n      command: base.gitShowCommand,\n    }\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "50fa4183",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 50fa4183\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQYXJzZSBHaXQgUmVzdG9yZSBKU09OIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "e04cf170-3994-452c-adb6-5a29cdba8f27",
+      "name": "Validate Restored Workflow Shape",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1104,
+        -320
+      ],
+      "parameters": {
+        "jsCode": "// Validate restored payload and build workflow body for API update\nconst data = $input.first().json;\nconst payload = data.restorePayload;\n\nif (!payload || typeof payload !== 'object') {\n  throw new Error('Restore payload is empty or invalid.');\n}\n\nif (!Array.isArray(payload.nodes)) {\n  throw new Error('Restore payload must include nodes array.');\n}\n\nif (!payload.connections || typeof payload.connections !== 'object') {\n  throw new Error('Restore payload must include connections object.');\n}\n\nconst settings = payload.settings && typeof payload.settings === 'object' ? payload.settings : {};\n\nconst updatedWorkflow = {\n  name: payload.name || data.currentWorkflow?.name || ('workflow-' + data.config.workflowId),\n  nodes: payload.nodes,\n  connections: payload.connections,\n  settings,\n};\n\nreturn {\n  json: {\n    ...data,\n    restoredWorkflowName: updatedWorkflow.name,\n    restoredNodeCount: updatedWorkflow.nodes.length,\n    updatedWorkflow,\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1c1a67c8",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 1c1a67c8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJWYWxpZGF0ZSBSZXN0b3JlZCBXb3JrZmxvdyBTaGFwZSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "b1509e57-b744-4f0a-922e-d6c206b24cea",
+      "name": "Dry Run?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        -320
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "dry-run-check",
+              "leftValue": "={{ $json.config.dryRun }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6605f581",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 6605f581\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiRHJ5IFJ1bj8iLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJjb25kaXRpb25zIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "35e0c0ca-84a6-4c29-94e6-a02d16561443",
+      "name": "Build Dry Run Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        -464
+      ],
+      "parameters": {
+        "jsCode": "// Build dry-run response without applying restore\nconst data = $input.first().json;\n\nfunction buildWorkflowOpenUrl(apiUrl, workflowId, timestamp) {\n  if (!workflowId || !apiUrl) return null;\n\n  const normalizedApiUrl = String(apiUrl).replace(/\\/$/, '');\n  const baseUrl = normalizedApiUrl.replace(/\\/api\\/v\\d+$/, '').replace(/\\/api$/, '');\n  return baseUrl + '/workflow/' + encodeURIComponent(workflowId) + '?updated=' + encodeURIComponent(timestamp);\n}\n\nconst timestamp = new Date().toISOString();\n\nreturn {\n  json: {\n    success: true,\n    dryRun: true,\n    restored: false,\n    message: 'Dry run complete. Restore payload validated; no workflow update applied.',\n    workflowId: data.config.workflowId,\n    workflowName: data.restoredWorkflowName,\n    restoredNodeCount: data.restoredNodeCount,\n    restoreSource: data.restoreMetadata?.source || data.config.restoreSource,\n    restoreReference: data.restoreMetadata?.reference || data.config.localFileName || data.gitResolvedRef,\n    preRestoreBackupPath: data.preRestoreBackupPath,\n    openWorkflowUrl: buildWorkflowOpenUrl(data.config.n8nApiUrl, data.config.workflowId, timestamp),\n    timestamp,\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7c55a17b",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 7c55a17b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJCdWlsZCBEcnkgUnVuIFJlc3BvbnNlIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "f1fd4e09-299c-4e7f-952c-4b1c2622423e",
+      "name": "Confirm Restore?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        -224
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "confirm-restore-check",
+              "leftValue": "={{ $json.config.confirmRestore }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "196cb405",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 196cb405\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiQ29uZmlybSBSZXN0b3JlPyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImNvbmRpdGlvbnMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "cca7139a-30c0-448f-bbc2-f97e5e770859",
+      "name": "Build Restore Blocked Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -432,
+        -80
+      ],
+      "parameters": {
+        "jsCode": "// Build response when live restore is not confirmed\nconst data = $input.first().json;\n\nreturn {\n  json: {\n    success: false,\n    dryRun: false,\n    restored: false,\n    blocked: true,\n    message: 'Restore not applied because confirmRestore=false.',\n    workflowId: data.config.workflowId,\n    workflowName: data.restoredWorkflowName,\n    restoreSource: data.restoreMetadata?.source || data.config.restoreSource,\n    restoreReference: data.restoreMetadata?.reference || data.config.localFileName || data.gitResolvedRef,\n    preRestoreBackupPath: data.preRestoreBackupPath,\n    guidance: 'Set confirmRestore=true (and keep dryRun=false) to apply restore.',\n    timestamp: new Date().toISOString(),\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6417e21b",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 6417e21b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJCdWlsZCBSZXN0b3JlIEJsb2NrZWQgUmVzcG9uc2UiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "5e2963bb-96da-45f3-9cda-dcb4373a6bc5",
+      "name": "Update Workflow from Restore",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -432,
+        -320
+      ],
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.config.n8nApiUrl + \"/workflows/\" + $json.config.workflowId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.updatedWorkflow) }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3c3b85e0",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KEtW64C9AybCYnRo",
+          "name": "Header Auth account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v4.2\n🔒 Hash: 3c3b85e0\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiVXBkYXRlIFdvcmtmbG93IGZyb20gUmVzdG9yZSIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiYXV0aGVudGljYXRpb24iLCJnZW5lcmljQXV0aFR5cGUiLCJoZWFkZXJQYXJhbWV0ZXJzIiwianNvbkJvZHkiLCJtZXRob2QiLCJvcHRpb25zIiwic2VuZEJvZHkiLCJzZW5kSGVhZGVycyIsInNwZWNpZnlCb2R5IiwidXJsIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJoZWFkZXJQYXJhbWV0ZXJzIjp7InBhcmFtQ291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "8ce6c8b6-fdc4-43de-af09-99bd90f5ea14",
+      "name": "Build Restore Success Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        -320
+      ],
+      "parameters": {
+        "jsCode": "// Build success response after workflow restore API update\nconst validated = $(\"Validate Restored Workflow Shape\").first().json;\nconst updateResponse = $input.first().json;\n\nfunction buildWorkflowOpenUrl(apiUrl, workflowId, timestamp) {\n  if (!workflowId || !apiUrl) return null;\n\n  const normalizedApiUrl = String(apiUrl).replace(/\\/$/, '');\n  const baseUrl = normalizedApiUrl.replace(/\\/api\\/v\\d+$/, '').replace(/\\/api$/, '');\n  return baseUrl + '/workflow/' + encodeURIComponent(workflowId) + '?updated=' + encodeURIComponent(timestamp);\n}\n\nconst timestamp = new Date().toISOString();\n\nreturn {\n  json: {\n    success: true,\n    dryRun: false,\n    restored: true,\n    message: 'Workflow restored successfully.',\n    workflowId: validated.config.workflowId,\n    workflowName: validated.restoredWorkflowName,\n    restoredNodeCount: validated.restoredNodeCount,\n    restoreSource: validated.restoreMetadata?.source || validated.config.restoreSource,\n    restoreReference: validated.restoreMetadata?.reference || validated.config.localFileName || validated.gitResolvedRef,\n    preRestoreBackupPath: validated.preRestoreBackupPath,\n    openWorkflowUrl: buildWorkflowOpenUrl(validated.config.n8nApiUrl, validated.config.workflowId, timestamp),\n    apiResult: {\n      id: updateResponse.id || null,\n      name: updateResponse.name || null,\n      updatedAt: updateResponse.updatedAt || null,\n    },\n    timestamp,\n  }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "59892972",
+          "created": "2026-02-08T05:48:22.910Z",
+          "lastModified": "2026-02-08T05:48:22.910Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 59892972\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJCdWlsZCBSZXN0b3JlIFN1Y2Nlc3MgUmVzcG9uc2UiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Parse Restore Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Restore Configuration": {
+      "main": [
+        [
+          {
+            "node": "Validate Restore Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Restore Request": {
+      "main": [
+        [
+          {
+            "node": "Fetch Current Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Current Workflow": {
+      "main": [
+        [
+          {
+            "node": "Prepare Pre-Restore Backup Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Pre-Restore Backup Data": {
+      "main": [
+        [
+          {
+            "node": "Convert Pre-Restore to Binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Pre-Restore to Binary": {
+      "main": [
+        [
+          {
+            "node": "Write Pre-Restore Backup File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Pre-Restore Backup File": {
+      "main": [
+        [
+          {
+            "node": "Restore Source is Local?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restore Source is Local?": {
+      "main": [
+        [
+          {
+            "node": "Read Local Restore File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Local Restore File": {
+      "main": [
+        [
+          {
+            "node": "Parse Local Restore JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Local Restore JSON": {
+      "main": [
+        [
+          {
+            "node": "Validate Restored Workflow Shape",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Git Restore JSON": {
+      "main": [
+        [
+          {
+            "node": "Validate Restored Workflow Shape",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Restored Workflow Shape": {
+      "main": [
+        [
+          {
+            "node": "Dry Run?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dry Run?": {
+      "main": [
+        [
+          {
+            "node": "Build Dry Run Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Confirm Restore?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirm Restore?": {
+      "main": [
+        [
+          {
+            "node": "Update Workflow from Restore",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Restore Blocked Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Workflow from Restore": {
+      "main": [
+        [
+          {
+            "node": "Build Restore Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
