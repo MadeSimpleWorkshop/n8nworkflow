@@ -1,0 +1,500 @@
+{
+  "name": "Version Control Save Button",
+  "nodes": [
+    {
+      "id": "5b7a3a2d-12a1-43f2-a97e-43a38e0efa73",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1536,
+        112
+      ],
+      "parameters": {
+        "path": "version-control-save",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3c07f77f",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "webhookId": "version-control-save",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 3c07f77f\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rIFRyaWdnZXIiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicGF0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "9e97c61d-c987-4692-bccd-ba6a7f496fe9",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1536,
+        304
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5143484c",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1\n🔒 Hash: 5143484c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93VHJpZ2dlciIsIm5hbWUiOiJFeGVjdXRlIFdvcmtmbG93IFRyaWdnZXIiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "59e0c6d5-1c96-410f-8ee4-178a9bb71649",
+      "name": "Merge Triggers",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        -1328,
+        208
+      ],
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "all",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "10b2454a",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3\n🔒 Hash: 10b2454a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWVyZ2UiLCJuYW1lIjoiTWVyZ2UgVHJpZ2dlcnMiLCJ0eXBlVmVyc2lvbiI6MywicGFyYW1ldGVyS2V5cyI6WyJtb2RlIiwib3V0cHV0Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "b035c326-e340-4f1c-89f5-f6b654edaca5",
+      "name": "Parse Configuration",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1104,
+        208
+      ],
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\n\nconst config = {\n  workflowId: input.workflowId || input.body?.workflowId || null,\n  n8nApiUrl: input.n8nApiUrl || input.body?.n8nApiUrl || 'http://localhost:5678/api/v1',\n  n8nApiKey: input.n8nApiKey || input.body?.n8nApiKey || '',\n  dryRun: input.dryRun ?? input.body?.dryRun ?? false\n};\n\nif (!config.workflowId) {\n  throw new Error('workflowId is required. Pass it in the input or request body.');\n}\n\nif (!config.n8nApiKey) {\n  throw new Error('n8nApiKey is required. Pass it in the input.');\n}\n\nreturn { json: config };",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "704fa966",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 704fa966\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQYXJzZSBDb25maWd1cmF0aW9uIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "408ea585-eafc-4456-9b8e-646e24130fa2",
+      "name": "Fetch Current Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -880,
+        208
+      ],
+      "parameters": {
+        "url": "={{ $json.n8nApiUrl }}/workflows/{{ $json.workflowId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "={{ $json.n8nApiKey }}"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "22aea478",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v4.2\n🔒 Hash: 22aea478\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiRmV0Y2ggQ3VycmVudCBXb3JrZmxvdyIsInR5cGVWZXJzaW9uIjo0LjIsInBhcmFtZXRlcktleXMiOlsiaGVhZGVyUGFyYW1ldGVycyIsIm9wdGlvbnMiLCJzZW5kSGVhZGVycyIsInVybCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiaGVhZGVyUGFyYW1ldGVycyI6eyJwYXJhbUNvdW50IjoxfX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "36004037-7a53-4f2b-9e9a-47c7931d5e06",
+      "name": "Process Node Versions",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        208
+      ],
+      "parameters": {
+        "jsCode": "const config = $('Parse Configuration').first().json;\nconst workflow = $input.first().json;\n\nfunction simpleHash(str) {\n  let hash = 5381;\n  for (let i = 0; i < str.length; i++) {\n    hash = ((hash << 5) + hash) + str.charCodeAt(i);\n    hash = hash & hash;\n  }\n  return Math.abs(hash).toString(16);\n}\n\nfunction hashNode(node) {\n  const nodeForHash = { ...node };\n  if (nodeForHash.parameters?._versionControl) {\n    const params = { ...nodeForHash.parameters };\n    delete params._versionControl;\n    nodeForHash.parameters = params;\n  }\n  delete nodeForHash.notes;\n  return simpleHash(JSON.stringify(nodeForHash));\n}\n\nfunction incrementVersion(version, changeType) {\n  const parts = (version || '1.0.0').split('.').map(Number);\n  if (changeType === 'major') return `${parts[0] + 1}.0.0`;\n  if (changeType === 'minor') return `${parts[0]}.${parts[1] + 1}.0`;\n  return `${parts[0]}.${parts[1]}.${parts[2] + 1}`;\n}\n\nfunction formatDate(isoString) {\n  const date = new Date(isoString);\n  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });\n}\n\nfunction buildNodeNotes(vc, typeVer) {\n  const lines = [`📌 Version: ${vc.version}`, `📅 Modified: ${formatDate(vc.lastModified)}`, `🔧 Node Type: v${typeVer || 'N/A'}`];\n  if (vc.created && vc.created !== vc.lastModified) lines.push(`🆕 Created: ${formatDate(vc.created)}`);\n  return lines.join('\\n');\n}\n\nfunction cleanNode(node) {\n  const cleaned = { id: node.id, name: node.name, type: node.type, typeVersion: node.typeVersion, position: node.position, parameters: node.parameters };\n  if (node.credentials) cleaned.credentials = node.credentials;\n  if (node.disabled) cleaned.disabled = node.disabled;\n  if (node.notes) cleaned.notes = node.notes;\n  if (node.notesInFlow) cleaned.notesInFlow = node.notesInFlow;\n  if (node.webhookId) cleaned.webhookId = node.webhookId;\n  return cleaned;\n}\n\nconst timestamp = new Date().toISOString();\nconst nodeChanges = [];\nconst updatedNodes = [];\n\nfor (const node of workflow.nodes) {\n  const currentHash = hashNode(node);\n  const vc = node.parameters?._versionControl || { version: '1.0.0', hash: null, lastModified: null, history: [] };\n  const previousHash = vc.hash;\n  const hasChanged = previousHash && previousHash !== currentHash;\n  const isNew = !previousHash;\n  let newVc = { ...vc };\n\n  if (isNew) {\n    newVc = { nodeTypeVersion: node.typeVersion, contentVersion: '1.0.0', version: '1.0.0', hash: currentHash, created: timestamp, lastModified: timestamp, history: [{ version: '1.0.0', timestamp, action: 'created', hash: currentHash }] };\n    nodeChanges.push({ nodeName: node.name, nodeId: node.id, action: 'created', version: '1.0.0', changes: [] });\n  } else if (hasChanged) {\n    const newVersion = incrementVersion(vc.version, 'patch');\n    newVc = { ...vc, nodeTypeVersion: node.typeVersion, contentVersion: newVersion, version: newVersion, hash: currentHash, lastModified: timestamp, history: [...vc.history.slice(-9), { version: newVersion, timestamp, action: 'modified', previousHash, hash: currentHash }] };\n    nodeChanges.push({ nodeName: node.name, nodeId: node.id, action: 'modified', previousVersion: vc.version, version: newVersion, changes: [] });\n  }\n\n  const updatedNode = cleanNode({ ...node, notes: buildNodeNotes(newVc, node.typeVersion), parameters: { ...node.parameters, _versionControl: newVc } });\n  updatedNodes.push(updatedNode);\n}\n\n// Calculate workflow version from node versions\nlet wfNewVersion = '1.0.0';\nconst allVersions = updatedNodes.map(n => n.parameters?._versionControl?.version || '1.0.0');\nif (allVersions.length > 0) {\n  const maxParts = allVersions.map(v => v.split('.').map(Number)).reduce((max, cur) => {\n    if (cur[0] > max[0]) return cur;\n    if (cur[0] === max[0] && cur[1] > max[1]) return cur;\n    if (cur[0] === max[0] && cur[1] === max[1] && cur[2] > max[2]) return cur;\n    return max;\n  }, [1, 0, 0]);\n  wfNewVersion = maxParts.join('.');\n}\n\n// Build clean settings - only allowed properties, NO custom fields\nconst cleanSettings = {};\nif (workflow.settings?.errorWorkflow) cleanSettings.errorWorkflow = workflow.settings.errorWorkflow;\nif (workflow.settings?.timezone) cleanSettings.timezone = workflow.settings.timezone;\nif (workflow.settings?.saveManualExecutions !== undefined) cleanSettings.saveManualExecutions = workflow.settings.saveManualExecutions;\nif (workflow.settings?.saveExecutionProgress !== undefined) cleanSettings.saveExecutionProgress = workflow.settings.saveExecutionProgress;\nif (workflow.settings?.saveDataErrorExecution) cleanSettings.saveDataErrorExecution = workflow.settings.saveDataErrorExecution;\nif (workflow.settings?.saveDataSuccessExecution) cleanSettings.saveDataSuccessExecution = workflow.settings.saveDataSuccessExecution;\nif (workflow.settings?.executionTimeout !== undefined) cleanSettings.executionTimeout = workflow.settings.executionTimeout;\n\nconst updatedWorkflow = { name: workflow.name, nodes: updatedNodes, connections: workflow.connections, settings: cleanSettings };\n\nreturn { json: { config, originalWorkflow: workflow, updatedWorkflow, nodeChanges, hasChanges: nodeChanges.length > 0, workflowVersion: { previous: '1.0.0', current: wfNewVersion }, timestamp } };",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1dbac19d",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 1dbac19d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJQcm9jZXNzIE5vZGUgVmVyc2lvbnMiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "cd354364-1028-40d0-8dd5-f3d7ca2abc77",
+      "name": "Has Changes?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        208
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "has-changes",
+              "leftValue": "={{ $json.hasChanges }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7b32af6f",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 7b32af6f\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiSGFzIENoYW5nZXM/IiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsiY29uZGl0aW9ucyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "8ea17c73-6e51-4cdc-b2ec-2cfe910b6dce",
+      "name": "No Changes Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        304
+      ],
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nreturn { json: { success: true, message: 'No changes detected', workflowId: data.config.workflowId, workflowName: data.originalWorkflow.name, version: data.workflowVersion.current, timestamp: data.timestamp } };",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3919f890",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 3919f890\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJObyBDaGFuZ2VzIFJlc3BvbnNlIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "da06e267-488f-45b8-abbf-c4ec303b2a5a",
+      "name": "Dry Run?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        112
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "dry-run",
+              "leftValue": "={{ $json.config.dryRun }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5250962d",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 5250962d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaWYiLCJuYW1lIjoiRHJ5IFJ1bj8iLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJjb25kaXRpb25zIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "2d6462a0-351d-4342-85f0-8ad6a5513769",
+      "name": "Update Workflow with Versions",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "method": "PUT",
+        "url": "={{ $json.config.n8nApiUrl }}/workflows/{{ $json.config.workflowId }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-N8N-API-KEY",
+              "value": "={{ $json.config.n8nApiKey }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.updatedWorkflow) }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2b165197",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v4.2\n🔒 Hash: 2b165197\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuaHR0cFJlcXVlc3QiLCJuYW1lIjoiVXBkYXRlIFdvcmtmbG93IHdpdGggVmVyc2lvbnMiLCJ0eXBlVmVyc2lvbiI6NC4yLCJwYXJhbWV0ZXJLZXlzIjpbImhlYWRlclBhcmFtZXRlcnMiLCJqc29uQm9keSIsIm1ldGhvZCIsIm9wdGlvbnMiLCJzZW5kQm9keSIsInNlbmRIZWFkZXJzIiwic3BlY2lmeUJvZHkiLCJ1cmwiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImhlYWRlclBhcmFtZXRlcnMiOnsicGFyYW1Db3VudCI6Mn19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "ea07f517-0439-4347-ad46-0aaf0e2ef94c",
+      "name": "Build Success Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const processData = $('Dry Run?').first().json;\nconst apiResponse = $input.first().json;\nreturn { json: { success: true, message: `Workflow saved: v${processData.workflowVersion.previous} → v${processData.workflowVersion.current}`, workflowId: processData.config.workflowId, workflowName: apiResponse.name || processData.updatedWorkflow.name, version: { previous: processData.workflowVersion.previous, current: processData.workflowVersion.current }, changes: processData.nodeChanges, timestamp: processData.timestamp, dryRun: false } };",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6d4cab7d",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 6d4cab7d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJCdWlsZCBTdWNjZXNzIFJlc3BvbnNlIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "1edf38f0-462e-4c5e-a951-47c602899e0b",
+      "name": "Dry Run Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        208
+      ],
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nreturn { json: { success: true, message: 'Dry run completed - no changes applied', workflowId: data.config.workflowId, workflowName: data.originalWorkflow.name, version: { previous: data.workflowVersion.previous, wouldBecome: data.workflowVersion.current }, changes: data.nodeChanges, timestamp: data.timestamp, dryRun: true } };",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5226f176",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 5226f176\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJEcnkgUnVuIFJlc3BvbnNlIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "fe31fdc0-7d47-4b7f-938c-d4a37812d659",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        112
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "64ab2cb3",
+          "created": "2026-02-08T05:48:11.769Z",
+          "lastModified": "2026-02-08T05:48:11.769Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2siLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJyZXNwb25kV2l0aCIsInJlc3BvbnNlQm9keSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Merge Triggers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Merge Triggers",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Triggers": {
+      "main": [
+        [
+          {
+            "node": "Parse Configuration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Configuration": {
+      "main": [
+        [
+          {
+            "node": "Fetch Current Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Current Workflow": {
+      "main": [
+        [
+          {
+            "node": "Process Node Versions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Node Versions": {
+      "main": [
+        [
+          {
+            "node": "Has Changes?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Changes?": {
+      "main": [
+        [
+          {
+            "node": "Dry Run?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Changes Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dry Run?": {
+      "main": [
+        [
+          {
+            "node": "Dry Run Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Workflow with Versions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Workflow with Versions": {
+      "main": [
+        [
+          {
+            "node": "Build Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Success Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No Changes Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dry Run Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
