@@ -1,0 +1,546 @@
+{
+  "name": "From Zero to Inbox Agent",
+  "nodes": [
+    {
+      "id": "414da0b8-b4e7-4d70-a345-101691f3515c",
+      "name": "Gmail Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        896,
+        320
+      ],
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {},
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "797e5c61",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.3\n🔒 Hash: 797e5c61\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWxUcmlnZ2VyIiwibmFtZSI6IkdtYWlsIFRyaWdnZXIiLCJ0eXBlVmVyc2lvbiI6MS4zLCJwYXJhbWV0ZXJLZXlzIjpbImZpbHRlcnMiLCJvcHRpb25zIiwicG9sbFRpbWVzIiwic2ltcGxlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "6b3185f0-b89c-4a89-a4bf-511f9994d17e",
+      "name": "Text Classifier",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        1088,
+        288
+      ],
+      "parameters": {
+        "inputText": "=Subject: {{ $json.headers.subject }}\n\nBody: {{ $json.text }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Customer Support",
+              "description": "Emails requesting help, troubleshooting, or guidance for a product or service. Usually describe issues like login errors, bugs, or malfunctioning features. Common keywords: error, issue, problem, help, access, support, fix, reset, troubleshoot."
+            },
+            {
+              "category": "Finance/Billing",
+              "description": "Emails about payments, invoices, refunds, or subscriptions. The sender wants to confirm, dispute, or update financial details. Common keywords: invoice, payment, refund, billing, charge, subscription, renewal, receipt."
+            },
+            {
+              "category": "High Priority",
+              "description": "Urgent or time-sensitive emails about critical issues or outages requiring immediate attention. Common keywords: urgent, ASAP, critical, outage, down, immediate, emergency, escalation."
+            },
+            {
+              "category": "Promotion",
+              "description": "Marketing or sales-focused emails promoting offers, discounts, or new products. Tone is upbeat and persuasive. Common keywords: sale, offer, discount, promotion, new feature, upgrade, limited time, exclusive."
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "edb541f",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.1\n🔒 Hash: edb541f\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLnRleHRDbGFzc2lmaWVyIiwibmFtZSI6IlRleHQgQ2xhc3NpZmllciIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsiY2F0ZWdvcmllcyIsImlucHV0VGV4dCIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "1bd3f665-3291-44ed-833b-3511e88ba179",
+      "name": "GPT-4.1-mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        512
+      ],
+      "parameters": {
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "49e92025",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 49e92025\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hhdE9wZW5Sb3V0ZXIiLCJuYW1lIjoiR1BULTQuMS1taW5pIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "2349fd61-4236-4e37-adea-c613b4901c59",
+      "name": "Claude 3.7",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1936,
+        208
+      ],
+      "parameters": {
+        "model": "anthropic/claude-3.7-sonnet",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "e63a412",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: e63a412\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hhdE9wZW5Sb3V0ZXIiLCJuYW1lIjoiQ2xhdWRlIDMuNyIsInR5cGVWZXJzaW9uIjoxLCJwYXJhbWV0ZXJLZXlzIjpbIm1vZGVsIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "6546b747-80c8-4106-83ed-1f61e0367965",
+      "name": "Customer Support Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1696,
+        32
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=Subject: {{ $('Gmail Trigger').item.json.headers.subject }}\n\nBody: {{ $('Gmail Trigger').item.json.text }}",
+        "options": {
+          "systemMessage": "=You are Nate's AI Assistant — an expert, friendly, and professional customer support representative for **AI Automation Society**.\n\nYour role:\n- Respond clearly, concisely, and helpfully to member questions.\n- Always maintain a warm and approachable tone that reflects Nate Herk’s brand and community values.\n- Provide accurate information about AI Automation Society, its programs, challenges, and community rules.\n- If you do **not** know the answer or the query requires Nate’s direct input, politely tell the user to reach out to **nateherk88@gmail.com**.\n\nAlways sign off every message with:\n– Nate’s AI Assistant\n"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7c8ef1aa",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.2\n🔒 Hash: 7c8ef1aa\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmFnZW50IiwibmFtZSI6IkN1c3RvbWVyIFN1cHBvcnQgQWdlbnQiLCJ0eXBlVmVyc2lvbiI6Mi4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJwcm9tcHRUeXBlIiwidGV4dCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "90d52ae9-a1b1-4296-8704-2e7d5451b356",
+      "name": "Reply to a message",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1984,
+        32
+      ],
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {
+          "appendAttribution": false
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7b26562a",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "webhookId": "66b6ddd9-e93d-4182-8a22-52481b02bbc4",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 7b26562a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiUmVwbHkgdG8gYSBtZXNzYWdlIiwidHlwZVZlcnNpb24iOjIuMSwicGFyYW1ldGVyS2V5cyI6WyJlbWFpbFR5cGUiLCJtZXNzYWdlIiwibWVzc2FnZUlkIiwib3BlcmF0aW9uIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "5a0ca062-fe1c-4c29-9f9b-6cbf17e9101c",
+      "name": "Send a message",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1696,
+        192
+      ],
+      "parameters": {
+        "sendTo": "billing@example.com",
+        "subject": "=New Billing Email: {{ $('Gmail Trigger').item.json.from.value[0].name }}",
+        "emailType": "text",
+        "message": "=Hey Billing team!\n\nWe received a new billing inquiry at {{ $now.format('yyyy-MM-dd hh:mm a') }}.\n\nIt is from {{ $('Gmail Trigger').item.json.from.value[0].name }} you can email them at {{ $('Gmail Trigger').item.json.from.value[0].address }}.\n\nThis is the subject of their email: {{ $('Gmail Trigger').item.json.subject }}\n\nCheers!",
+        "options": {
+          "appendAttribution": false
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "109951d",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "webhookId": "70ecf5b5-0b1b-4758-aae4-cb90d0bc5574",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 109951d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiU2VuZCBhIG1lc3NhZ2UiLCJ0eXBlVmVyc2lvbiI6Mi4xLCJwYXJhbWV0ZXJLZXlzIjpbImVtYWlsVHlwZSIsIm1lc3NhZ2UiLCJvcHRpb25zIiwic2VuZFRvIiwic3ViamVjdCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "af3495d4-2681-4c77-a4b9-0362745a10d9",
+      "name": "Support",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1488,
+        32
+      ],
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_1594706753190197855"
+        ],
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "76cc42d3",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "webhookId": "5eb54acc-bd46-44df-bd4b-35bbd9e2797b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 76cc42d3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiU3VwcG9ydCIsInR5cGVWZXJzaW9uIjoyLjEsInBhcmFtZXRlcktleXMiOlsibGFiZWxJZHMiLCJtZXNzYWdlSWQiLCJvcGVyYXRpb24iXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImxhYmVsSWRzIjp7ImFycmF5TGVuZ3RoIjoxfX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "bdb7e5c4-26b3-4e09-b9e7-2ff685d472bc",
+      "name": "Finance",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1488,
+        192
+      ],
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_3029742840171510077"
+        ],
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "70d0565b",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "webhookId": "5eb54acc-bd46-44df-bd4b-35bbd9e2797b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 70d0565b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiRmluYW5jZSIsInR5cGVWZXJzaW9uIjoyLjEsInBhcmFtZXRlcktleXMiOlsibGFiZWxJZHMiLCJtZXNzYWdlSWQiLCJvcGVyYXRpb24iXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImxhYmVsSWRzIjp7ImFycmF5TGVuZ3RoIjoxfX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "a4a67dfe-c188-4f58-a9a5-474d97ec9cf9",
+      "name": "Priority",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1488,
+        352
+      ],
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_8750970712842772917"
+        ],
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "350b3dac",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "webhookId": "5eb54acc-bd46-44df-bd4b-35bbd9e2797b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 350b3dac\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiUHJpb3JpdHkiLCJ0eXBlVmVyc2lvbiI6Mi4xLCJwYXJhbWV0ZXJLZXlzIjpbImxhYmVsSWRzIiwibWVzc2FnZUlkIiwib3BlcmF0aW9uIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJsYWJlbElkcyI6eyJhcnJheUxlbmd0aCI6MX19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "ff2c256e-c821-43bc-9fa0-77b9334d1515",
+      "name": "Promotion",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1488,
+        528
+      ],
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_1276623808023834907"
+        ],
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7f765b9a",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "webhookId": "5eb54acc-bd46-44df-bd4b-35bbd9e2797b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 7f765b9a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiUHJvbW90aW9uIiwidHlwZVZlcnNpb24iOjIuMSwicGFyYW1ldGVyS2V5cyI6WyJsYWJlbElkcyIsIm1lc3NhZ2VJZCIsIm9wZXJhdGlvbiJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsibGFiZWxJZHMiOnsiYXJyYXlMZW5ndGgiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "9e83253f-7bc7-43ff-b370-e5d13f9b82c1",
+      "name": "Mr. Doomsday",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1696,
+        352
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=Subject:{{ $('Gmail Trigger').item.json.headers.subject }}\n\nBody:{{ $('Gmail Trigger').item.json.text }}\n",
+        "options": {
+          "systemMessage": "=You are Mr. Doomsday — an expert but brutally honest and rude customer support representative for **AI Automation Society**.\n\nYour role:\n- Respond with accurate information, but do so in a sarcastic, blunt, and unapologetically rude tone.\n- Never sugarcoat answers. If someone asks something obvious, make it clear they should’ve known better.\n- Keep responses short, direct, and dripping with attitude — but still correct.\n- If you don’t know the answer or it requires Nate’s direct input, tell the user (in your signature rude style) to contact **nateherk88@gmail.com**.\n\nAlways sign off every message with:\n– Mr. Doomsday\n"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "16a1a814",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.2\n🔒 Hash: 16a1a814\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmFnZW50IiwibmFtZSI6Ik1yLiBEb29tc2RheSIsInR5cGVWZXJzaW9uIjoyLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInByb21wdFR5cGUiLCJ0ZXh0Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "e27d2f38-de53-4381-afa4-56c9cdc2931e",
+      "name": "Create a draft",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1984,
+        352
+      ],
+      "parameters": {
+        "resource": "draft",
+        "subject": "test",
+        "message": "={{ $json.output }}",
+        "options": {
+          "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+          "sendTo": "={{ $('Gmail Trigger').item.json.from.value[0].address }}"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "522835f2",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "webhookId": "e73b5b5b-5596-4209-ad5f-01da1c507ac3",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 522835f2\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiQ3JlYXRlIGEgZHJhZnQiLCJ0eXBlVmVyc2lvbiI6Mi4xLCJwYXJhbWV0ZXJLZXlzIjpbIm1lc3NhZ2UiLCJvcHRpb25zIiwicmVzb3VyY2UiLCJzdWJqZWN0Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "3cbdd658-ebbf-45d4-9546-f32262cf09fa",
+      "name": "Mark a message as read",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1696,
+        528
+      ],
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "11eb21de",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "webhookId": "44be72e9-332f-4098-b051-8847a8278df4",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 11eb21de\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiTWFyayBhIG1lc3NhZ2UgYXMgcmVhZCIsInR5cGVWZXJzaW9uIjoyLjEsInBhcmFtZXRlcktleXMiOlsibWVzc2FnZUlkIiwib3BlcmF0aW9uIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "f157eb11-11f2-427d-8e44-e398fc3a89db",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "content": "# 🛠️ Setup Guide  \n**Author:** [Nate Herk](https://www.youtube.com/@nateherk)\n\nFollow these steps to get your Gmail automation up and running:\n\n### ✅ Step 1: Connect Your Gmail Account  \nMake sure your Gmail account is properly connected to all **Gmail nodes** in the workflow.\n\n### ✅ Step 2: Connect Your [OpenRouter](https://openrouter.ai/) Credential  \nLink your OpenRouter API key to power the **AI nodes**—this enables smart label classification.\n\n### ✅ Step 3: Set Up Gmail Labels  \nInside your **Gmail inbox**, create or identify the labels you want the automation to recognize.\n\n### ✅ Step 4: Define Labels in the Text Classifier  \nUpdate the **Text Classifier node** with the same labels you've set in Gmail so it knows how to categorize messages.\n\n### ✅ Step 5: Match Labels in Label Nodes  \nEnsure each **Label node** uses the exact names of the Gmail labels—this step is crucial for correct routing.\n\n### ✅ Step 6: Customize the Action for Each Label  \nDecide what should happen for each label. Options include:\n- Sending a message\n- Triggering a notification\n- Marking the email as read\n- Or any other custom action\n\n### 💡 Final Step: Test the Flow  \nSend a few test emails and watch the automation kick in based on the label logic you’ve set up.\n",
+        "height": 768,
+        "width": 816,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "62ebfcf4",
+          "created": "2026-02-08T05:37:02.079Z",
+          "lastModified": "2026-02-08T05:37:02.079Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 62ebfcf4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZSIsInR5cGVWZXJzaW9uIjoxLCJwYXJhbWV0ZXJLZXlzIjpbImNvbnRlbnQiLCJoZWlnaHQiLCJ3aWR0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Support",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Finance",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Priority",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Promotion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT-4.1-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude 3.7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Customer Support Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Mr. Doomsday",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Support Agent": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Support": {
+      "main": [
+        [
+          {
+            "node": "Customer Support Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finance": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Priority": {
+      "main": [
+        [
+          {
+            "node": "Mr. Doomsday",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mr. Doomsday": {
+      "main": [
+        [
+          {
+            "node": "Create a draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Promotion": {
+      "main": [
+        [
+          {
+            "node": "Mark a message as read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
