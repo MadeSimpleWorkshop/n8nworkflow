@@ -1,0 +1,1803 @@
+{
+  "name": "Evaluations: From Zero to Inbox Agent",
+  "nodes": [
+    {
+      "id": "85113123-f3e8-402d-a722-7cf89aa23d77",
+      "name": "Gmail Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        304,
+        784
+      ],
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {},
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1cb5c6e1",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.3\n🔒 Hash: 1cb5c6e1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWxUcmlnZ2VyIiwibmFtZSI6IkdtYWlsIFRyaWdnZXIiLCJ0eXBlVmVyc2lvbiI6MS4zLCJwYXJhbWV0ZXJLZXlzIjpbImZpbHRlcnMiLCJvcHRpb25zIiwicG9sbFRpbWVzIiwic2ltcGxlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "434a96ba-9d0e-41f6-837e-5151c7c89149",
+      "name": "Text Classifier",
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        560
+      ],
+      "parameters": {
+        "inputText": "=Subject: {{ $json.headers.subject }}\n\nBody: {{ $json.text }}\n",
+        "categories": {
+          "categories": [
+            {
+              "category": "Customer Support",
+              "description": "=Emails requesting help, troubleshooting, or guidance for a product or service. Usually describe issues like login errors, bugs, or malfunctioning features. Common keywords: error, issue, problem, help, access, support, fix, reset, troubleshoot."
+            },
+            {
+              "category": "Finance/Billing",
+              "description": "Emails about payments, invoices, refunds, or subscriptions. The sender wants to confirm, dispute, or update financial details. Common keywords: invoice, payment, refund, billing, charge, subscription, renewal, receipt."
+            },
+            {
+              "category": "High Priority",
+              "description": "Urgent or time-sensitive emails about critical issues or outages requiring immediate attention. Common keywords: urgent, ASAP, critical, outage, down, immediate, emergency, escalation."
+            },
+            {
+              "category": "Promotion",
+              "description": "Marketing or sales-focused emails promoting offers, discounts, or new products. Tone is upbeat and persuasive. Common keywords: sale, offer, discount, promotion, new feature, upgrade, limited time, exclusive."
+            },
+            {
+              "category": "Unknown",
+              "description": "Emails that do not clearly fit Customer Support, Finance/Billing, High Priority, or Promotion. Includes neutral or informational messages such as product announcements without offers, general updates, newsletters without calls to action, internal or FYI communications, and messages where intent is unclear or ambiguous. Use this category only when no other category confidently applies."
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2fd0a30a",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.1\n🔒 Hash: 2fd0a30a\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLnRleHRDbGFzc2lmaWVyIiwibmFtZSI6IlRleHQgQ2xhc3NpZmllciIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsiY2F0ZWdvcmllcyIsImlucHV0VGV4dCIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "2ecae4c5-f912-438a-9efe-983df79f0516",
+      "name": "Claude 3.7",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        1120
+      ],
+      "parameters": {
+        "model": "anthropic/claude-3.7-sonnet",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "54afce5c",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "openRouterApi": {
+          "id": "6oom99qBDTLbWBrB",
+          "name": "OpenRouter account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 54afce5c\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hhdE9wZW5Sb3V0ZXIiLCJuYW1lIjoiQ2xhdWRlIDMuNyIsInR5cGVWZXJzaW9uIjoxLCJwYXJhbWV0ZXJLZXlzIjpbIm1vZGVsIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "ac03ce5a-8bf0-4824-8c60-e40c1711efb9",
+      "name": "Customer Support Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1824,
+        896
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=Subject: {{ $('Gmail Trigger').item.json.headers.subject }}\n\nBody: {{ $('Gmail Trigger').item.json.text }}",
+        "options": {
+          "systemMessage": "=You are Nate's AI Assistant — an expert, friendly, and professional customer support representative for **AI Automation Society**.\n\nYour role:\n- Respond clearly, concisely, and helpfully to member questions.\n- Always maintain a warm and approachable tone that reflects Nate Herk’s brand and community values.\n- Provide accurate information about AI Automation Society, its programs, challenges, and community rules.\n- If you do **not** know the answer or the query requires Nate’s direct input, politely tell the user to reach out to **nateherk88@gmail.com**.\n\nAlways sign off every message with:\n– Nate’s AI Assistant\n"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7c8ef1aa",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.2\n🔒 Hash: 7c8ef1aa\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmFnZW50IiwibmFtZSI6IkN1c3RvbWVyIFN1cHBvcnQgQWdlbnQiLCJ0eXBlVmVyc2lvbiI6Mi4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJwcm9tcHRUeXBlIiwidGV4dCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "8c2a1e47-fab6-4bbd-8e0b-3355f9df046d",
+      "name": "Reply to a message",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2112,
+        928
+      ],
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "emailType": "text",
+        "message": "={{ $json.output }}",
+        "options": {
+          "appendAttribution": false
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "36265528",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "66b6ddd9-e93d-4182-8a22-52481b02bbc4",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 36265528\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiUmVwbHkgdG8gYSBtZXNzYWdlIiwidHlwZVZlcnNpb24iOjIuMSwicGFyYW1ldGVyS2V5cyI6WyJlbWFpbFR5cGUiLCJtZXNzYWdlIiwibWVzc2FnZUlkIiwib3BlcmF0aW9uIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "a6ae051c-f94f-4893-b8c9-bc3baa229eb2",
+      "name": "Send a message",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1696,
+        1520
+      ],
+      "parameters": {
+        "sendTo": "billing@example.com",
+        "subject": "=New Billing Email: {{ $('Gmail Trigger').item.json.from.value[0].name }}",
+        "emailType": "text",
+        "message": "=Hey Billing team!\n\nWe received a new billing inquiry at {{ $now.format('yyyy-MM-dd hh:mm a') }}.\n\nIt is from {{ $('Gmail Trigger').item.json.from.value[0].name }} you can email them at {{ $('Gmail Trigger').item.json.from.value[0].address }}.\n\nThis is the subject of their email: {{ $('Gmail Trigger').item.json.subject }}\n\nCheers!",
+        "options": {
+          "appendAttribution": false
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7a265725",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "70ecf5b5-0b1b-4758-aae4-cb90d0bc5574",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 7a265725\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiU2VuZCBhIG1lc3NhZ2UiLCJ0eXBlVmVyc2lvbiI6Mi4xLCJwYXJhbWV0ZXJLZXlzIjpbImVtYWlsVHlwZSIsIm1lc3NhZ2UiLCJvcHRpb25zIiwic2VuZFRvIiwic3ViamVjdCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "53c6f719-057c-4a5e-b3b4-3b15f4bb230f",
+      "name": "Support",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1472,
+        976
+      ],
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_1594706753190197855"
+        ],
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5be6dcd1",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "5eb54acc-bd46-44df-bd4b-35bbd9e2797b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 5be6dcd1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiU3VwcG9ydCIsInR5cGVWZXJzaW9uIjoyLjEsInBhcmFtZXRlcktleXMiOlsibGFiZWxJZHMiLCJtZXNzYWdlSWQiLCJvcGVyYXRpb24iXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImxhYmVsSWRzIjp7ImFycmF5TGVuZ3RoIjoxfX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "64ab0bbb-c62e-4c27-856f-c179995e13f6",
+      "name": "Finance",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1472,
+        1520
+      ],
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_3029742840171510077"
+        ],
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "55eaf059",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "5eb54acc-bd46-44df-bd4b-35bbd9e2797b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 55eaf059\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiRmluYW5jZSIsInR5cGVWZXJzaW9uIjoyLjEsInBhcmFtZXRlcktleXMiOlsibGFiZWxJZHMiLCJtZXNzYWdlSWQiLCJvcGVyYXRpb24iXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImxhYmVsSWRzIjp7ImFycmF5TGVuZ3RoIjoxfX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "ce2a6d49-ab18-4145-944c-eacdab21042f",
+      "name": "Priority",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1472,
+        1296
+      ],
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_8750970712842772917"
+        ],
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4ff0a3ae",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "5eb54acc-bd46-44df-bd4b-35bbd9e2797b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 4ff0a3ae\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiUHJpb3JpdHkiLCJ0eXBlVmVyc2lvbiI6Mi4xLCJwYXJhbWV0ZXJLZXlzIjpbImxhYmVsSWRzIiwibWVzc2FnZUlkIiwib3BlcmF0aW9uIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJsYWJlbElkcyI6eyJhcnJheUxlbmd0aCI6MX19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "8856825e-1dff-4687-b47b-908a4d82bcf1",
+      "name": "Promotion",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1472,
+        1808
+      ],
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "labelIds": [
+          "Label_1276623808023834907"
+        ],
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "65a43e64",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "5eb54acc-bd46-44df-bd4b-35bbd9e2797b",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 65a43e64\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiUHJvbW90aW9uIiwidHlwZVZlcnNpb24iOjIuMSwicGFyYW1ldGVyS2V5cyI6WyJsYWJlbElkcyIsIm1lc3NhZ2VJZCIsIm9wZXJhdGlvbiJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsibGFiZWxJZHMiOnsiYXJyYXlMZW5ndGgiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "2dcf7c4b-ea9b-4c9c-b4bb-4992d94d7c5c",
+      "name": "Mr. Doomsday",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1696,
+        1296
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "=Subject:{{ $('Gmail Trigger').item.json.headers.subject }}\n\nBody:{{ $('Gmail Trigger').item.json.text }}\n",
+        "options": {
+          "systemMessage": "=You are Mr. Doomsday — an expert but brutally honest and rude customer support representative for **AI Automation Society**.\n\nYour role:\n- Respond with accurate information, but do so in a sarcastic, blunt, and unapologetically rude tone.\n- Never sugarcoat answers. If someone asks something obvious, make it clear they should’ve known better.\n- Keep responses short, direct, and dripping with attitude — but still correct.\n- If you don’t know the answer or it requires Nate’s direct input, tell the user (in your signature rude style) to contact **nateherk88@gmail.com**.\n\nAlways sign off every message with:\n– Mr. Doomsday\n"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "16a1a814",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.2\n🔒 Hash: 16a1a814\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmFnZW50IiwibmFtZSI6Ik1yLiBEb29tc2RheSIsInR5cGVWZXJzaW9uIjoyLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInByb21wdFR5cGUiLCJ0ZXh0Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "02491789-0d5c-4ab5-b1bd-bdbb91a1a945",
+      "name": "Create a draft",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2112,
+        1232
+      ],
+      "parameters": {
+        "resource": "draft",
+        "subject": "test",
+        "message": "={{ $json.output }}",
+        "options": {
+          "threadId": "={{ $('Gmail Trigger').item.json.threadId }}",
+          "sendTo": "={{ $('Gmail Trigger').item.json.from.value[0].address }}"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5e6d2dcc",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "e73b5b5b-5596-4209-ad5f-01da1c507ac3",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 5e6d2dcc\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiQ3JlYXRlIGEgZHJhZnQiLCJ0eXBlVmVyc2lvbiI6Mi4xLCJwYXJhbWV0ZXJLZXlzIjpbIm1lc3NhZ2UiLCJvcHRpb25zIiwicmVzb3VyY2UiLCJzdWJqZWN0Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "562f4560-d716-42af-a60b-1a1d352a3441",
+      "name": "Mark a message as read",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1696,
+        1808
+      ],
+      "parameters": {
+        "operation": "markAsRead",
+        "messageId": "={{ $('Gmail Trigger').item.json.id }}",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "35cbe220",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "44be72e9-332f-4098-b051-8847a8278df4",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.1\n🔒 Hash: 35cbe220\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiTWFyayBhIG1lc3NhZ2UgYXMgcmVhZCIsInR5cGVWZXJzaW9uIjoyLjEsInBhcmFtZXRlcktleXMiOlsibWVzc2FnZUlkIiwib3BlcmF0aW9uIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "80088e6c-7b05-4ab9-abae-6b2e3b40a25a",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        512
+      ],
+      "parameters": {
+        "content": "## Evaluation Trigger\n",
+        "height": 288,
+        "width": 352,
+        "color": 4,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3fc9232a",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 3fc9232a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTEiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJjb2xvciIsImNvbnRlbnQiLCJoZWlnaHQiLCJ3aWR0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "5986558f-958c-4101-89a4-280f57e0fe11",
+      "name": "When fetching a dataset row",
+      "type": "n8n-nodes-base.evaluationTrigger",
+      "typeVersion": 4.7,
+      "position": [
+        -32,
+        624
+      ],
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "d0c8juCtQ72dpYcs",
+          "mode": "list",
+          "cachedResultName": "advertising_firm_emails_scored",
+          "cachedResultUrl": "/projects/fxNKuYZbs3uc6DKZ/datatables/d0c8juCtQ72dpYcs"
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4e59b4f8",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.7\n🔒 Hash: 4e59b4f8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvblRyaWdnZXIiLCJuYW1lIjoiV2hlbiBmZXRjaGluZyBhIGRhdGFzZXQgcm93IiwidHlwZVZlcnNpb24iOjQuNywicGFyYW1ldGVyS2V5cyI6WyJkYXRhVGFibGVJZCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "e9111b17-2786-4f5f-b817-321bd85c9c78",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        96,
+        624
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "152b696a-faba-4def-ba85-bf3f366dfbbb",
+              "name": "headers.subject",
+              "value": "={{ $json.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "153fdf23-134f-411e-a23e-beca89d8b407",
+              "name": "text",
+              "value": "={{ $json.body }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "46d3586d",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 46d3586d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6Mn19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "9b725fdc-4ce2-449b-bfd3-44bb225abafb",
+      "name": "OpenAI Chat Model - gpt-4.1-mini",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        384,
+        928
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "id"
+        },
+        "responsesApiEnabled": false,
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2a6e7538",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "kgZmR6PKAMyUXvHO",
+          "name": "OpenAi account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.3\n🔒 Hash: 2a6e7538\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hhdE9wZW5BaSIsIm5hbWUiOiJPcGVuQUkgQ2hhdCBNb2RlbCAtIGdwdC00LjEtbWluaSIsInR5cGVWZXJzaW9uIjoxLjMsInBhcmFtZXRlcktleXMiOlsibW9kZWwiLCJvcHRpb25zIiwicmVzcG9uc2VzQXBpRW5hYmxlZCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "eedd2483-6197-43dd-9f37-177ce98ab7d4",
+      "name": "Set Promotion",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        960
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "75ac6dc5-3ef4-4776-a8ed-147e5c69d84b",
+              "name": "actual_label",
+              "value": "Promotion",
+              "type": "string"
+            },
+            {
+              "id": "852d90ca-68d5-4f5f-b92f-3cf4575564a2",
+              "name": "subject",
+              "value": "={{ $json.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "c6777b19-e4e8-411f-8679-64c8b47c16d1",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "string"
+            },
+            {
+              "id": "f952e08c-9b3a-4764-a52f-d4b1eae2a4c1",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "74d8178c-e3b3-4930-8cbd-6590647d41d6",
+              "name": "expected_label",
+              "value": "={{ $json.expected_label }}",
+              "type": "string"
+            },
+            {
+              "id": "59613b44-4d5d-4b96-b329-f9bdef2a073d",
+              "name": "expected_confidence_min",
+              "value": "={{ $json.expected_confidence_min }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7049a452",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 7049a452\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBQcm9tb3Rpb24iLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50Ijo2fX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "ce3a4383-08f9-4c21-aaa5-2431d8ba9c51",
+      "name": "Set High Priority",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        768
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "75ac6dc5-3ef4-4776-a8ed-147e5c69d84b",
+              "name": "actual_label",
+              "value": "High Priority",
+              "type": "string"
+            },
+            {
+              "id": "861210a1-9a69-41ac-b1c3-1090965abf55",
+              "name": "subject",
+              "value": "={{ $json.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "ae54a44b-0320-4205-8575-669fa017bdb8",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "string"
+            },
+            {
+              "id": "5bebc1c9-c7f2-43a6-9553-9f1212e9903e",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "b35c42c5-558f-475c-8c42-ecf5a3947cf8",
+              "name": "expected_label",
+              "value": "={{ $json.expected_label }}",
+              "type": "string"
+            },
+            {
+              "id": "edb3e39d-a88b-441f-a4d7-a229db64ee8e",
+              "name": "expected_confidence_min",
+              "value": "={{ $json.expected_confidence_min }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "29dbada6",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 29dbada6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBIaWdoIFByaW9yaXR5IiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6Nn19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "1c0c6e2a-880d-49a3-b973-e1b9e668faf3",
+      "name": "Set Finance/Billing",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        576
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "75ac6dc5-3ef4-4776-a8ed-147e5c69d84b",
+              "name": "actual_label",
+              "value": "Finance/Billing",
+              "type": "string"
+            },
+            {
+              "id": "c3b1919a-13e4-4f17-8151-e7523ebbfd4c",
+              "name": "subject",
+              "value": "={{ $json.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "6c637749-8012-4ae0-9e7e-54fe6a4389c4",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "string"
+            },
+            {
+              "id": "b57a6e62-edb8-4b54-9c87-b08691c68e87",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2ac9c308-9a2f-4205-a2c2-260ad725e092",
+              "name": "expected_label",
+              "value": "={{ $json.expected_label }}",
+              "type": "string"
+            },
+            {
+              "id": "5cf69723-5e59-48e9-8cdc-f35fc9a8569b",
+              "name": "expected_confidence_min",
+              "value": "={{ $json.expected_confidence_min }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2a7d0fa8",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 2a7d0fa8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBGaW5hbmNlL0JpbGxpbmciLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50Ijo2fX19",
+      "notesInFlow": true
+    },
+    {
+      "id": "9c092661-b971-409c-9afa-8b3fb37d20b1",
+      "name": "Set Customer Support",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        384
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "75ac6dc5-3ef4-4776-a8ed-147e5c69d84b",
+              "name": "actual_label",
+              "value": "Customer Support",
+              "type": "string"
+            },
+            {
+              "id": "8f418588-70ad-4a82-a57e-e519978e12a8",
+              "name": "subject",
+              "value": "={{ $json.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "03a1860e-6332-4beb-9644-2ab524ab37d3",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "79c62835-1a0c-4df8-bcd8-616a4dd7ae19",
+              "name": "expected_label",
+              "value": "={{ $json.expected_label }}",
+              "type": "string"
+            },
+            {
+              "id": "1f484172-9895-4c92-8af6-b4ea8c91a00e",
+              "name": "expected_confidence_min",
+              "value": "={{ $json.expected_confidence_min }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "348d1f14",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 348d1f14\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBDdXN0b21lciBTdXBwb3J0IiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6NX19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "cdd23e8a-292d-4b0a-83fb-272c79cbf088",
+      "name": "Set Unknown",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1072,
+        1152
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "75ac6dc5-3ef4-4776-a8ed-147e5c69d84b",
+              "name": "actual_label",
+              "value": "Unknown",
+              "type": "string"
+            },
+            {
+              "id": "852d90ca-68d5-4f5f-b92f-3cf4575564a2",
+              "name": "subject",
+              "value": "={{ $json.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "c6777b19-e4e8-411f-8679-64c8b47c16d1",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "string"
+            },
+            {
+              "id": "f952e08c-9b3a-4764-a52f-d4b1eae2a4c1",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "74d8178c-e3b3-4930-8cbd-6590647d41d6",
+              "name": "expected_label",
+              "value": "={{ $json.expected_label }}",
+              "type": "string"
+            },
+            {
+              "id": "59613b44-4d5d-4b96-b329-f9bdef2a073d",
+              "name": "expected_confidence_min",
+              "value": "={{ $json.expected_confidence_min }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "672d2f7b",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 672d2f7b\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBVbmtub3duIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6Nn19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "8413c9d0-b39c-4d07-9122-b01f0344b2a5",
+      "name": "Merge - actual_label",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1360,
+        560
+      ],
+      "parameters": {
+        "numberInputs": 5,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "192730e5",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v3.2\n🔒 Hash: 192730e5\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWVyZ2UiLCJuYW1lIjoiTWVyZ2UgLSBhY3R1YWxfbGFiZWwiLCJ0eXBlVmVyc2lvbiI6My4yLCJwYXJhbWV0ZXJLZXlzIjpbIm51bWJlcklucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "98c8f3cc-82be-4207-b88a-4b0b9098342b",
+      "name": "Evaluation",
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        1520,
+        608
+      ],
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "d0c8juCtQ72dpYcs",
+          "mode": "list",
+          "cachedResultName": "advertising_firm_emails_scored",
+          "cachedResultUrl": "/projects/fxNKuYZbs3uc6DKZ/datatables/d0c8juCtQ72dpYcs"
+        },
+        "outputs": {
+          "values": [
+            {
+              "outputName": "actual_label",
+              "outputValue": "={{ $json.actual_label }}"
+            },
+            {
+              "outputName": "model",
+              "outputValue": "gpt-4.1-mini"
+            }
+          ]
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7d2f8bce",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.8\n🔒 Hash: 7d2f8bce\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvbiIsIm5hbWUiOiJFdmFsdWF0aW9uIiwidHlwZVZlcnNpb24iOjQuOCwicGFyYW1ldGVyS2V5cyI6WyJkYXRhVGFibGVJZCIsIm91dHB1dHMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "999092bc-ca20-4b30-b85e-59ec388bc53b",
+      "name": "Evaluation - Customer Support1",
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        832,
+        384
+      ],
+      "parameters": {
+        "operation": "checkIfEvaluating",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "247ec0fb",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.8\n🔒 Hash: 247ec0fb\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvbiIsIm5hbWUiOiJFdmFsdWF0aW9uIC0gQ3VzdG9tZXIgU3VwcG9ydDEiLCJ0eXBlVmVyc2lvbiI6NC44LCJwYXJhbWV0ZXJLZXlzIjpbIm9wZXJhdGlvbiJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "28fbae4a-1b83-4eb6-904d-b180cdf22596",
+      "name": "Evaluation - Finance/Billing1",
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        832,
+        592
+      ],
+      "parameters": {
+        "operation": "checkIfEvaluating",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "247ec0fb",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.8\n🔒 Hash: 247ec0fb\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvbiIsIm5hbWUiOiJFdmFsdWF0aW9uIC0gRmluYW5jZS9CaWxsaW5nMSIsInR5cGVWZXJzaW9uIjo0LjgsInBhcmFtZXRlcktleXMiOlsib3BlcmF0aW9uIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "c8237117-5f9a-4d46-816d-1623e3ec9b06",
+      "name": "Evaluation - Unknown1",
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        832,
+        1168
+      ],
+      "parameters": {
+        "operation": "checkIfEvaluating",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "247ec0fb",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.8\n🔒 Hash: 247ec0fb\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvbiIsIm5hbWUiOiJFdmFsdWF0aW9uIC0gVW5rbm93bjEiLCJ0eXBlVmVyc2lvbiI6NC44LCJwYXJhbWV0ZXJLZXlzIjpbIm9wZXJhdGlvbiJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "023977a3-719b-42f4-b253-94436eeb065f",
+      "name": "Evaluation - Promotion1",
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        832,
+        960
+      ],
+      "parameters": {
+        "operation": "checkIfEvaluating",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "247ec0fb",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.8\n🔒 Hash: 247ec0fb\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvbiIsIm5hbWUiOiJFdmFsdWF0aW9uIC0gUHJvbW90aW9uMSIsInR5cGVWZXJzaW9uIjo0LjgsInBhcmFtZXRlcktleXMiOlsib3BlcmF0aW9uIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "fc1a7895-12ed-4f18-b5d1-7e3903d1dc4f",
+      "name": "Evaluation - High Priority1",
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        832,
+        768
+      ],
+      "parameters": {
+        "operation": "checkIfEvaluating",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "247ec0fb",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.8\n🔒 Hash: 247ec0fb\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvbiIsIm5hbWUiOiJFdmFsdWF0aW9uIC0gSGlnaCBQcmlvcml0eTEiLCJ0eXBlVmVyc2lvbiI6NC44LCJwYXJhbWV0ZXJLZXlzIjpbIm9wZXJhdGlvbiJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "fd4aaba4-320e-4221-bb51-fc2d6535ec25",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -416
+      ],
+      "parameters": {
+        "content": "## Create Data Set ",
+        "height": 240,
+        "width": 464,
+        "color": 3,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "25871daf",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 25871daf\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTMiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJjb2xvciIsImNvbnRlbnQiLCJoZWlnaHQiLCJ3aWR0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "94475458-383a-4341-a087-e17b7bffa830",
+      "name": "Evaluation1",
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        1872,
+        608
+      ],
+      "parameters": {
+        "operation": "setMetrics",
+        "metric": "categorization",
+        "expectedAnswer": "={{ $('When fetching a dataset row').item.json.expected_label }}",
+        "actualAnswer": "={{ $json.actual_label }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2f559deb",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.8\n🔒 Hash: 2f559deb\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvbiIsIm5hbWUiOiJFdmFsdWF0aW9uMSIsInR5cGVWZXJzaW9uIjo0LjgsInBhcmFtZXRlcktleXMiOlsiYWN0dWFsQW5zd2VyIiwiZXhwZWN0ZWRBbnN3ZXIiLCJtZXRyaWMiLCJvcGVyYXRpb24iLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "375dbd01-04e6-4332-a2d9-661943679c84",
+      "name": "Evaluation2",
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        1712,
+        608
+      ],
+      "parameters": {
+        "operation": "setInputs",
+        "inputs": {
+          "values": [
+            {
+              "inputName": "expected_label",
+              "inputValue": "={{ $('When fetching a dataset row').item.json.expected_label }}"
+            },
+            {
+              "inputName": "expected_confidence_min",
+              "inputValue": "={{ $('When fetching a dataset row').item.json.expected_confidence_min }}"
+            }
+          ]
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "670b17ce",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v4.8\n🔒 Hash: 670b17ce\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXZhbHVhdGlvbiIsIm5hbWUiOiJFdmFsdWF0aW9uMiIsInR5cGVWZXJzaW9uIjo0LjgsInBhcmFtZXRlcktleXMiOlsiaW5wdXRzIiwib3BlcmF0aW9uIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "c83c70f4-e1e6-4ecb-9293-cf6e97b24bff",
+      "name": "Get row(s)",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        -48
+      ],
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "F0xfOFJCoNuc8cxX",
+          "mode": "list",
+          "cachedResultName": "Golden Data Set",
+          "cachedResultUrl": "/projects/fxNKuYZbs3uc6DKZ/datatables/F0xfOFJCoNuc8cxX"
+        },
+        "limit": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5f66e366",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.1\n🔒 Hash: 5f66e366\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZGF0YVRhYmxlIiwibmFtZSI6IkdldCByb3cocykiLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbImRhdGFUYWJsZUlkIiwibGltaXQiLCJvcGVyYXRpb24iXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "a5c6e19a-0504-447d-ae14-47dfa7c9e03e",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        496
+      ],
+      "parameters": {
+        "content": "## Evaluation Setup and Scoring",
+        "height": 320,
+        "width": 800,
+        "color": 4,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3874adfe",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 3874adfe\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTUiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJjb2xvciIsImNvbnRlbnQiLCJoZWlnaHQiLCJ3aWR0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "56830435-4d8e-472a-b499-43e8895c382e",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        768,
+        240
+      ],
+      "parameters": {
+        "content": "## Check if Evaluation",
+        "height": 1168,
+        "width": 480,
+        "color": 4,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "22ecfacb",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 22ecfacb\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTYiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJjb2xvciIsImNvbnRlbnQiLCJoZWlnaHQiLCJ3aWR0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "184f664c-c96d-4c38-a45f-e801610c6cc1",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        832
+      ],
+      "parameters": {
+        "content": "##  Production Nodes",
+        "height": 1184,
+        "width": 1056,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "5b1d7a01",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 5b1d7a01\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTciLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJjb250ZW50IiwiaGVpZ2h0Iiwid2lkdGgiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "49093a6f-2f64-41be-9fb4-5198e76b6557",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -128
+      ],
+      "parameters": {
+        "content": "## Export Any Datatable to Json",
+        "height": 240,
+        "width": 336,
+        "color": 3,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "3db646be",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 3db646be\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTgiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJjb2xvciIsImNvbnRlbnQiLCJoZWlnaHQiLCJ3aWR0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "ed8242f4-d925-4547-8383-8831ef3572c5",
+      "name": "Convert to CSV for Datatable1",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        -352
+      ],
+      "parameters": {
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "7d0a20ef",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.1\n🔒 Hash: 7d0a20ef\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29udmVydFRvRmlsZSIsIm5hbWUiOiJDb252ZXJ0IHRvIENTViBmb3IgRGF0YXRhYmxlMSIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "8005ba61-7303-4c09-b84d-455e71d426c1",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -704
+      ],
+      "parameters": {
+        "content": "## Create Customer Data Set",
+        "height": 240,
+        "width": 640,
+        "color": 3,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2adec7a1",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 2adec7a1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTkiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6WyJjb2xvciIsImNvbnRlbnQiLCJoZWlnaHQiLCJ3aWR0aCJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "ac287838-692e-4017-82b2-2786a4708c4a",
+      "name": "Get many messages",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -80,
+        -624
+      ],
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10,
+        "simple": false,
+        "filters": {},
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "11645d7e",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "8tITE8ser7v7ahX1",
+          "name": "Gmail account"
+        }
+      },
+      "webhookId": "c3ff8f46-f844-47b9-aebb-c671e86c7399",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2.2\n🔒 Hash: 11645d7e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZ21haWwiLCJuYW1lIjoiR2V0IG1hbnkgbWVzc2FnZXMiLCJ0eXBlVmVyc2lvbiI6Mi4yLCJwYXJhbWV0ZXJLZXlzIjpbImZpbHRlcnMiLCJsaW1pdCIsIm9wZXJhdGlvbiIsIm9wdGlvbnMiLCJzaW1wbGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "906b8fc3-b18e-4c41-8a74-b9f99e4d5c3c",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        128,
+        -624
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "152b696a-faba-4def-ba85-bf3f366dfbbb",
+              "name": "headers.subject",
+              "value": "={{ $json.subject }}",
+              "type": "string"
+            },
+            {
+              "id": "153fdf23-134f-411e-a23e-beca89d8b407",
+              "name": "text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2d04d616",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v3.4\n🔒 Hash: 2d04d616\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzMiIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjJ9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "c9ff721d-ca58-460d-b95c-1553d3d475ae",
+      "name": "Convert to File",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        336,
+        -624
+      ],
+      "parameters": {
+        "operation": "toJson",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "16b49095",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.1\n🔒 Hash: 16b49095\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29udmVydFRvRmlsZSIsIm5hbWUiOiJDb252ZXJ0IHRvIEZpbGUiLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbIm9wZXJhdGlvbiIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "849f22bf-9277-4e06-b455-d77acfdd7ab1",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        304,
+        416
+      ],
+      "parameters": {
+        "content": "##  Production Nodes",
+        "height": 640,
+        "width": 432,
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "50fc3e3a",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1\n🔒 Hash: 50fc3e3a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc3RpY2t5Tm90ZSIsIm5hbWUiOiJTdGlja3kgTm90ZTEwIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOlsiY29udGVudCIsImhlaWdodCIsIndpZHRoIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "5d3d5888-0659-4e29-83d3-b3d7096ce254",
+      "name": "OpenAI Chat Model - gpt-5.2-chat-latest",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        928
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "=gpt-5.2-chat-latest",
+          "mode": "id"
+        },
+        "responsesApiEnabled": false,
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4a172ec",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "credentials": {
+        "openAiApi": {
+          "id": "kgZmR6PKAMyUXvHO",
+          "name": "OpenAi account"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v1.3\n🔒 Hash: 4a172ec\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmxtQ2hhdE9wZW5BaSIsIm5hbWUiOiJPcGVuQUkgQ2hhdCBNb2RlbCAtIGdwdC01LjItY2hhdC1sYXRlc3QiLCJ0eXBlVmVyc2lvbiI6MS4zLCJwYXJhbWV0ZXJLZXlzIjpbIm1vZGVsIiwib3B0aW9ucyIsInJlc3BvbnNlc0FwaUVuYWJsZWQiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "4491f6f0-2710-4bf2-a2ee-4406ca376534",
+      "name": "Create DataSet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -80,
+        -352
+      ],
+      "parameters": {
+        "jsCode": "// Your full JSON array pasted here\nconst data = \n[\n{\n\"unique_id\": \"email-001\",\n\"subject\": \"Domains from just $0.98 in our New Year Sale\",\n\"body\": \"Namecheap Save big on everything you need to bring your idea to life online in \\n2026!  ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   \\n͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ \\n‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌ \\n  ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   \\n͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ \\n‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌ \\n  ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   ͏ ‌   \\n…\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.99,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-002\",\n\"subject\": \"Babylon, this could be your vibe\",\n\"body\": \"To view this content open the following URL in your browser: [https://www.pinterest.com/email/click/?user_id=NzM1NjM1MDU3NzkxOTIwNzYx&od=dD04NzJkOTcxNTJhNDg0NjVmOTg2OWQxMWE5YzQ3YmEyNiZjPUhPTUVGRUVEX0RJR0VTVF9QSU5TJnM9ODcyZDk3MTUyYTQ4NDY1Zjk4NjlkMTFhOWM0N2JhMjYmbj0zMDcyNDg2NWE5ODU0ODcyODgxMjAxM2Y1YjcwYmUwOA%3D%3D&target=https%3A%2F%2Fwww.pinterest.com%2Fsecure%2Fautologin%2F%3Fuser_id%3DNzM1NjM1MDU3NzkxOTIwNzYx%26od%3DDWyTOazqTiQRsGdMQRzBGLMqC5fyy8tyzd07e0cf5eqPkVMsBjHfXmPNi4W5LT5HjB5sCj%252B7zkM8BEZKkyY%252FFb9FLvrPK6JWXBsnWqgpKgKoJOBDUcvy5SjgipH5nrr4VsgQ0DEU9P19BFzlj%252Byl%252FQ%253D%253D%26next%3D%252F%253Futm_campaign%253Dhfdigestpins%2526e_t%253D872d97152a48465f9869d11a9c47ba26%2526e_t_s%253Dcta%2526utm_source%253D31%2526utm_medium%253D2004](https://www.pinterest.com/email/click/?user_id=NzM1NjM1MDU3NzkxOTIwNzYx&od=dD04NzJkOTcxNTJhNDg0NjVmOTg2OWQxMWE5YzQ3YmEyNiZjPUhPTUVGRUVEX0RJR0VTVF9QSU5TJnM9ODcyZDk3MTUyYTQ4NDY1Zjk4NjlkMTFhOWM0N2JhMjYmbj0zMDcyNDg2NWE5ODU0ODcyODgxMjAxM2Y1YjcwYmUwOA%3D%3D&target=https%3A%2F%2Fwww.pinterest.com%2Fsecure%2Fautologin%2F%3Fuser_id%3DNzM1NjM1MDU3NzkxOTIwNzYx%26od%3DDWyTOazqTiQRsGdMQRzBGLMqC5fyy8tyzd07e0cf5eqPkVMsBjHfXmPNi4W5LT5HjB5sCj%252B7zkM8BEZKkyY%252FFb9FLvrPK6JWXBsnWqgpKgKoJOBDUcvy5SjgipH5nrr4VsgQ0DEU9P19BFzlj%252Byl%252FQ%253D%253D%26next%3D%252F%253Futm_campaign%253Dhfdigestpins%2526e_t%253D872d97152a48465f9869d11a9c47ba26%2526e_t_s%253Dcta%2526utm_source%253D31%2526utm_medium%253D2004)\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.96,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-003\",\n\"subject\": \"Start 2026 strong. Save on it all: $50/yr.\",\n\"body\": \"Make the most of the new year with unlimited access to the complete Times experience: News, Games, Cooking, Wirecutter, The Athletic and more.\\n\\n-- The New York Times --\\n\\nReady to reset? We've got you covered.\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.97,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-004\",\n\"subject\": \"Save Over $50 on last-minute stays for MLK weekend\",\n\"body\": \"Save over $50 on last-minute stays. Make the most of the long weekend with a last-minute ski escape. Find cabins, condos, and chalets close to the lifts.\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.98,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-005\",\n\"subject\": \"⏰ 1 day left! | Pro audio deals from $29 ⏰\",\n\"body\": \"Time’s running out to treat your tracks. Deals from $29 – gone tomorrow! You’ve only got 1 day left to catch deals on top tools, bundles, and effects.\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.99,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-006\",\n\"subject\": \"🎥CES 2026 Live: Join xTool’s Innovation Hub Tour\",\n\"body\": \"To view the graphic version (HTML) of this e-mail, click on the following link or copy it into your browser.\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.95,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-007\",\n\"subject\": \"Create Visuals That Feel Like a Movie Scene 😎\",\n\"body\": \"Upload an image, paste a prompt, and watch Nano Banana bring it to life in seconds.\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.97,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-008\",\n\"subject\": \"⏰ 1 day left! | Deals from $29 ⏰\",\n\"body\": \"Time’s running out to treat your tracks. 1 day left to save big with special loyalty offers.\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.99,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-009\",\n\"subject\": \"Don't Miss Out On 10 Percent Savings!\",\n\"body\": \"Just a quick reminder: our Year-End discounts wrap up today. Enjoy 10 percent markdowns on bundles, gateways, modules, and accessories.\",\n\"expected_label\": \"Promotion\",\n\"expected_confidence_min\": 0.98,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n},\n{\n\"unique_id\": \"email-010\",\n\"subject\": \"Smart Monitoring Alert\",\n\"body\": \"Dry Room humidity Alert\\n\\nReading:\\n\\nDry Room humidity is 56.6% exceeds min threshold 58%\\n\\nDate:\\n\\nJan 6, 2026, 5:05:04 AM\",\n\"expected_label\": \"Customer Support\",\n\"expected_confidence_min\": 0.90,\n\"actual_label\": null,\n\"model\": \"chatgpt-5.2\"\n}\n]\n\n\n\n;\n\n// Convert array of objects into n8n items\nreturn data.map(entry => ({ json: entry }));",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "51689e68",
+          "created": "2026-02-08T05:37:00.219Z",
+          "lastModified": "2026-02-08T05:37:00.219Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:37 AM\n🔧 Node Type: v2\n🔒 Hash: 51689e68\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJDcmVhdGUgRGF0YVNldCIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Evaluation - Customer Support1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Evaluation - Finance/Billing1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Evaluation - High Priority1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Evaluation - Promotion1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Evaluation - Unknown1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude 3.7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Customer Support Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Mr. Doomsday",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer Support Agent": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Support": {
+      "main": [
+        [
+          {
+            "node": "Customer Support Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finance": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Priority": {
+      "main": [
+        [
+          {
+            "node": "Mr. Doomsday",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mr. Doomsday": {
+      "main": [
+        [
+          {
+            "node": "Create a draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Promotion": {
+      "main": [
+        [
+          {
+            "node": "Mark a message as read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When fetching a dataset row": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model - gpt-4.1-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Promotion": {
+      "main": [
+        [
+          {
+            "node": "Merge - actual_label",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Set High Priority": {
+      "main": [
+        [
+          {
+            "node": "Merge - actual_label",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Set Finance/Billing": {
+      "main": [
+        [
+          {
+            "node": "Merge - actual_label",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Set Customer Support": {
+      "main": [
+        [
+          {
+            "node": "Merge - actual_label",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Unknown": {
+      "main": [
+        [
+          {
+            "node": "Merge - actual_label",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Merge - actual_label": {
+      "main": [
+        [
+          {
+            "node": "Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluation - Customer Support1": {
+      "main": [
+        [
+          {
+            "node": "Set Customer Support",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Support",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluation - Finance/Billing1": {
+      "main": [
+        [
+          {
+            "node": "Set Finance/Billing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Finance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluation - Unknown1": {
+      "main": [
+        [
+          {
+            "node": "Set Unknown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluation - Promotion1": {
+      "main": [
+        [
+          {
+            "node": "Set Promotion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Promotion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluation - High Priority1": {
+      "main": [
+        [
+          {
+            "node": "Set High Priority",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Priority",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluation": {
+      "main": [
+        [
+          {
+            "node": "Evaluation2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluation2": {
+      "main": [
+        [
+          {
+            "node": "Evaluation1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create DataSet": {
+      "main": [
+        [
+          {
+            "node": "Convert to CSV for Datatable1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
