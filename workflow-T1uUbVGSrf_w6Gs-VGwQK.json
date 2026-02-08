@@ -1,0 +1,132 @@
+{
+  "name": "My workflow 4",
+  "nodes": [
+    {
+      "id": "ae9c053b-2c32-4d2b-a136-6992c4112ae6",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:48:01.180Z",
+          "lastModified": "2026-02-08T05:48:01.180Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJXaGVuIGNsaWNraW5nIOKAmEV4ZWN1dGUgd29ya2Zsb3figJkiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "a6af9ba2-9576-41d8-b904-3b629ecb4f18",
+      "name": "Set Value",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "63bcbec1-2e97-49a9-834a-7ec6b7bd1562",
+              "name": "count",
+              "value": 5,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2ae71fb3",
+          "created": "2026-02-08T05:48:01.180Z",
+          "lastModified": "2026-02-08T05:48:01.180Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 2ae71fb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWYWx1ZSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "33104925-ea3c-4431-9ac2-6bb3fdf8c062",
+      "name": "Call Sub-workflow (update value)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        384,
+        0
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "FcFpqsCVL38GH51C",
+          "mode": "list"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "count": "={{ $json.count }}"
+          },
+          "matchingColumns": [
+            "count"
+          ],
+          "schema": [
+            {
+              "id": "count",
+              "displayName": "count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "67a7253d",
+          "created": "2026-02-08T05:48:01.180Z",
+          "lastModified": "2026-02-08T05:48:01.180Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 67a7253d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpIiwidHlwZVZlcnNpb24iOjEuMiwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwid29ya2Zsb3dJZCIsIndvcmtmbG93SW5wdXRzIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Set Value",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Value": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
