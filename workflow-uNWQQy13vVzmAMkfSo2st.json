@@ -1,0 +1,4427 @@
+{
+  "name": "Archive - Simple Example - With Version Control",
+  "nodes": [
+    {
+      "id": "6a85140e-1f40-4b17-bca9-9c6ca810b8d3",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -416,
+        -240
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 04:12 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsiaHR0cE1ldGhvZCIsIm9wdGlvbnMiLCJwYXRoIiwicmVzcG9uc2VNb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 04:12 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "5f1cfaac-6bcc-4cd7-bbde-7650a508acad",
+      "name": "Set Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -192,
+        -240
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my workflow!",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "31ae27f8",
+          "created": "Feb 6, 2026, 04:12 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 31ae27f8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6M319fQ==\n🆕 Created: Feb 6, 2026, 04:12 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "167ccc8e-0c09-45ed-a5c5-0ea86ed6bc02",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        32,
+        -240
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 04:12 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2siLCJ0eXBlVmVyc2lvbiI6MS4xLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJyZXNwb25kV2l0aCIsInJlc3BvbnNlQm9keSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 04:12 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "46972347-eb4a-4f84-a5b1-f327b39bf051",
+      "name": "Manual Save Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        -16
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "4f01dfa4",
+          "created": "Feb 6, 2026, 04:12 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJNYW51YWwgU2F2ZSBUcmlnZ2VyIiwidHlwZVZlcnNpb24iOjEsInBhcmFtZXRlcktleXMiOltdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 04:12 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "9e2e9c57-a1b7-4299-a25e-a27c1aa6323e",
+      "name": "Set Version Control Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -192,
+        -16
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/data/workflow-backups/local",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "1910eac6",
+          "created": "Feb 6, 2026, 04:12 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1910eac6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6Nn19fQ==\n🆕 Created: Feb 6, 2026, 04:12 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "f46a7ff5-b565-4107-9ddb-f3f8bf4b5249",
+      "name": "Call Sub-workflow (update value)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        48,
+        -16
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 04:12 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpIiwidHlwZVZlcnNpb24iOjEuMiwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwid29ya2Zsb3dJZCIsIndvcmtmbG93SW5wdXRzIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 04:12 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "e10f50ea-2c14-441c-94fd-a07276de2536",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -192,
+        192
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v7",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "2a994cdd",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 2a994cdd\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzIiwidHlwZVZlcnNpb24iOjMuNCwicGFyYW1ldGVyS2V5cyI6WyJhc3NpZ25tZW50cyIsIm9wdGlvbnMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7ImFzc2lnbm1lbnRzIjp7ImFzc2lnbm1lbnRDb3VudCI6MX19fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "1702aba5-8897-40de-a292-5fecaccb1741",
+      "name": "Show Completion Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        -656
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n    return {\n        json: {\n            status: \"⚠️ ERROR\",\n            message: \"No result from version control subworkflow\",\n            action: \"Check subworkflow execution\"\n        }\n    };\n}\n\n// Format the changes list\nconst changesList = result.nodeChanges?.map(c => {\n    if (c.action === 'created') {\n        return `➕ ${c.nodeName}: v${c.version} (new)`;\n    } else if (c.action === 'modified') {\n        return `✏️ ${c.nodeName}: v${c.previousVersion} → v${c.version}`;\n    }\n    return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nreturn {\n    json: {\n        status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n        message: result.hasChanges \n            ? \"Version control updated successfully!\" \n            : \"No node changes detected - all versions remain the same\",\n        action: result.hasChanges \n            ? \"🔄 Refresh your browser (F5 or Cmd+R) to see the updated version notes\"\n            : \"No action needed\",\n        details: {\n            workflowName: result.originalWorkflow?.name || \"Unknown\",\n            totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n            changedNodes: result.nodeChanges?.length || 0,\n            timestamp: new Date().toLocaleString('en-US', { \n                month: 'short', \n                day: 'numeric', \n                year: 'numeric',\n                hour: '2-digit', \n                minute: '2-digit',\n                second: '2-digit'\n            })\n        },\n        changes: changesList,\n        tip: \"💡 Tip: You only need to refresh the browser once, after all your edits are complete\"\n    }\n};",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "e30674d",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: e30674d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImpzQ29kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "797e09c2-55cb-4fbf-b97d-3287da64e2cd",
+      "name": "Webhook1",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        -880
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "14bef169",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rMSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "3336391e-5baf-43bf-9b7b-4452032b895d",
+      "name": "Set Data1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -880
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my workflow!",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "31ae27f8",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 31ae27f8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "70038f89-fab5-4d94-a194-7429a054f03c",
+      "name": "Respond to Webhook1",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        272,
+        -880
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "64ab2cb3",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2sxIiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "69b4f3e8-a622-4b03-afa6-63b69d408c83",
+      "name": "Set Version Control Config1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -656
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/data/workflow-backups/local",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1910eac6",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1910eac6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjZ9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "23b598c6-cf20-4ce4-a08b-c075be21cb1e",
+      "name": "Call Sub-workflow (update value)1",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        -656
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "32f23958",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMSIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "96bb23d8-a9ff-4de5-9b58-457647972670",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -448
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2947b47a",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 2947b47a\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "50da9e91-d014-4658-bd7a-79091f4338c4",
+      "name": "Webhook2",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        -1472
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "14bef169",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rMiIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "7487a7a1-7916-464c-8b97-825957a93038",
+      "name": "Set Data2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -1472
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my workflow!",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "31ae27f8",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 31ae27f8\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhMiIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "542c9e67-54d0-4169-9791-074cb8e584bd",
+      "name": "Respond to Webhook2",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        288,
+        -1472
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "64ab2cb3",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2syIiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "ab9535d5-2ad7-4bec-98d8-80a6bbd72448",
+      "name": "Set Version Control Config2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -1248
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/data/workflow-backups/local",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "1910eac6",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1910eac6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMiIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjZ9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "256b3690-789e-49e4-8dfd-ac335ee09385",
+      "name": "Call Sub-workflow (update value)2",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        304,
+        -1248
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Simple Example - With Version Control"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "6b510c31",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 6b510c31\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMiIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==",
+      "notesInFlow": true
+    },
+    {
+      "id": "06ac26a1-9fca-421b-bec4-29969a7d53d9",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -1040
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v3",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "28d72c59",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 28d72c59\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzMiIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "491ee1d1-6e09-4505-a898-90c0637a4378",
+      "name": "Show Completion Message1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        -1248
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n    return {\n        json: {\n            status: \"⚠️ ERROR\",\n            message: \"No result from version control subworkflow\",\n            action: \"Check subworkflow execution\",\n            rawResult: result  // Include raw result for debugging\n        }\n    };\n}\n\n// Format the changes list\nconst changesList = result.nodeChanges?.map(c => {\n    if (c.action === 'created') {\n        return `➕ ${c.nodeName}: v${c.version} (new)`;\n    } else if (c.action === 'modified') {\n        return `✏️ ${c.nodeName}: v${c.previousVersion} → v${c.version}`;\n    }\n    return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nreturn {\n    json: {\n        status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n        message: result.hasChanges \n            ? \"Version control updated successfully!\" \n            : \"No node changes detected - all versions remain the same\",\n        action: result.hasChanges \n            ? \"🔄 Refresh your browser (F5 or Cmd+R) to see the updated version notes\"\n            : \"No action needed\",\n        details: {\n            workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n            totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n            changedNodes: result.nodeChanges?.length || 0,\n            timestamp: new Date().toLocaleString('en-US', { \n                month: 'short', \n                day: 'numeric', \n                year: 'numeric',\n                hour: '2-digit', \n                minute: '2-digit',\n                second: '2-digit'\n            })\n        },\n        changes: changesList,\n        tip: \"💡 Tip: You only need to refresh the browser once, after all your edits are complete\"\n    }\n};\n",
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4d36950c",
+          "created": "2026-02-08T05:48:20.865Z",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 4d36950c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTEiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "fbf17b91-4132-4733-9bc5-ae99ca0e7ce0",
+      "name": "Webhook3",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        -2560
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.2",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 6, 2026, 07:42 PM"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 1.0.2\n📅 Modified: Feb 6, 2026, 07:42 PM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rMyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "087010ff-f032-47ea-a589-0006fa7ad94e",
+      "name": "Set Data3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -2560
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow!",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.4",
+          "hash": "341f4055",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 6, 2026, 07:42 PM"
+        }
+      },
+      "notes": "📌 Version: 1.0.4\n📅 Modified: Feb 6, 2026, 07:42 PM\n🔧 Node Type: v3.4\n🔒 Hash: 341f4055\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhMyIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "3a317db9-9456-4bf6-9620-d364a561aa2f",
+      "name": "Respond to Webhook3",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        272,
+        -2560
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.2",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 6, 2026, 07:42 PM"
+        }
+      },
+      "notes": "📌 Version: 1.0.2\n📅 Modified: Feb 6, 2026, 07:42 PM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2szIiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "0a57c87d-9edf-40f1-97c8-1b602bd141ef",
+      "name": "Set Version Control Config3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -2336
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/data/workflow-backups/local",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.2",
+          "hash": "1910eac6",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 6, 2026, 07:42 PM"
+        }
+      },
+      "notes": "📌 Version: 1.0.2\n📅 Modified: Feb 6, 2026, 07:42 PM\n🔧 Node Type: v3.4\n🔒 Hash: 1910eac6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMyIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjZ9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "701ece07-a819-49cb-b229-e52f9b3362c4",
+      "name": "Call Sub-workflow (update value)3",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        -2336
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.2",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 6, 2026, 07:42 PM"
+        }
+      },
+      "notes": "📌 Version: 1.0.2\n📅 Modified: Feb 6, 2026, 07:42 PM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMyIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "5b84fa85-85bc-4c08-a1a1-2067a6f8d824",
+      "name": "Edit Fields3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -2128
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "==v$pecial-ch@rs!",
+              "type": "string"
+            },
+            {
+              "id": "94135003-475c-405d-a512-d6f6fcc782bc",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.11",
+          "hash": "64f3f726",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "Feb 7, 2026, 12:13 AM"
+        }
+      },
+      "notes": "📌 Version: 1.0.11\n📅 Modified: Feb 7, 2026, 12:13 AM\n🔧 Node Type: v3.4\n🔒 Hash: 64f3f726\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzMyIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjJ9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "396492c7-c26a-4af3-82dd-63b257b34a1a",
+      "name": "Show Completion Message2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        -2336
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n    return {\n        json: {\n            status: \"ℹ️ NO CHANGES\",\n            message: \"No result from version control subworkflow\",\n            action: \"Check subworkflow execution\"\n        }\n    };\n}\n\n// Format the changes list\nconst changesList = result.nodeChanges?.map(c => {\n    if (c.action === 'created') {\n        return `➕ ${c.nodeName}: v${c.version} (new)`;\n    } else if (c.action === 'modified') {\n        return `✏️ ${c.nodeName}: v${c.previousVersion} → v${c.version}`;\n    }\n    return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nreturn {\n    json: {\n        status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n        message: result.hasChanges \n            ? \"Version control updated successfully!\" \n            : \"No node changes detected - all versions remain the same\",\n        action: result.hasChanges \n            ? \"🔄 Refresh your browser (F5 or Cmd+R) to see the updated version notes\"\n            : \"No action needed\",\n        details: {\n            workflowName: result.originalWorkflow?.name || \"Unknown\",\n            totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n            changedNodes: result.nodeChanges?.length || 0,\n            timestamp: new Date().toLocaleString('en-US', { \n                month: 'short', \n                day: 'numeric', \n                year: 'numeric',\n                hour: '2-digit', \n                minute: '2-digit',\n                second: '2-digit'\n            })\n        },\n        changes: changesList,\n        tip: \"💡 Tip: You only need to refresh the browser once, after all your edits are complete\"\n    }\n};",
+        "_versionControl": {
+          "version": "1.0.3",
+          "hash": "32b08a98",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "Feb 6, 2026, 11:43 PM"
+        }
+      },
+      "notes": "📌 Version: 1.0.3\n📅 Modified: Feb 6, 2026, 11:43 PM\n🔧 Node Type: v2\n🔒 Hash: 32b08a98\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTIiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "95139657-60eb-4228-bc71-8361db418290",
+      "name": "Edit Fields4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -16,
+        -3152
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rain",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "3.1.0",
+          "hash": "57672b7d",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "Feb 7, 2026, 06:39 AM"
+        }
+      },
+      "notes": "📌 Version: 3.1.0\n📅 Modified: Feb 7, 2026, 06:39 AM\n🔧 Node Type: v3.4\n🔒 Hash: 57672b7d\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "1695760f-f65f-4b6d-abe2-1b31d670883e",
+      "name": "Webhook4",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        -3584
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rNCIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "c2641de6-bffd-4e9c-9b3f-dbe46cd9e0e3",
+      "name": "Set Data4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -16,
+        -3584
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "c5dfb26c-da3e-4040-afa0-105aaf3413c5",
+      "name": "Respond to Webhook4",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        -3584
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2s0IiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "6a5009f7-32c2-4dab-a4bf-c38bedf07cef",
+      "name": "Set Version Control Config4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -16,
+        -3360
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/data/workflow-backups/local",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "1910eac6",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1910eac6\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjZ9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "e3c84bb6-ff03-487d-8abf-5df13857f4f1",
+      "name": "Call Sub-workflow (update value)4",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        -3360
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpNCIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "8261b787-f235-485f-9d51-5693b2ff42af",
+      "name": "Show Completion Message3",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        -3360
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n    return {\n        json: {\n            status: \"ℹ️ NO CHANGES\",\n            message: \"No result from version control subworkflow\",\n            action: \"Check subworkflow execution\"\n        }\n    };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map(c => {\n    if (c.action === 'created') {\n        return `➕ ${c.nodeName}: v${c.version} (new)`;\n    } else if (c.action === 'modified') {\n        let icon = '✏️';\n        let badge = '';\n        \n        // Different styling based on change type\n        if (c.changeType === 'major') {\n            icon = '🚨';\n            badge = ' [MAJOR]';\n        } else if (c.changeType === 'minor') {\n            icon = '⚠️';\n            badge = ' [MINOR]';\n        } else {\n            icon = '✏️';\n            // No badge for PATCH (most common)\n        }\n        \n        let line = `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}`;\n        \n        // Add reason on next line\n        if (c.reason) {\n            line += `\\n   └─ ${c.reason}`;\n        }\n        \n        return line;\n    }\n    return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\n// Count change types\nconst majorCount = result.nodeChanges?.filter(c => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter(c => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter(c => c.changeType === 'patch').length || 0;\n\n// Build summary\nlet summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0 \n    ? ` (${summaryParts.join(', ')})` \n    : '';\n\n// Dynamic tip based on change types\nlet tip = \"💡 Tip: You only need to refresh the browser once, after all your edits are complete\";\nif (majorCount > 0) {\n    tip = \"⚠️ MAJOR changes detected! Review carefully - these are breaking changes.\";\n} else if (minorCount > 0) {\n    tip = \"💡 MINOR changes detected. New features added - test functionality after update.\";\n}\n\nreturn {\n    json: {\n        status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n        message: result.hasChanges \n            ? `Version control updated successfully!${changeSummary}` \n            : \"No node changes detected - all versions remain the same\",\n        action: result.hasChanges \n            ? \"🔄 Refresh your browser (F5 or Cmd+R) to see the updated version notes\"\n            : \"No action needed\",\n        details: {\n            workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n            totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n            changedNodes: result.nodeChanges?.length || 0,\n            majorChanges: majorCount,\n            minorChanges: minorCount,\n            patchChanges: patchCount,\n            timestamp: new Date().toLocaleString('en-US', { \n                month: 'short', \n                day: 'numeric', \n                year: 'numeric',\n                hour: '2-digit', \n                minute: '2-digit',\n                second: '2-digit'\n            })\n        },\n        changes: changesList,\n        tip: tip\n    }\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "175d9a89",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 175d9a89\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTMiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "d90e9479-9eda-47ed-babe-6492b073abc0",
+      "name": "Webhook5",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        -4352
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rNSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "3c8883ce-637e-4009-af7e-4b86065919bc",
+      "name": "Set Data5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        -4352
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhNSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "32743065-1213-46fb-bec6-5bd885a9d3ca",
+      "name": "Respond to Webhook5",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        -4352
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2s1IiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "5d828368-4ace-469a-be68-6a8934113bc4",
+      "name": "Set Version Control Config5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        -4128
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/Users/stevenmiller/Development/n8n-backups",
+              "type": "string"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "8",
+              "name": "localBackupPath",
+              "value": "/Users/stevenmiller/Development/n8n-backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 20,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "db8df60",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: db8df60\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnNSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjl9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "a64b9575-99a8-496c-b6e5-691a00769418",
+      "name": "Call Sub-workflow (update value)5",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        272,
+        -4128
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpNSIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "a467f64f-eb25-4999-a0e8-69d3ceb47dd2",
+      "name": "Show Completion Message4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        -4128
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n    return {\n        json: {\n            status: \"ℹ️ NO CHANGES\",\n            message: \"No result from version control subworkflow\",\n            action: \"Check subworkflow execution\"\n        }\n    };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map(c => {\n    if (c.action === 'created') {\n        return `➕ ${c.nodeName}: v${c.version} (new)`;\n    } else if (c.action === 'modified') {\n        let icon = '✏️';\n        let badge = '';\n        \n        // Different styling based on change type\n        if (c.changeType === 'major') {\n            icon = '🚨';\n            badge = ' [MAJOR]';\n        } else if (c.changeType === 'minor') {\n            icon = '⚠️';\n            badge = ' [MINOR]';\n        } else {\n            icon = '✏️';\n            // No badge for PATCH (most common)\n        }\n        \n        let line = `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}`;\n        \n        // Add reason on next line\n        if (c.reason) {\n            line += `\\n   └─ ${c.reason}`;\n        }\n        \n        return line;\n    }\n    return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\n// Count change types\nconst majorCount = result.nodeChanges?.filter(c => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter(c => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter(c => c.changeType === 'patch').length || 0;\n\n// Build summary\nlet summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0 \n    ? ` (${summaryParts.join(', ')})` \n    : '';\n\n// Dynamic tip based on change types\nlet tip = \"💡 Tip: You only need to refresh the browser once, after all your edits are complete\";\nif (majorCount > 0) {\n    tip = \"⚠️ MAJOR changes detected! Review carefully - these are breaking changes.\";\n} else if (minorCount > 0) {\n    tip = \"💡 MINOR changes detected. New features added - test functionality after update.\";\n}\n\nreturn {\n    json: {\n        status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n        message: result.hasChanges \n            ? `Version control updated successfully!${changeSummary}` \n            : \"No node changes detected - all versions remain the same\",\n        action: result.hasChanges \n            ? \"🔄 Refresh your browser (F5 or Cmd+R) to see the updated version notes\"\n            : \"No action needed\",\n        details: {\n            workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n            totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n            changedNodes: result.nodeChanges?.length || 0,\n            majorChanges: majorCount,\n            minorChanges: minorCount,\n            patchChanges: patchCount,\n            timestamp: new Date().toLocaleString('en-US', { \n                month: 'short', \n                day: 'numeric', \n                year: 'numeric',\n                hour: '2-digit', \n                minute: '2-digit',\n                second: '2-digit'\n            })\n        },\n        changes: changesList,\n        tip: tip\n    }\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "175d9a89",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 175d9a89\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTQiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "ba0b5022-eec6-45ed-908c-fe2d7a621df4",
+      "name": "Edit Fields5",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        -3920
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rain2",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "31a3b8f1",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 31a3b8f1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "d3a5147a-67ea-4396-b9bd-23133e7f9851",
+      "name": "Webhook6",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        -5072
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rNiIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "c3b90263-edef-427d-bdf8-80e00880c748",
+      "name": "Set Data6",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -5072
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhNiIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "f86e31bb-c556-43c1-9ce1-94ec160ae218",
+      "name": "Respond to Webhook6",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        -5072
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2s2IiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "b5dfd414-e7fe-4f19-a281-e474e3c5e7e4",
+      "name": "Set Version Control Config6",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -4848
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "46b775e7",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 46b775e7\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnNiIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjh9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "4bf5fe4f-4242-4bff-bcee-c523cca54d14",
+      "name": "Call Sub-workflow (update value)6",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        -4848
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpNiIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "580c1b00-ee51-4c7a-8ef0-88294db75f61",
+      "name": "Show Completion Message5",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        -4848
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n    return {\n        json: {\n            status: \"ℹ️ NO CHANGES\",\n            message: \"No result from version control subworkflow\",\n            action: \"Check subworkflow execution\"\n        }\n    };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map(c => {\n    if (c.action === 'created') {\n        return `➕ ${c.nodeName}: v${c.version} (new)`;\n    } else if (c.action === 'modified') {\n        let icon = '✏️';\n        let badge = '';\n        \n        // Different styling based on change type\n        if (c.changeType === 'major') {\n            icon = '🚨';\n            badge = ' [MAJOR]';\n        } else if (c.changeType === 'minor') {\n            icon = '⚠️';\n            badge = ' [MINOR]';\n        } else {\n            icon = '✏️';\n            // No badge for PATCH (most common)\n        }\n        \n        let line = `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}`;\n        \n        // Add reason on next line\n        if (c.reason) {\n            line += `\\n   └─ ${c.reason}`;\n        }\n        \n        return line;\n    }\n    return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\n// Count change types\nconst majorCount = result.nodeChanges?.filter(c => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter(c => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter(c => c.changeType === 'patch').length || 0;\n\n// Build summary\nlet summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0 \n    ? ` (${summaryParts.join(', ')})` \n    : '';\n\n// Dynamic tip based on change types\nlet tip = \"💡 Tip: You only need to refresh the browser once, after all your edits are complete\";\nif (majorCount > 0) {\n    tip = \"⚠️ MAJOR changes detected! Review carefully - these are breaking changes.\";\n} else if (minorCount > 0) {\n    tip = \"💡 MINOR changes detected. New features added - test functionality after update.\";\n}\n\nreturn {\n    json: {\n        status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n        message: result.hasChanges \n            ? `Version control updated successfully!${changeSummary}` \n            : \"No node changes detected - all versions remain the same\",\n        action: result.hasChanges \n            ? \"🔄 Refresh your browser (F5 or Cmd+R) to see the updated version notes\"\n            : \"No action needed\",\n        details: {\n            workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n            totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n            changedNodes: result.nodeChanges?.length || 0,\n            majorChanges: majorCount,\n            minorChanges: minorCount,\n            patchChanges: patchCount,\n            timestamp: new Date().toLocaleString('en-US', { \n                month: 'short', \n                day: 'numeric', \n                year: 'numeric',\n                hour: '2-digit', \n                minute: '2-digit',\n                second: '2-digit'\n            })\n        },\n        changes: changesList,\n        tip: tip\n    }\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "175d9a89",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 175d9a89\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTUiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "db72a538-7412-4b54-a36b-ed53c0b4209f",
+      "name": "Edit Fields6",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -4640
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rainb",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "1c8a32c1",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1c8a32c1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNiIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "b314767d-27da-4499-ab79-cc1f822c6f9d",
+      "name": "Webhook7",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        -5952
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rNyIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "acafe7dc-0a82-444d-91ce-374dc42e5bf8",
+      "name": "Set Data7",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        -5952
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhNyIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "7f7cc937-9b63-4d5c-b4f4-abf2d23bb279",
+      "name": "Respond to Webhook7",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        256,
+        -5952
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2s3IiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "329fdf4f-3783-44bb-82c7-b4333a941e37",
+      "name": "Set Version Control Config7",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        -5728
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "5",
+              "name": "n8nApiKey",
+              "value": "=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNGRhMDcwZi1hMWE1LTRmODktOGIzZS05MTEzNWExYThkMWMiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzcwMjQzNjc1fQ.eJsCwAv0z6rZ2p6YVuqH6s9lzJXzkMgt7uDl6QIY3ek",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "cleanupOldBackupsEnabled",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "3dc07a9c",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 3dc07a9c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnNyIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjl9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "894bd080-c857-4683-b61e-e307f76be7c6",
+      "name": "Call Sub-workflow (update value)7",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        272,
+        -5728
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpNyIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "bef36644-9c21-44a7-9047-36dc1638c395",
+      "name": "Show Completion Message6",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        -5728
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n    return {\n        json: {\n            status: \"ℹ️ NO CHANGES\",\n            message: \"No result from version control subworkflow\",\n            action: \"Check subworkflow execution\"\n        }\n    };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map(c => {\n    if (c.action === 'created') {\n        return `➕ ${c.nodeName}: v${c.version} (new)`;\n    } else if (c.action === 'modified') {\n        let icon = '✏️';\n        let badge = '';\n        \n        // Different styling based on change type\n        if (c.changeType === 'major') {\n            icon = '🚨';\n            badge = ' [MAJOR]';\n        } else if (c.changeType === 'minor') {\n            icon = '⚠️';\n            badge = ' [MINOR]';\n        } else {\n            icon = '✏️';\n            // No badge for PATCH (most common)\n        }\n        \n        let line = `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}`;\n        \n        // Add reason on next line\n        if (c.reason) {\n            line += `\\n   └─ ${c.reason}`;\n        }\n        \n        return line;\n    }\n    return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\n// Count change types\nconst majorCount = result.nodeChanges?.filter(c => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter(c => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter(c => c.changeType === 'patch').length || 0;\n\n// Build summary\nlet summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0 \n    ? ` (${summaryParts.join(', ')})` \n    : '';\n\n// Dynamic tip based on change types\nlet tip = \"💡 Tip: You only need to refresh the browser once, after all your edits are complete\";\nif (majorCount > 0) {\n    tip = \"⚠️ MAJOR changes detected! Review carefully - these are breaking changes.\";\n} else if (minorCount > 0) {\n    tip = \"💡 MINOR changes detected. New features added - test functionality after update.\";\n}\n\nreturn {\n    json: {\n        status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n        message: result.hasChanges \n            ? `Version control updated successfully!${changeSummary}` \n            : \"No node changes detected - all versions remain the same\",\n        action: result.hasChanges \n            ? \"🔄 Refresh your browser (F5 or Cmd+R) to see the updated version notes\"\n            : \"No action needed\",\n        details: {\n            workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n            totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n            changedNodes: result.nodeChanges?.length || 0,\n            majorChanges: majorCount,\n            minorChanges: minorCount,\n            patchChanges: patchCount,\n            timestamp: new Date().toLocaleString('en-US', { \n                month: 'short', \n                day: 'numeric', \n                year: 'numeric',\n                hour: '2-digit', \n                minute: '2-digit',\n                second: '2-digit'\n            })\n        },\n        changes: changesList,\n        tip: tip\n    }\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "175d9a89",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 175d9a89\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTYiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "73f21af4-587f-4bd7-8735-33ba3adaefa7",
+      "name": "Edit Fields7",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        32,
+        -5520
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "raing",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "1a578a1c",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1a578a1c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNyIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "8126f6cc-87f5-43dc-b523-0cad3211150d",
+      "name": "Webhook8",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        -7024
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rOCIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "29545a8e-8fba-43b6-8304-e8221a3dba5b",
+      "name": "Set Data8",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        96,
+        -7024
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhOCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "61671689-e620-4422-9616-4b443d85eb61",
+      "name": "Respond to Webhook8",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        -7024
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2s4IiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "9a7749fe-885f-40bd-99a1-7a329a407730",
+      "name": "Set Version Control Config8",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        96,
+        -6800
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "cleanupOldBackupsEnabled",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "50c115be",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 50c115be\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnOCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjh9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "b3733928-1125-4cc1-93ef-b85788e921f2",
+      "name": "Call Sub-workflow (update value)8",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        336,
+        -6800
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpOCIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "536e8b62-ff8d-4390-af10-25a17b6efe1a",
+      "name": "Show Completion Message7",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        -6800
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n    return {\n        json: {\n            status: \"ℹ️ NO CHANGES\",\n            message: \"No result from version control subworkflow\",\n            action: \"Check subworkflow execution\"\n        }\n    };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map(c => {\n    if (c.action === 'created') {\n        return `➕ ${c.nodeName}: v${c.version} (new)`;\n    } else if (c.action === 'modified') {\n        let icon = '✏️';\n        let badge = '';\n        \n        // Different styling based on change type\n        if (c.changeType === 'major') {\n            icon = '🚨';\n            badge = ' [MAJOR]';\n        } else if (c.changeType === 'minor') {\n            icon = '⚠️';\n            badge = ' [MINOR]';\n        } else {\n            icon = '✏️';\n            // No badge for PATCH (most common)\n        }\n        \n        let line = `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}`;\n        \n        // Add reason on next line\n        if (c.reason) {\n            line += `\\n   └─ ${c.reason}`;\n        }\n        \n        return line;\n    }\n    return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\n// Count change types\nconst majorCount = result.nodeChanges?.filter(c => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter(c => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter(c => c.changeType === 'patch').length || 0;\n\n// Build summary\nlet summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0 \n    ? ` (${summaryParts.join(', ')})` \n    : '';\n\n// Dynamic tip based on change types\nlet tip = \"💡 Tip: You only need to refresh the browser once, after all your edits are complete\";\nif (majorCount > 0) {\n    tip = \"⚠️ MAJOR changes detected! Review carefully - these are breaking changes.\";\n} else if (minorCount > 0) {\n    tip = \"💡 MINOR changes detected. New features added - test functionality after update.\";\n}\n\nreturn {\n    json: {\n        status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n        message: result.hasChanges \n            ? `Version control updated successfully!${changeSummary}` \n            : \"No node changes detected - all versions remain the same\",\n        action: result.hasChanges \n            ? \"🔄 Refresh your browser (F5 or Cmd+R) to see the updated version notes\"\n            : \"No action needed\",\n        details: {\n            workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n            totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n            changedNodes: result.nodeChanges?.length || 0,\n            majorChanges: majorCount,\n            minorChanges: minorCount,\n            patchChanges: patchCount,\n            timestamp: new Date().toLocaleString('en-US', { \n                month: 'short', \n                day: 'numeric', \n                year: 'numeric',\n                hour: '2-digit', \n                minute: '2-digit',\n                second: '2-digit'\n            })\n        },\n        changes: changesList,\n        tip: tip\n    }\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "175d9a89",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 175d9a89\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTciLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "6bf046cc-5444-4c4c-af48-464639a42307",
+      "name": "Edit Fields8",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        96,
+        -6592
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rainh",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "19e701fb",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 19e701fb\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzOCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "8b824896-24b3-4c6b-a960-e9e38a7ccd01",
+      "name": "Webhook9",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -7952
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rOSIsInR5cGVWZXJzaW9uIjoyLCJwYXJhbWV0ZXJLZXlzIjpbImh0dHBNZXRob2QiLCJvcHRpb25zIiwicGF0aCIsInJlc3BvbnNlTW9kZSJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "53bea56a-bc93-4004-a094-bca4df1723f7",
+      "name": "Set Data9",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        16,
+        -7952
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhOSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjN9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "34854a1c-de04-4739-b20b-98773d6e5879",
+      "name": "Respond to Webhook9",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        -7952
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2s5IiwidHlwZVZlcnNpb24iOjEuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIiwicmVzcG9uZFdpdGgiLCJyZXNwb25zZUJvZHkiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "3dfa8d53-f98f-4d9f-96db-8b6e68928e60",
+      "name": "Set Version Control Config9",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        16,
+        -7728
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 3,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "cleanupOldBackupsEnabled",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "50c115be",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 50c115be\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnOSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjh9fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "6cc82838-63d1-4ccd-b358-9cc715d91bec",
+      "name": "Call Sub-workflow (update value)9",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        -7728
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpOSIsInR5cGVWZXJzaW9uIjoxLjIsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsIndvcmtmbG93SWQiLCJ3b3JrZmxvd0lucHV0cyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnt9fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "a0e5d8ac-a72c-48dd-9935-a1dc5a361b11",
+      "name": "Show Completion Message8",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -7728
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map(c => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    let line = `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}`;\n\n    if (c.reason) {\n      line += `\n   └─ ${c.reason}`;\n    }\n\n    return line;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter(c => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter(c => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter(c => c.changeType === 'patch').length || 0;\n\nlet summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit'\n      })\n    },\n    changes: changesList,\n    tip,\n  }\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "7f422952",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 7f422952\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTgiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "814624a5-3b4b-401c-a80f-73996a45c6bf",
+      "name": "Edit Fields9",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        16,
+        -7520
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rain1",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "32144112",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 32144112\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzOSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "252ec106-1952-4d12-9594-1ae7a8c11248",
+      "name": "Webhook10",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        16,
+        -8688
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rMTAiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJodHRwTWV0aG9kIiwib3B0aW9ucyIsInBhdGgiLCJyZXNwb25zZU1vZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "774e2303-33a7-473a-a2b7-8fd39f6ea95a",
+      "name": "Set Data10",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        -8688
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhMTAiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50IjozfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "2a5fab89-6fc6-4506-961d-e7b18bf7fc05",
+      "name": "Respond to Webhook10",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        464,
+        -8688
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2sxMCIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInJlc3BvbmRXaXRoIiwicmVzcG9uc2VCb2R5Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "f963e074-9e4f-479d-9e32-b13bc1b273b6",
+      "name": "Set Version Control Config10",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        -8464
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 20,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "cleanupOldBackupsEnabled",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "3e0c74f1",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 3e0c74f1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMTAiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50Ijo4fX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "b6476672-5a3f-413e-ab16-64ac35397899",
+      "name": "Call Sub-workflow (update value)10",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        -8464
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMTAiLCJ0eXBlVmVyc2lvbiI6MS4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ3b3JrZmxvd0lkIiwid29ya2Zsb3dJbnB1dHMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "0c61da12-dcae-4be8-a2b0-8b1ada217aff",
+      "name": "Show Completion Message9",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -8464
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map((c) => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    const reasonLine = c.reason ? `\\n   └─ ${c.reason}` : '';\n    return `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}${reasonLine}`;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter((c) => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter((c) => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter((c) => c.changeType === 'patch').length || 0;\n\nconst summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit',\n      }),\n    },\n    changes: changesList,\n    tip,\n  },\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "622f282c",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 622f282c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTkiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "b0de7fda-957a-498b-98c8-8b9d53b46054",
+      "name": "Edit Fields10",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        -8256
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rain3",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "313330d0",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 313330d0\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzMTAiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50Ijo1fX19\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "52edd05f-4de7-4423-a8b9-8f774981285f",
+      "name": "Webhook11",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        304,
+        -9104
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rMTEiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJodHRwTWV0aG9kIiwib3B0aW9ucyIsInBhdGgiLCJyZXNwb25zZU1vZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "1d4c5948-dc46-4ad0-b181-417d98c823bb",
+      "name": "Set Data11",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        528,
+        -9104
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhMTEiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50IjozfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "6887a96a-a31b-40ce-9cd1-6157123e1864",
+      "name": "Respond to Webhook11",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        752,
+        -9104
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2sxMSIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInJlc3BvbmRXaXRoIiwicmVzcG9uc2VCb2R5Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "3fcd6e9e-8b2d-4e0a-8653-9033fde37594",
+      "name": "Set Version Control Config11",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -9584
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 20,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "cleanupOldBackupsEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "11",
+              "name": "gitPushEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "12",
+              "name": "gitRepoPath",
+              "value": "/files/backups/git-repo",
+              "type": "string"
+            },
+            {
+              "id": "13",
+              "name": "gitBranch",
+              "value": "main",
+              "type": "string"
+            },
+            {
+              "id": "14",
+              "name": "gitRemote",
+              "value": "origin",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "30fbd73e",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30fbd73e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMTEiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50IjoxMn19fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "b7c6d02c-5fd2-4bc9-9d2f-65206aaf92e4",
+      "name": "Call Sub-workflow (update value)11",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        304,
+        -9584
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMTEiLCJ0eXBlVmVyc2lvbiI6MS4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ3b3JrZmxvd0lkIiwid29ya2Zsb3dJbnB1dHMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "5efc1091-d0a2-4204-b3b5-1d231e1e97be",
+      "name": "Show Completion Message10",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        -9584
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\nconst changesList = result.nodeChanges?.map((c) => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    const reasonLine = c.reason ? `\\n   └─ ${c.reason}` : '';\n    return `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}${reasonLine}`;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter((c) => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter((c) => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter((c) => c.changeType === 'patch').length || 0;\n\nconst summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\nconst git = result.git || {};\n\nconst commitHashShort = git.commit?.hash ? String(git.commit.hash).slice(0, 8) : null;\nconst gitStatus = git.enabled\n  ? `Git ${git.committed ? 'committed' : 'not committed'}${git.remotePushEnabled ? (git.pushed ? ' + pushed' : ' (push not enabled/completed)') : ''}`\n  : 'Git disabled';\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      gitStatus,\n      gitRepoPath: git.repoPath || null,\n      gitFilePath: git.filePath || null,\n      gitBranch: git.branch || null,\n      gitCommitHash: commitHashShort,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit',\n      }),\n    },\n    changes: changesList,\n    git,\n    tip,\n  },\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "53972c67",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 53972c67\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTEwIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "d3c01480-fd9b-474a-9056-fd4011985a5a",
+      "name": "Edit Fields11",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -64,
+        -9104
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rainb",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "1c8a32c1",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1c8a32c1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzMTEiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50Ijo1fX19\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "a0cc6691-2db3-4d83-872b-44eeb0181a8c",
+      "name": "Webhook12",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        -10192
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rMTIiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJodHRwTWV0aG9kIiwib3B0aW9ucyIsInBhdGgiLCJyZXNwb25zZU1vZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "720082dd-9a72-4cbd-af55-c18efa836be8",
+      "name": "Set Data12",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        176,
+        -10192
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhMTIiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50IjozfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "42fc6e23-6ea3-4286-876b-ebeeef4e0f7f",
+      "name": "Respond to Webhook12",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        -10192
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2sxMiIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInJlc3BvbmRXaXRoIiwicmVzcG9uc2VCb2R5Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "0c230e74-2df1-4a99-a398-5c1bed42eff2",
+      "name": "Set Version Control Config12",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        176,
+        -9968
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 20,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "cleanupOldBackupsEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "11",
+              "name": "gitPushEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "12",
+              "name": "gitRepoPath",
+              "value": "/files/backups/git-repo",
+              "type": "string"
+            },
+            {
+              "id": "13",
+              "name": "gitBranch",
+              "value": "main",
+              "type": "string"
+            },
+            {
+              "id": "14",
+              "name": "gitRemote",
+              "value": "origin",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "30fbd73e",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30fbd73e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMTIiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50IjoxMn19fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "5ab0dab6-e959-4f5c-b8eb-87fc9a48f36f",
+      "name": "Call Sub-workflow (update value)12",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        -9968
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "32f23958",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 32f23958\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMTIiLCJ0eXBlVmVyc2lvbiI6MS4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ3b3JrZmxvd0lkIiwid29ya2Zsb3dJbnB1dHMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "0df55998-aab1-4371-b747-5efc24d8e676",
+      "name": "Show Completion Message11",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        -9968
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map((c) => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    const reasonLine = c.reason ? `\\n   └─ ${c.reason}` : '';\n    return `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}${reasonLine}`;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter((c) => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter((c) => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter((c) => c.changeType === 'patch').length || 0;\n\nconst summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit',\n      }),\n    },\n    changes: changesList,\n    tip,\n  },\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "622f282c",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 622f282c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTExIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "0d41a83c-e361-4efa-8c3f-ba63201e3bf1",
+      "name": "Edit Fields12",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        176,
+        -9760
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rain4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "30c2a8af",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30c2a8af\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzMTIiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50Ijo1fX19\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "d8303602-67f3-4f71-b377-3a2f7c15453f",
+      "name": "Set Version Control Config Override (Optional)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -10528
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "workflowId",
+              "value": "={{ $workflow.id }}",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "gitEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "7",
+              "name": "localBackupEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "3",
+              "name": "localBackupPath",
+              "value": "/files/backups",
+              "type": "string"
+            },
+            {
+              "id": "9",
+              "name": "localBackupMaxVersions",
+              "value": 20,
+              "type": "number"
+            },
+            {
+              "id": "4",
+              "name": "n8nApiUrl",
+              "value": "http://localhost:5678/api/v1",
+              "type": "string"
+            },
+            {
+              "id": "6",
+              "name": "dryRun",
+              "value": false,
+              "type": "boolean"
+            },
+            {
+              "id": "10",
+              "name": "cleanupOldBackupsEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "11",
+              "name": "gitPushEnabled",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "12",
+              "name": "gitRepoPath",
+              "value": "/files/backups/git-repo",
+              "type": "string"
+            },
+            {
+              "id": "13",
+              "name": "gitBranch",
+              "value": "main",
+              "type": "string"
+            },
+            {
+              "id": "14",
+              "name": "gitRemote",
+              "value": "origin",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "30fbd73e",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30fbd73e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnIE92ZXJyaWRlIChPcHRpb25hbCkiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50IjoxMn19fQ==\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "5196cbef-a495-4996-912e-6c66a1113a5f",
+      "name": "Webhook13",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        -10752
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "my-simple-workflow",
+        "responseMode": "responseNode",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "14bef169",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "webhookId": "my-simple-workflow",
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 14bef169\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rMTMiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJodHRwTWV0aG9kIiwib3B0aW9ucyIsInBhdGgiLCJyZXNwb25zZU1vZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "3e73351c-e590-4a21-acca-56870750e5c7",
+      "name": "Set Data13",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -10752
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1",
+              "name": "message",
+              "value": "Hello from my UPDATED workflow! 2",
+              "type": "string"
+            },
+            {
+              "id": "2",
+              "name": "timestamp",
+              "value": "={{ $now.toFormat('yyyy-MM-dd') }}",
+              "type": "string"
+            },
+            {
+              "id": "3",
+              "name": "inputData",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "5ae8e8c3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 5ae8e8c3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBEYXRhMTMiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50IjozfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "81a2cfc8-054e-4412-bdcc-dd95dd057cd9",
+      "name": "Respond to Webhook13",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        288,
+        -10752
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "64ab2cb3",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 64ab2cb3\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UucmVzcG9uZFRvV2ViaG9vayIsIm5hbWUiOiJSZXNwb25kIHRvIFdlYmhvb2sxMyIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsib3B0aW9ucyIsInJlc3BvbmRXaXRoIiwicmVzcG9uc2VCb2R5Il0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "c907a852-934e-459a-a3f8-8c4c0d76a9aa",
+      "name": "Call Sub-workflow (update value)13",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        304,
+        -10528
+      ],
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "XgpTIAZCl4XT2rlPS-NgC",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/XgpTIAZCl4XT2rlPS-NgC",
+          "cachedResultName": "Subworkflow (Version Control)"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "workflowId": "={{ $json.workflowId || $workflow.id }}",
+            "gitEnabled": "={{ $json.gitEnabled }}",
+            "gitPushEnabled": "={{ $json.gitPushEnabled }}",
+            "gitRepoPath": "={{ $json.gitRepoPath }}",
+            "gitBranch": "={{ $json.gitBranch }}",
+            "gitRemote": "={{ $json.gitRemote }}",
+            "localBackupEnabled": "={{ $json.localBackupEnabled }}",
+            "localBackupPath": "={{ $json.localBackupPath }}",
+            "localBackupMaxVersions": "={{ $json.localBackupMaxVersions }}",
+            "cleanupOldBackupsEnabled": "={{ $json.cleanupOldBackupsEnabled }}",
+            "n8nApiUrl": "={{ $json.n8nApiUrl }}",
+            "dryRun": "={{ $json.dryRun }}",
+            "commitMessage": "={{ $json.commitMessage }}"
+          },
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "23161797",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.2\n🔒 Hash: 23161797\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93IiwibmFtZSI6IkNhbGwgU3ViLXdvcmtmbG93ICh1cGRhdGUgdmFsdWUpMTMiLCJ0eXBlVmVyc2lvbiI6MS4yLCJwYXJhbWV0ZXJLZXlzIjpbIm9wdGlvbnMiLCJ3b3JrZmxvd0lkIiwid29ya2Zsb3dJbnB1dHMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "3a13d2bc-a322-4ab1-a4b4-c86a645f04c2",
+      "name": "Show Completion Message12",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        -10528
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map((c) => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    const reasonLine = c.reason ? `\\n   └─ ${c.reason}` : '';\n    return `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}${reasonLine}`;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter((c) => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter((c) => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter((c) => c.changeType === 'patch').length || 0;\n\nconst summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit',\n      }),\n    },\n    changes: changesList,\n    tip,\n  },\n};\n",
+        "_versionControl": {
+          "version": "2.0.0",
+          "hash": "622f282c",
+          "created": "Feb 6, 2026, 05:16 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 2.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v2\n🔒 Hash: 622f282c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTEyIiwidHlwZVZlcnNpb24iOjIsInBhcmFtZXRlcktleXMiOlsianNDb2RlIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notesInFlow": true
+    },
+    {
+      "id": "79533085-e04f-455e-9df5-84d0be957841",
+      "name": "Edit Fields13",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        -10320
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf31ab66-b9ce-48ac-bfff-afc9cfd421ef",
+              "name": "updates",
+              "value": "=v5",
+              "type": "string"
+            },
+            {
+              "id": "a0d434d5-43b8-4d5f-bfde-ff4a5f26c28b",
+              "name": "fun",
+              "value": "stuff",
+              "type": "string"
+            },
+            {
+              "id": "d1be5be3-893c-42f7-8cc8-86ac45ab9648",
+              "name": "extend",
+              "value": "time",
+              "type": "string"
+            },
+            {
+              "id": "e0beb35c-87ee-425a-9adb-60e01abaef3a",
+              "name": "blue",
+              "value": "red",
+              "type": "string"
+            },
+            {
+              "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
+              "name": "purple",
+              "value": "rain4",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "4.0.0",
+          "hash": "30c2a8af",
+          "created": "Feb 6, 2026, 07:29 PM",
+          "lastModified": "2026-02-08T05:48:20.865Z"
+        }
+      },
+      "notes": "📌 Version: 4.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30c2a8af\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzMTMiLCJ0eXBlVmVyc2lvbiI6My40LCJwYXJhbWV0ZXJLZXlzIjpbImFzc2lnbm1lbnRzIiwib3B0aW9ucyJdLCJwYXJhbWV0ZXJTdHJ1Y3R1cmUiOnsiYXNzaWdubWVudHMiOnsiYXNzaWdubWVudENvdW50Ijo1fX19\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Save Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Version Control Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Set Data1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config1": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)1": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook2": {
+      "main": [
+        [
+          {
+            "node": "Set Data2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data2": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config2": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)2": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook3": {
+      "main": [
+        [
+          {
+            "node": "Set Data3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data3": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config3": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)3": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook4": {
+      "main": [
+        [
+          {
+            "node": "Set Data4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data4": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config4": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)4": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook5": {
+      "main": [
+        [
+          {
+            "node": "Set Data5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data5": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config5": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)5": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook6": {
+      "main": [
+        [
+          {
+            "node": "Set Data6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data6": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config6": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)6": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook7": {
+      "main": [
+        [
+          {
+            "node": "Set Data7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data7": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config7": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)7": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook8": {
+      "main": [
+        [
+          {
+            "node": "Set Data8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data8": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config8": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)8": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook9": {
+      "main": [
+        [
+          {
+            "node": "Set Data9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data9": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config9": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)9": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook10": {
+      "main": [
+        [
+          {
+            "node": "Set Data10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data10": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config10": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)10": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook11": {
+      "main": [
+        [
+          {
+            "node": "Set Data11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data11": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config11": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)11": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook12": {
+      "main": [
+        [
+          {
+            "node": "Set Data12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data12": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Version Control Config12": {
+      "main": [
+        [
+          {
+            "node": "Call Sub-workflow (update value)12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)12": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook13": {
+      "main": [
+        [
+          {
+            "node": "Set Data13",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Data13": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook13",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Sub-workflow (update value)13": {
+      "main": [
+        [
+          {
+            "node": "Show Completion Message12",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
