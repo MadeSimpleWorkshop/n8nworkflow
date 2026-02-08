@@ -1,0 +1,34 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "id": "30b20409-ca92-4a06-be4e-3a09ef08e22e",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "331131a7-d815-4796-aef7-7e5ac964041f",
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "29631c09",
+          "created": "2026-02-08T05:47:51.836Z",
+          "lastModified": "2026-02-08T05:47:51.836Z"
+        }
+      },
+      "webhookId": "331131a7-d815-4796-aef7-7e5ac964041f",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v2.1\n🔒 Hash: 29631c09\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uud2ViaG9vayIsIm5hbWUiOiJXZWJob29rIiwidHlwZVZlcnNpb24iOjIuMSwicGFyYW1ldGVyS2V5cyI6WyJodHRwTWV0aG9kIiwib3B0aW9ucyIsInBhdGgiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
