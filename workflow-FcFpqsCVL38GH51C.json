@@ -1,0 +1,81 @@
+{
+  "name": "Sub-workflow (update value)",
+  "nodes": [
+    {
+      "id": "1e90c210-8bc8-4cd9-8583-d2eb40ea5e6d",
+      "name": "Update Value",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        384,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7de67ae7-aef9-40b2-88b9-e441024a250f",
+              "name": "count",
+              "value": "={{ $json.count + 1 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4b5edc65",
+          "created": "2026-02-08T05:48:02.653Z",
+          "lastModified": "2026-02-08T05:48:02.653Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v3.4\n🔒 Hash: 4b5edc65\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlVwZGF0ZSBWYWx1ZSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjF9fX0=",
+      "notesInFlow": true
+    },
+    {
+      "id": "65c55360-62aa-459c-85cf-60db9ffb9737",
+      "name": "Start",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        176,
+        0
+      ],
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "count",
+              "type": "number"
+            }
+          ]
+        },
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "51944da2",
+          "created": "2026-02-08T05:48:02.653Z",
+          "lastModified": "2026-02-08T05:48:02.653Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:48 AM\n🔧 Node Type: v1.1\n🔒 Hash: 51944da2\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuZXhlY3V0ZVdvcmtmbG93VHJpZ2dlciIsIm5hbWUiOiJTdGFydCIsInR5cGVWZXJzaW9uIjoxLjEsInBhcmFtZXRlcktleXMiOlsid29ya2Zsb3dJbnB1dHMiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Update Value",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
