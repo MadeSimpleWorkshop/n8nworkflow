@@ -1,0 +1,96 @@
+{
+  "name": "AutoSave",
+  "nodes": [
+    {
+      "id": "ea82edce-b72a-46c6-ace2-b65b239a35b0",
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "4f01dfa4",
+          "created": "2026-02-08T05:47:50.369Z",
+          "lastModified": "2026-02-08T05:47:50.369Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1\n🔒 Hash: 4f01dfa4\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UubWFudWFsVHJpZ2dlciIsIm5hbWUiOiJXaGVuIGNsaWNraW5nIOKAmEV4ZWN1dGUgd29ya2Zsb3figJkiLCJ0eXBlVmVyc2lvbiI6MSwicGFyYW1ldGVyS2V5cyI6W10sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "33c1e1ee-25ee-43db-9c7a-7f060f4e8b09",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        208,
+        0
+      ],
+      "parameters": {
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "439fe8b5",
+          "created": "2026-02-08T05:47:50.369Z",
+          "lastModified": "2026-02-08T05:47:50.369Z"
+        }
+      },
+      "webhookId": "e8265191-7395-45e5-8d28-4cfc97379780",
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v1.4\n🔒 Hash: 439fe8b5\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmNoYXRUcmlnZ2VyIiwibmFtZSI6IldoZW4gY2hhdCBtZXNzYWdlIHJlY2VpdmVkIiwidHlwZVZlcnNpb24iOjEuNCwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    },
+    {
+      "id": "9eabcbe6-3ada-4b4f-ada4-7fc0d9d5655f",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        416,
+        0
+      ],
+      "parameters": {
+        "options": {},
+        "_versionControl": {
+          "version": "1.0.0",
+          "hash": "2ca52df7",
+          "created": "2026-02-08T05:47:50.369Z",
+          "lastModified": "2026-02-08T05:47:50.369Z"
+        }
+      },
+      "notes": "📌 Version: 1.0.0\n📅 Modified: Feb 8, 2026, 05:47 AM\n🔧 Node Type: v3.1\n🔒 Hash: 2ca52df7\n🗂️ Snapshot: eyJ0eXBlIjoiQG44bi9uOG4tbm9kZXMtbGFuZ2NoYWluLmFnZW50IiwibmFtZSI6IkFJIEFnZW50IiwidHlwZVZlcnNpb24iOjMuMSwicGFyYW1ldGVyS2V5cyI6WyJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6e319",
+      "notesInFlow": true
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  }
+}
