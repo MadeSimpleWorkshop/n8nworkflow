@@ -2,13 +2,13 @@
   "name": "Simple Example - With Version Control",
   "nodes": [
     {
-      "id": "7b618d65-6f7f-4480-8c5d-8569bbcda616",
+      "id": "7a9d53f5-eada-431b-b542-02fa3cbb36a3",
       "name": "Manual Save Trigger",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        10672,
-        6448
+        11888,
+        7392
       ],
       "parameters": {
         "_versionControl": {
@@ -22,13 +22,13 @@
       "notesInFlow": true
     },
     {
-      "id": "c3c513bb-4476-433c-9d1b-75781ae74215",
+      "id": "8a8c1028-2595-46e5-a97d-6c664d52a41c",
       "name": "Webhook1",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        10672,
-        6224
+        11888,
+        7168
       ],
       "parameters": {
         "httpMethod": "POST",
@@ -47,13 +47,13 @@
       "notesInFlow": true
     },
     {
-      "id": "80174813-85d2-4f1d-943f-940ad061df7f",
+      "id": "68f12ab3-238a-4498-8fb2-026328ff0ee4",
       "name": "Set Data1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        10896,
-        6224
+        12112,
+        7168
       ],
       "parameters": {
         "assignments": {
@@ -90,13 +90,13 @@
       "notesInFlow": true
     },
     {
-      "id": "2afcfac7-b1fa-46e9-8b13-db7b3e8f8cf1",
+      "id": "437839ac-6c5d-4cdf-a067-085231b13fd8",
       "name": "Respond to Webhook1",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        11120,
-        6224
+        12336,
+        7168
       ],
       "parameters": {
         "respondWith": "json",
@@ -113,13 +113,13 @@
       "notesInFlow": true
     },
     {
-      "id": "b8c75094-69ee-48f4-92be-10bdc8d98a22",
+      "id": "1f7b5d08-e9dd-4d7a-904c-bedefd8a4e52",
       "name": "Set Version Control Config1",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        10896,
-        6448
+        12112,
+        7392
       ],
       "parameters": {
         "assignments": {
@@ -175,7 +175,7 @@
             {
               "id": "11",
               "name": "gitPushEnabled",
-              "value": true,
+              "value": false,
               "type": "boolean"
             },
             {
@@ -200,23 +200,23 @@
         },
         "options": {},
         "_versionControl": {
-          "version": "1.2.1",
-          "hash": "30fbd73e",
+          "version": "1.2.0",
+          "hash": "149f44c9",
           "created": "Feb 6, 2026, 05:16 PM",
-          "lastModified": "Feb 8, 2026, 01:52 AM"
+          "lastModified": "2026-02-08T03:03:12.085Z"
         }
       },
-      "notes": "📌 Version: 1.2.1\n📅 Modified: Feb 8, 2026, 01:52 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30fbd73e\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjEyfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notes": "📌 Version: 1.2.0\n📅 Modified: Feb 8, 2026, 03:03 AM\n🔧 Node Type: v3.4\n🔒 Hash: 149f44c9\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IlNldCBWZXJzaW9uIENvbnRyb2wgQ29uZmlnMSIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjEyfX19\n🆕 Created: Feb 6, 2026, 05:16 PM",
       "notesInFlow": true
     },
     {
-      "id": "ae53a099-8a49-4b8b-81df-cf7b35966c80",
+      "id": "06abf82f-6c5b-4d41-a7a7-299dda272273",
       "name": "Call Sub-workflow (update value)1",
       "type": "n8n-nodes-base.executeWorkflow",
       "typeVersion": 1.2,
       "position": [
-        11136,
-        6448
+        12352,
+        7392
       ],
       "parameters": {
         "workflowId": {
@@ -246,34 +246,34 @@
       "notesInFlow": true
     },
     {
-      "id": "8dfa7f73-c3d8-44b4-8725-7df194901913",
+      "id": "4b1d3323-a7b7-45ad-9b8d-be89deb32ac8",
       "name": "Show Completion Message1",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        11376,
-        6448
+        12592,
+        7392
       ],
       "parameters": {
-        "jsCode": "const result = $input.first().json;\n\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\nconst changesList = result.nodeChanges?.map((c) => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    const reasonLine = c.reason ? `\\n   └─ ${c.reason}` : '';\n    return `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}${reasonLine}`;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter((c) => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter((c) => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter((c) => c.changeType === 'patch').length || 0;\n\nconst summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\nconst git = result.git || {};\n\nconst commitHashShort = git.commit?.hash ? String(git.commit.hash).slice(0, 8) : null;\nconst gitStatus = git.enabled\n  ? `Git ${git.committed ? 'committed' : 'not committed'}${git.remotePushEnabled ? (git.pushed ? ' + pushed' : ' (push not enabled/completed)') : ''}`\n  : 'Git disabled';\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      gitStatus,\n      gitRepoPath: git.repoPath || null,\n      gitFilePath: git.filePath || null,\n      gitBranch: git.branch || null,\n      gitCommitHash: commitHashShort,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit',\n      }),\n    },\n    changes: changesList,\n    git,\n    tip,\n  },\n};\n",
+        "jsCode": "const result = $input.first().json;\n\n// Check if we got results from subworkflow\nif (!result || result.hasChanges === undefined) {\n  return {\n    json: {\n      status: \"ℹ️ NO CHANGES\",\n      message: \"No result from version control subworkflow\",\n      action: \"Check subworkflow execution\",\n      openWorkflowUrl: null,\n    }\n  };\n}\n\n// Format the changes list with semantic version badges\nconst changesList = result.nodeChanges?.map((c) => {\n  if (c.action === 'created') {\n    return `➕ ${c.nodeName}: v${c.version} (new)`;\n  }\n\n  if (c.action === 'modified') {\n    let icon = '✏️';\n    let badge = '';\n\n    if (c.changeType === 'major') {\n      icon = '🚨';\n      badge = ' [MAJOR]';\n    } else if (c.changeType === 'minor') {\n      icon = '⚠️';\n      badge = ' [MINOR]';\n    }\n\n    const reasonLine = c.reason ? `\\n   └─ ${c.reason}` : '';\n    return `${icon} ${c.nodeName}: v${c.previousVersion} → v${c.version}${badge}${reasonLine}`;\n  }\n\n  return `${c.nodeName}: v${c.version}`;\n}).join('\\n') || 'No changes detected';\n\nconst majorCount = result.nodeChanges?.filter((c) => c.changeType === 'major').length || 0;\nconst minorCount = result.nodeChanges?.filter((c) => c.changeType === 'minor').length || 0;\nconst patchCount = result.nodeChanges?.filter((c) => c.changeType === 'patch').length || 0;\n\nconst summaryParts = [];\nif (majorCount > 0) summaryParts.push(`${majorCount} MAJOR`);\nif (minorCount > 0) summaryParts.push(`${minorCount} MINOR`);\nif (patchCount > 0) summaryParts.push(`${patchCount} PATCH`);\n\nconst changeSummary = summaryParts.length > 0\n  ? ` (${summaryParts.join(', ')})`\n  : '';\n\nconst openWorkflowUrl = result.openWorkflowUrl || null;\n\nlet tip = \"💡 Tip: Open the workflow URL below to load the latest version without manual refresh.\";\nif (majorCount > 0) {\n  tip = \"⚠️ MAJOR changes detected! Review carefully before activating.\";\n} else if (minorCount > 0) {\n  tip = \"💡 MINOR changes detected. Re-test key paths after update.\";\n}\n\nreturn {\n  json: {\n    status: result.hasChanges ? \"✅ SUCCESS\" : \"ℹ️ NO CHANGES\",\n    message: result.hasChanges\n      ? `Version control updated successfully!${changeSummary}`\n      : \"No node changes detected - all versions remain the same\",\n    action: openWorkflowUrl\n      ? `Open updated workflow: ${openWorkflowUrl}`\n      : (result.hasChanges\n        ? \"Update completed. Open the workflow again from the list to load latest state.\"\n        : \"No action needed\"),\n    openWorkflowUrl,\n    details: {\n      workflowId: result.workflowId || null,\n      workflowName: result.workflowName || result.originalWorkflow?.name || \"Unknown\",\n      totalNodes: result.updatedWorkflow?.nodes?.length || 0,\n      changedNodes: result.nodeChanges?.length || 0,\n      majorChanges: majorCount,\n      minorChanges: minorCount,\n      patchChanges: patchCount,\n      timestamp: new Date().toLocaleString('en-US', {\n        month: 'short',\n        day: 'numeric',\n        year: 'numeric',\n        hour: '2-digit',\n        minute: '2-digit',\n        second: '2-digit',\n      }),\n    },\n    changes: changesList,\n    tip,\n  },\n};\n",
         "_versionControl": {
-          "version": "1.0.6",
-          "hash": "53972c67",
+          "version": "1.0.5",
+          "hash": "622f282c",
           "created": "Feb 6, 2026, 05:16 PM",
-          "lastModified": "Feb 8, 2026, 01:31 AM"
+          "lastModified": "Feb 7, 2026, 11:19 PM"
         }
       },
-      "notes": "📌 Version: 1.0.6\n📅 Modified: Feb 8, 2026, 01:31 AM\n🔧 Node Type: v2\n🔒 Hash: 53972c67\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTEiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
+      "notes": "📌 Version: 1.0.5\n📅 Modified: Feb 7, 2026, 11:19 PM\n🔧 Node Type: v2\n🔒 Hash: 622f282c\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2UuY29kZSIsIm5hbWUiOiJTaG93IENvbXBsZXRpb24gTWVzc2FnZTEiLCJ0eXBlVmVyc2lvbiI6MiwicGFyYW1ldGVyS2V5cyI6WyJqc0NvZGUiXSwicGFyYW1ldGVyU3RydWN0dXJlIjp7fX0=\n🆕 Created: Feb 6, 2026, 05:16 PM",
       "notesInFlow": true
     },
     {
-      "id": "e0f59684-2f37-4e1a-8c9c-db7a07094b58",
+      "id": "366ea77c-5c89-4d8f-a50a-475e0976f655",
       "name": "Edit Fields4",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        10896,
-        6656
+        12112,
+        7600
       ],
       "parameters": {
         "assignments": {
@@ -305,20 +305,20 @@
             {
               "id": "0fbab8ef-1c50-442f-8c3d-83d0b46e5e79",
               "name": "purple",
-              "value": "rainb",
+              "value": "rain4",
               "type": "string"
             }
           ]
         },
         "options": {},
         "_versionControl": {
-          "version": "3.1.6",
-          "hash": "1c8a32c1",
+          "version": "3.1.4",
+          "hash": "30c2a8af",
           "created": "Feb 6, 2026, 07:29 PM",
-          "lastModified": "2026-02-08T02:24:08.740Z"
+          "lastModified": "2026-02-08T03:03:12.085Z"
         }
       },
-      "notes": "📌 Version: 3.1.6\n📅 Modified: Feb 8, 2026, 02:24 AM\n🔧 Node Type: v3.4\n🔒 Hash: 1c8a32c1\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
+      "notes": "📌 Version: 3.1.4\n📅 Modified: Feb 8, 2026, 03:03 AM\n🔧 Node Type: v3.4\n🔒 Hash: 30c2a8af\n🗂️ Snapshot: eyJ0eXBlIjoibjhuLW5vZGVzLWJhc2Uuc2V0IiwibmFtZSI6IkVkaXQgRmllbGRzNCIsInR5cGVWZXJzaW9uIjozLjQsInBhcmFtZXRlcktleXMiOlsiYXNzaWdubWVudHMiLCJvcHRpb25zIl0sInBhcmFtZXRlclN0cnVjdHVyZSI6eyJhc3NpZ25tZW50cyI6eyJhc3NpZ25tZW50Q291bnQiOjV9fX0=\n🆕 Created: Feb 6, 2026, 07:29 PM",
       "notesInFlow": true
     }
   ],
